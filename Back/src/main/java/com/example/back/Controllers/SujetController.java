@@ -1,10 +1,8 @@
 package com.example.back.Controllers;
 
 import com.example.back.Entities.Sujet;
-import com.example.back.Repositories.SujetRepository;
 import com.example.back.Services.SujetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/services/sujet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SujetController {
 
     private final SujetService sujetService;
@@ -26,29 +25,23 @@ public class SujetController {
         return sujetService.updateSujet(sujet);
     }
 
-
-
     @GetMapping
     public List<Sujet> findAll() {
+        return sujetService.findAllSortedByMailentreprise();
+    }
 
-        return sujetService.findAll();
+    @GetMapping("/search")
+    public List<Sujet> searchSujets(@RequestParam String searchTerm) {
+        return sujetService.findByNomentrepriseContainingIgnoreCase(searchTerm);
     }
 
     @GetMapping("/{idSujet}")
     public Sujet getById(@PathVariable long idSujet){
-
-        return sujetService. findById(idSujet);
+        return sujetService.findById(idSujet);
     }
-
-
 
     @DeleteMapping("/{idSujet}")
     public void delete(@PathVariable long idSujet) {
         sujetService.delete(idSujet);
     }
-
-
-
-
-
 }

@@ -9,6 +9,8 @@ public interface SujetService {
     Sujet updateSujet(Sujet sujet);
     List<Sujet> findAll();
     Sujet findById (long idSujet);
+     List<Sujet> findAllSortedByMailentreprise();
+     List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm);
     void delete (long idSujet);
 
 

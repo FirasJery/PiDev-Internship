@@ -19,10 +19,13 @@ public class Sujet {
     String titre_Sujet;
     String description_Sujet;
     String dure_Sujet;
+    String nomentreprise;
+    String mailentreprise;
     String lieu;
     int nbr_etudiant_required ;
     String requirements;
     @Enumerated(EnumType.STRING)
     Type_sujet typeSujet;
+
 
 }

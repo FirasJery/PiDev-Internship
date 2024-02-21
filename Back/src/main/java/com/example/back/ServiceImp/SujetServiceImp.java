@@ -71,6 +71,17 @@ public class SujetServiceImp implements SujetService {
                 .orElseThrow(() -> new EntityNotFoundException("Sujet with id " + idSujet + " not found."));
     }
 
+    @Override
+
+    public List<Sujet> findAllSortedByMailentreprise() {
+        return sujetRepository.findByOrderByMailentrepriseAsc(); // Corrected method name to match the repository
+    }
+
+    @Override
+
+    public List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm) {
+        return sujetRepository.findByNomentrepriseContainingIgnoreCaseOrderByNomentrepriseAsc(searchTerm);
+    }
 
 
 
