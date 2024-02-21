@@ -11,4 +11,6 @@ public interface ConventionService {
     List<Convention> findAll();
     Convention findById(Long id);
     boolean deleteConvention(Long id);
+    boolean validateConvention(Long id);
+
 }

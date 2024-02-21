@@ -27,7 +27,8 @@ public class ConventionServiceImp implements ConventionService {
 
     @Override
     public List<Convention> findAll() {
-        return conventionRepository.findAll();
+
+       return conventionRepository.findAll();
     }
 
     @Override
@@ -41,5 +42,14 @@ public class ConventionServiceImp implements ConventionService {
          conventionRepository.deleteById(id);
          log.info("Convention with ID: " + id+" is deleted");
          return false;
+    }
+
+    @Override
+    public boolean validateConvention(Long id) {
+        Convention convention = conventionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Convention not found with id: " + id));
+        convention.set_valid(true);
+        conventionRepository.save(convention);
+        return true;
     }
 }

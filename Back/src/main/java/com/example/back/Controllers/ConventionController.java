@@ -4,6 +4,7 @@ import com.example.back.Entities.Convention;
 import com.example.back.ServiceImp.ConventionServiceImp;
 import com.example.back.Services.ConventionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class ConventionController {
     public Convention getConvention(@PathVariable Long id){
          return conventionService.findById(id);
      }
-     @GetMapping("/getConventions")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getConventions")
     public List<Convention> getConventions(){
          return conventionService.findAll();
      }
@@ -39,4 +41,11 @@ public class ConventionController {
          conventionService.updateConvention(convention);
          return convention;
      }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/validateConvention/{id}")
+    public ResponseEntity<?> validateConvention(@PathVariable Long id) {
+        boolean validated = conventionService.validateConvention(id);
+        return validated ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    }
+
 }
