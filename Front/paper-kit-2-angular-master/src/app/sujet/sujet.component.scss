@@ -1,4 +1,32 @@
 .content {
-    padding-top: 80px; /* Adjust as needed based on the height of your menu bar */
-  }
-  
+  padding-top: 80px; /* Adjust as needed based on the height of your menu bar */
+}
+
+.sujet-item {
+  background-color: rgb(233, 229, 229); /* Setting background color to light grey */
+  color: black; /* Setting text color to black */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px; /* Increasing border radius for a smoother look */
+  border: 2px solid rgb(197, 18, 18); /* Adding border with a dark red color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding a subtle box-shadow */
+}
+
+.sujet-item h2 {
+  font-family: Arial, sans-serif;
+  color: rgb(23, 1, 121); /* Setting title color to dark red */
+}
+
+.sujet-item h4 {
+  font-family: Arial, sans-serif;
+  color: rgb(197, 18, 18); /* Setting subtitle color to a dark blue */
+}
+
+.sujet-item p {
+  font-family: Arial, sans-serif;
+  margin-bottom: 5px;
+}
+
+.sujet-item strong {
+  font-weight: bold;
+}

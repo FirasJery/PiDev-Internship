@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {AdminLayoutModule} from "./layouts/admin-layout/admin-layout.module";
 import { ConventionComponent } from './convention/convention.component';
+import { SujetComponent } from './sujet/sujet.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ConventionComponent } from './convention/convention.component';
     AppComponent,
     AdminLayoutComponent,
     ConventionComponent,
+    SujetComponent,
 
 
   ],
