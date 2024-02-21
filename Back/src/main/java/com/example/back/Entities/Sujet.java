@@ -1,6 +1,6 @@
 package com.example.back.Entities;
 
-import com.example.internship_management.Entities.Enums.Type_sujet;
+import com.example.back.Entities.Enums.Type_sujet;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,7 +18,9 @@ public class Sujet {
     Long id_Sujet;
     String titre_Sujet;
     String description_Sujet;
-    int dure_Sujet;
+    String dure_Sujet;
+    String lieu;
+    int nbr_etudiant_required ;
     String requirements;
     @Enumerated(EnumType.STRING)
     Type_sujet typeSujet;
