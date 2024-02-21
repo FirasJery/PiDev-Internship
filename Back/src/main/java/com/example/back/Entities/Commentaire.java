@@ -1,9 +1,7 @@
 package com.example.back.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -24,7 +22,10 @@ public class Commentaire {
     double averageRating;
     String description;
     LocalDateTime date_commentaire;
-
+@ManyToOne
+@JoinColumn(name = "post_id")
+@JsonIgnore
+  private   Post post;
 
 
 }

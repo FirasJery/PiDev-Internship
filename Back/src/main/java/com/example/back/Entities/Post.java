@@ -22,7 +22,7 @@ public class Post {
     String sujet_Post;
     boolean isAnonymous;
     LocalDateTime date_Post;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="post")
     private Set<Commentaire> commentaireSet;
 
 
