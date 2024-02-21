@@ -20,7 +20,7 @@ export class ConventionComponent implements OnInit {
       date_debut: new FormControl('', Validators.required),
       date_fin: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
-      num_tel: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]),
+      num_tel: new FormControl('', [Validators.required, Validators.pattern(/^(\+216)?[2-9]\d{7}$/)]),
       nom_encadrant: new FormControl('', Validators.required),
       email_encadrant: new FormControl('', [Validators.required, Validators.email]),
     });
@@ -33,8 +33,8 @@ export class ConventionComponent implements OnInit {
       this.conventionService.addConvention(this.conventionForm.value).subscribe({
         next: (response) => {
           console.log('Convention added:', response);
-          this.isConventionAdded = true;
           this.conventionForm.reset();
+          this.isConventionAdded = true;
         },
         error: (error) => {
           console.error('Error adding convention:', error);
@@ -44,4 +44,5 @@ export class ConventionComponent implements OnInit {
       console.error('Form is not valid');
     }
   }
+
 }

@@ -1,49 +1,73 @@
-<div class="container">
+<div class="convention-component">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="section section-buttons">
                 <form [formGroup]="conventionForm" (ngSubmit)="submitForm()" class="form">
-        <fieldset>
-            <legend>Informations de l'entreprise</legend>
-            <div class="form-group">
-                <label for="nom_entreprise">Nom de l'entreprise:</label>
-                <input type="text" class="form-control" id="nom_entreprise" formControlName="nom_entreprise" required>
-            </div>
-            <div class="form-group">
-                <label for="adresse">Adresse:</label>
-                <input type="text" class="form-control" id="adresse" formControlName="adresse" required>
-            </div>
-            <div class="form-group">
-                <label for="num_tel">Numéro de téléphone:</label>
-                <input type="tel" class="form-control" id="num_tel" formControlName="num_tel" required pattern="[0-9]{8}">
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Période de la convention</legend>
-            <div class="form-group">
-                <label for="date_debut">Date de début:</label>
-                <input type="date" class="form-control" id="date_debut" formControlName="date_debut" required>
-            </div>
-            <div class="form-group">
-                <label for="date_fin">Date de fin:</label>
-                <input type="date" class="form-control" id="date_fin" formControlName="date_fin" required>
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Encadrant de l'entreprise</legend>
-            <div class="form-group">
-                <label for="nom_encadrant">Nom de l'encadrant:</label>
-                <input type="text" class="form-control" id="nom_encadrant" formControlName="nom_encadrant" required>
-            </div>
-            <div class="form-group">
-                <label for="email_encadrant">Email de l'encadrant:</label>
-                <input type="email" class="form-control" id="email_encadrant" formControlName="email_encadrant" required>
-            </div>
-        </fieldset>
-        <button type="submit" class="btn btn-outline-danger btn-sm">Submit</button>
+                    <!-- Informations de l'entreprise -->
+                    <fieldset>
+                        <legend>Informations de l'entreprise</legend>
+                        <div class="form-group">
+                            <label for="nom_entreprise">Nom de l'entreprise:</label>
+                            <input type="text" class="form-control" id="nom_entreprise" formControlName="nom_entreprise" required>
+                            <div *ngIf="conventionForm.get('nom_entreprise').invalid && (conventionForm.get('nom_entreprise').touched || conventionForm.get('nom_entreprise').dirty)" class="invalid-feedback">
+                                Nom de l'entreprise est requis
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="adresse">Adresse:</label>
+                            <input type="text" class="form-control" id="adresse" formControlName="adresse" required>
+                            <div *ngIf="conventionForm.get('adresse').invalid && (conventionForm.get('adresse').touched || conventionForm.get('adresse').dirty)" class="invalid-feedback">
+                                Adresse est requise
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="num_tel">Numéro de téléphone:</label>
+                            <input type="tel" class="form-control" id="num_tel" formControlName="num_tel" required pattern="[0-9]{8}">
+                            <div *ngIf="conventionForm.get('num_tel').invalid && (conventionForm.get('num_tel').touched || conventionForm.get('num_tel').dirty)" class="invalid-feedback">
+                                Numéro de téléphone est requis et doit contenir 8 chiffres
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Période de la convention -->
+                    <fieldset>
+                        <legend>Période de la convention</legend>
+                        <div class="form-group">
+                            <label for="date_debut">Date de début:</label>
+                            <input type="date" class="form-control" id="date_debut" formControlName="date_debut" required>
+                            <div *ngIf="conventionForm.get('date_debut').invalid && (conventionForm.get('date_debut').touched || conventionForm.get('date_debut').dirty)" class="invalid-feedback">
+                                Date de début est requise
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_fin">Date de fin:</label>
+                            <input type="date" class="form-control" id="date_fin" formControlName="date_fin" required>
+                            <div *ngIf="conventionForm.get('date_fin').invalid && (conventionForm.get('date_fin').touched || conventionForm.get('date_fin').dirty)" class="invalid-feedback">
+                                Date de fin est requise
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Encadrant de l'entreprise -->
+                    <fieldset>
+                        <legend>Encadrant de l'entreprise</legend>
+                        <div class="form-group">
+                            <label for="nom_encadrant">Nom de l'encadrant:</label>
+                            <input type="text" class="form-control" id="nom_encadrant" formControlName="nom_encadrant" required>
+                            <div *ngIf="conventionForm.get('nom_encadrant').invalid && (conventionForm.get('nom_encadrant').touched || conventionForm.get('nom_encadrant').dirty)" class="invalid-feedback">
+                                Nom de l'encadrant est requis
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email_encadrant">Email de l'encadrant:</label>
+                            <input type="email" class="form-control" id="email_encadrant" formControlName="email_encadrant" required>
+                            <div *ngIf="conventionForm.get('email_encadrant').invalid && (conventionForm.get('email_encadrant').touched || conventionForm.get('email_encadrant').dirty)" class="invalid-feedback">
+                                Email de l'encadrant est requis
+                            </div>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Submit</button>
                 </form>
                 <div *ngIf="!isConventionAdded" class="alert alert-danger" role="alert">
-                    Failed to add convention. Please try again.
+                    Please fill the form to add your convention
                 </div>
                 <div *ngIf="isConventionAdded" class="alert alert-success" role="alert">
                     Convention added successfully!

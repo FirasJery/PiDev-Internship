@@ -19,7 +19,7 @@ public class Stage {
     Long id_Stage;
     String sujet_Stage;
     float note_stage;
-    boolean archived;
+    boolean archived=false;
     String nom_fichier_rapport;
     @OneToOne
     private Convention convention;

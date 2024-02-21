@@ -27,4 +27,5 @@ public class Convention {
     int num_tel;
     String nom_encadrant;
     String email_encadrant;
+    boolean is_valid;
 }
