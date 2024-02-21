@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #960000;">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="assets/img/esprit.png" alt="Logo" style="height: 70px; width: auto;">
+        </a>
+
+        <div class="navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/convention" style="color: white;"><i  aria-hidden="true"></i> Convention</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/forum" style="color: white;"><i  aria-hidden="true"></i> Forum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/sujet" style="color: white;"><i  aria-hidden="true"></i> Sujets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/journal" style="color: white;"><i aria-hidden="true"></i> Journal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/reclamation" style="color: white;"><i  aria-hidden="true"></i> Reclamation</a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['/home']" class="nav-link" style="color: white;">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
