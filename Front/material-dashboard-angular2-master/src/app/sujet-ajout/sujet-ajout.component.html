@@ -1,7 +1,13 @@
-<div class="convention-component">
-    <div class="row justify-content-center">
+<div class="sidebar">
+    <!-- Include your sidebar component here -->
+    <app-sidebar></app-sidebar>
+  </div>
+  
+  <div class="main-content">
+    <div class="container">
+      <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="section section-buttons">
+          <div class="section section-buttons">
                 <form [formGroup]="sujetForm" (ngSubmit)="submitForm()" class="form">
                     <!-- Informations de la stage -->
                     <fieldset>
@@ -53,8 +59,13 @@
                 <div *ngIf="isSujetAdded" class="alert alert-success" role="alert">
                     Stage ajouté avec succès!
                 </div>
-
             </div>
+          </div>
         </div>
+      </div>
+    
+      <div class="footer">
+        <!-- Include your footer component here -->
+        <app-footer></app-footer>
+      </div>
     </div>
-</div>

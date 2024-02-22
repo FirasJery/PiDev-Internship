@@ -21,9 +21,9 @@ export class SujetService {
     return this.http.post<Sujet>(url, sujet);
   }
 
-  modifierSujet(idSujet: number, sujet: Sujet): Observable<void> {
-    const url = `${this.apiUrl}/update/${idSujet}`;
-    return this.http.put<void>(url, sujet);
+  updateSujet(sujet: Sujet): Observable<Sujet> {
+    const url = `${this.apiUrl}/update/${sujet.id_Sujet}`;
+    return this.http.put<Sujet>(url, sujet);
   }
 
   getSujetById(id: number): Observable<Sujet> {

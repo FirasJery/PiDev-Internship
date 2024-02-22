@@ -11,23 +11,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/services/sujet")
 @CrossOrigin(origins = "http://localhost:4200")
-
 public class SujetController {
 
     private final SujetService sujetService;
 
     @PostMapping("/add")
-    public Sujet addSujet(@RequestBody Sujet sujet) {
+    public Sujet addSujet(@RequestBody Sujet sujet ) {
         return sujetService.addSujet(sujet);
     }
 
-
-    @PutMapping("/update/{id}")
-    public Sujet updateSujet(@PathVariable long id, @RequestBody Sujet updatedSujet) {
-        return sujetService.updateSujet(id, updatedSujet);
+    @PutMapping("/update/{idSujet}")
+    public Sujet updateSujet (@RequestBody  Sujet sujet,@PathVariable long idSujet){
+        return sujetService.updateSujet(sujet);
     }
-
-
 
     @GetMapping
     public List<Sujet> findAll() {
@@ -51,6 +47,5 @@ public class SujetController {
 
 
     }
-
 
 

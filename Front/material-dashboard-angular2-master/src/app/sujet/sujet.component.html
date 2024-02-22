@@ -25,20 +25,56 @@
                 <p><strong>Nombre d'étudiants requis:</strong> {{ sujet.nbr_etudiant_required }}</p>
                 <p><strong>Exigences:</strong> {{ sujet.requirements }}</p>
                 <p><strong>Type de sujet:</strong> {{ sujet.typeSujet }}</p>
-                <button class="btn btn-primary" (click)="afficherFormulaireModifier(i)">Modifier</button>
-
-                <!-- Formulaire de modification -->
+                <button class="btn btn-primary btn-sky-blue mb-3" (click)="afficherFormulaireModifier(i)">Modifier</button>
                 <div *ngIf="sujetIndexToEdit === i">
                   <form (submit)="modifierSujet(sujet)">
-                    <!-- Ajoutez les champs de modification ici -->
-                    <input type="text" [(ngModel)]="sujet.nomentreprise" name="nomentreprise" placeholder="Nom de l'entreprise">
-                    <!-- Ajoutez les autres champs de modification ici -->
+                   
+                    <div class="form-group">
+                      <label for="titreSujet">Titre du sujet:</label>
+                      <input type="text" class="form-control" id="titreSujet" [(ngModel)]="sujet.titre_Sujet" name="titreSujet" placeholder="Titre du sujet">
+                    </div>
+                    <div class="form-group">
+                      <label for="descriptionSujet">Description du sujet:</label>
+                      <textarea class="form-control" id="descriptionSujet" [(ngModel)]="sujet.description_Sujet" name="descriptionSujet" placeholder="Description du sujet"></textarea>
+                    </div>
+                    <!-- Add input fields for other attributes here -->
+                    <div class="form-group">
+                      <label for="dureSujet">Durée du sujet:</label>
+                      <input type="text" class="form-control" id="dureSujet" [(ngModel)]="sujet.dure_Sujet" name="dureSujet" placeholder="Durée du sujet">
+                    </div>
+                    <div class="form-group">
+                      <label for="lieu">Lieu:</label>
+                      <input type="text" class="form-control" id="lieu" [(ngModel)]="sujet.lieu" name="lieu" placeholder="Lieu">
+                    </div>
+                    <div class="form-group">
+                      <label for="nbr_etudiant_required">Nombre d'étudiants requis:</label>
+                      <input type="number" class="form-control" id="nbr_etudiant_required" [(ngModel)]="sujet.nbr_etudiant_required" name="nbr_etudiant_required" placeholder="Nombre d'étudiants requis">
+                    </div>
+                    <div class="form-group">
+                      <label for="requirements">Exigences:</label>
+                      <textarea class="form-control" id="requirements" [(ngModel)]="sujet.requirements" name="requirements" placeholder="Exigences"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="typeSujet">Type de sujet:</label>
+                      <select class="form-control" id="typeSujet" [(ngModel)]="sujet.typeSujet" name="typeSujet">
+                          <option value="STAGE_FORMATION_HUMAINE_SOCIALE">Stage Formation Humaine Sociale</option>
+                          <option value="STAGE_IMMERSION_ENTREPRISE">Stage Immersion Entreprise</option>
+                          <option value="STAGE_INGENIEUR">Stage Ingénieur</option>
+                      </select>
+                  </div>
+                  
+
+                    <!-- Submit button -->
                     <button type="submit" class="btn btn-success">Enregistrer</button>
                   </form>
                 </div>
                 
+                
+    
+
+
                 <!-- Bouton Supprimer -->
-                <button class="btn btn-danger" (click)="supprimerSujet(sujet.id_Sujet)">Supprimer</button>
+                <button class="btn btn-primary btn-sky-blue mb-3" (click)="supprimerSujet(sujet.id_Sujet)">Supprimer</button>
               
                 
               </div>
