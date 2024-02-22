@@ -1,30 +1,29 @@
-<!-- <app-navigation></app-navigation> -->
-
 <div class="content">
   <app-navigation></app-navigation>
 
   <div class="container">
     <div class="row">
+      <!-- Search Input -->
       <div class="col-md-12">
-        <div class="section">
-          <!-- Search Input -->
-          <div class="form-group">
-            <!-- <input type="text" class="form-control" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search enterprise name..."> -->
-          </div>
-          
-          <!-- Sujets List -->
-          <div class="sujets-list">
-            <div *ngFor="let sujet of sujets" class="sujet-item">
-              <h2>{{ sujet.nomentreprise }}</h2>
-              <h4>{{ sujet.titre_Sujet }}</h4>
-              <p><strong>Description:</strong> {{ sujet.description_Sujet }}</p>
-              <p><strong>Durée:</strong> {{ sujet.dure_Sujet }}</p>
-              <p><strong>Lieu:</strong> {{ sujet.lieu }}</p>
-              <p><strong>Contact :</strong> {{ sujet.mailentreprise }}</p>
-              <p><strong>Nombre d'étudiants requis:</strong> {{ sujet.nbr_etudiant_required }}</p>
-              <p><strong>Exigences:</strong> {{ sujet.requirements }}</p>
-              <p><strong>Type de sujet:</strong> {{ sujet.typeSujet }}</p>
-            </div>
+        <!-- You can uncomment the input below if you want to include the search functionality -->
+        <!-- <input type="text" class="form-control" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search enterprise name..."> -->
+      </div>
+    </div>
+    
+    <!-- Sujets List -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="sujets-list">
+          <div *ngFor="let sujet of sujets" class="sujet-item">
+            <h2>{{ sujet.nomentreprise }}</h2>
+            <h4>{{ sujet.titre_Sujet }}</h4>
+            <p><strong>Description:</strong> {{ sujet.description_Sujet }}</p>
+            <p><strong>Durée:</strong> {{ sujet.dure_Sujet }}</p>
+            <p><strong>Lieu:</strong> {{ sujet.lieu }}</p>
+            <p><strong>Contact :</strong> {{ sujet.mailentreprise }}</p>
+            <p><strong>Nombre d'étudiants requis:</strong> {{ sujet.nbr_etudiant_required }}</p>
+            <p><strong>Exigences:</strong> {{ sujet.requirements }}</p>
+            <p><strong>Type de sujet:</strong> {{ sujet.typeSujet }}</p>
           </div>
         </div>
       </div>
