@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SujetService {
     Sujet addSujet(Sujet sujet);
-    Sujet updateSujet(Sujet sujet);
+    Sujet updateSujet(long id, Sujet updatedSujet);
     List<Sujet> findAll();
     Sujet findById (long idSujet);
      List<Sujet> findAllSortedByMailentreprise();

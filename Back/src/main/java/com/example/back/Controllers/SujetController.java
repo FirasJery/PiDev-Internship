@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/services/sujet")
 @CrossOrigin(origins = "http://localhost:4200")
+
 public class SujetController {
 
     private final SujetService sujetService;
@@ -20,10 +21,13 @@ public class SujetController {
         return sujetService.addSujet(sujet);
     }
 
-    @PutMapping
-    public Sujet updateSujet (@RequestBody  Sujet sujet){
-        return sujetService.updateSujet(sujet);
+
+    @PutMapping("/update/{id}")
+    public Sujet updateSujet(@PathVariable long id, @RequestBody Sujet updatedSujet) {
+        return sujetService.updateSujet(id, updatedSujet);
     }
+
+
 
     @GetMapping
     public List<Sujet> findAll() {

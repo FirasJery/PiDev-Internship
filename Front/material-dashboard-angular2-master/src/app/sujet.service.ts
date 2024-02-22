@@ -7,7 +7,7 @@ import { Sujet } from './models/sujet.model';
   providedIn: 'root'
 })
 export class SujetService {
-  private apiUrl = 'http://localhost:9090/api/services/sujet';
+  public apiUrl = 'http://localhost:9090/api/services/sujet';
 
   constructor(private http: HttpClient) { }
 
@@ -16,8 +16,14 @@ export class SujetService {
     return this.http.get<Sujet[]>(this.apiUrl, { params });
   }
 
-  updateSujet(sujet: Sujet): Observable<Sujet> {
-    return this.http.put<Sujet>(`${this.apiUrl}/${sujet.id_Sujet}`, sujet);
+  addSujet(sujet: Sujet): Observable<Sujet> {
+    const url = `${this.apiUrl}/add`;
+    return this.http.post<Sujet>(url, sujet);
+  }
+
+  modifierSujet(idSujet: number, sujet: Sujet): Observable<void> {
+    const url = `${this.apiUrl}/update/${idSujet}`;
+    return this.http.put<void>(url, sujet);
   }
 
   getSujetById(id: number): Observable<Sujet> {

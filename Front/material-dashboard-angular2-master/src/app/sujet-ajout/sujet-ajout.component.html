@@ -1,0 +1,60 @@
+<div class="convention-component">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="section section-buttons">
+                <form [formGroup]="sujetForm" (ngSubmit)="submitForm()" class="form">
+                    <!-- Informations de la stage -->
+                    <fieldset>
+                        <legend>Informations de la stage</legend>
+                        <div class="form-group">
+                            <label for="titre_Sujet">Titre de la stage:</label>
+                            <input type="text" class="form-control" id="titre_Sujet" formControlName="titre_Sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description_Sujet">Description:</label>
+                            <textarea class="form-control" id="description_Sujet" formControlName="description_Sujet" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="dure_Sujet">Durée:</label>
+                            <input type="text" class="form-control" id="dure_Sujet" formControlName="dure_Sujet" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lieu">Lieu:</label>
+                            <input type="text" class="form-control" id="lieu" formControlName="lieu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nbr_etudiant_required">Nombre d'étudiants requis:</label>
+                            <input type="number" class="form-control" id="nbr_etudiant_required" formControlName="nbr_etudiant_required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="requirements">Exigences:</label>
+                            <textarea class="form-control" id="requirements" formControlName="requirements"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="typeSujet">Type de stage:</label>
+                            <select class="form-control" id="typeSujet" formControlName="typeSujet" required>
+                                <option value="{{ type }}" *ngFor="let type of TypeSujetValues">{{ type }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomentreprise">Nom de l'entreprise:</label>
+                            <input type="text" class="form-control" id="nomentreprise" formControlName="nomentreprise" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mailentreprise">Email de l'entreprise:</label>
+                            <input type="email" class="form-control" id="mailentreprise" formControlName="mailentreprise" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Submit</button>
+                </form>
+                <div *ngIf="!isSujetAdded" class="alert alert-danger" role="alert">
+                    Veuillez remplir le formulaire pour ajouter un sujet
+                </div>
+                <div *ngIf="isSujetAdded" class="alert alert-success" role="alert">
+                    Stage ajouté avec succès!
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

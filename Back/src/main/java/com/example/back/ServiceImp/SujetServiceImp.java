@@ -25,10 +25,10 @@ public class SujetServiceImp implements SujetService {
     }
 
     @Override
-    public Sujet updateSujet(Sujet updatedSujet) {
+    public Sujet updateSujet(long id, Sujet updatedSujet) {
 
         // Retrieve the existing sujet from the repository
-        Sujet existingSujet = sujetRepository.findById(updatedSujet.getId_Sujet())
+        Sujet existingSujet = sujetRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Sujet not found"));
 
         // Update only the non-null fields from the updated sujet
@@ -57,6 +57,7 @@ public class SujetServiceImp implements SujetService {
         // Save the updated sujet
         return sujetRepository.save(existingSujet);
     }
+
 
 
     @Override

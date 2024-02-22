@@ -30,50 +30,15 @@ export class SujetModificationComponent implements OnInit {
   }
 
   initializeForm(): void {
-    this.sujetForm = this.fb.group({
-      titre_Sujet: [this.sujet.titre_Sujet],
-      description_Sujet: [this.sujet.description_Sujet],
-      dure_Sujet: [this.sujet.dure_Sujet],
-      lieu: [this.sujet.lieu],
-      nbr_etudiant_required: [this.sujet.nbr_etudiant_required],
-      requirements: [this.sujet.requirements],
-      typeSujet: [this.sujet.typeSujet],
-      nomentreprise: [this.sujet.nomentreprise],
-      mailentreprise: [this.sujet.mailentreprise]
-    });
+    
   }
 
   onSubmit(): void {
     if (this.sujetForm.valid) {
-      const updatedSujet: Sujet = {
-        ...this.sujet,
-        titre_Sujet: this.sujetForm.value.titre_Sujet,
-        description_Sujet: this.sujetForm.value.description_Sujet,
-        dure_Sujet: this.sujetForm.value.dure_Sujet,
-        lieu: this.sujetForm.value.lieu,
-        nbr_etudiant_required: this.sujetForm.value.nbr_etudiant_required,
-        requirements: this.sujetForm.value.requirements,
-        typeSujet: this.sujetForm.value.typeSujet,
-        nomentreprise: this.sujetForm.value.nomentreprise,
-        mailentreprise: this.sujetForm.value.mailentreprise
+      
       };
 
-      this.sujetService.updateSujet(updatedSujet).subscribe(
-        (updatedSujet: Sujet) => {
-          // Handle success
-          console.log('Subject updated successfully:', updatedSujet);
-          // Optionally, navigate to a success page or display a success message
-        },
-        error => {
-          // Handle error
-          console.error('Error updating subject:', error);
-          // Optionally, display an error message to the user
-        }
-      );
-    } else {
-      // Form is invalid, display error or handle accordingly
-      console.error('Form is invalid');
-    }
+     
   }
 
 
