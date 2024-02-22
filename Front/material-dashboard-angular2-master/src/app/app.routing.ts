@@ -3,11 +3,13 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import {SujetComponent} from "./sujet/sujet.component";
+import { SujetModificationComponent } from './sujet-modification/sujet-modification.component';
 
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes =[
+  { path: 'sujet-modification/:id', component: SujetModificationComponent },
   {
     path: '',
     redirectTo: 'dashboard',
@@ -21,6 +23,8 @@ const routes: Routes =[
     }]
   },
   { path: 'sujet',      component: SujetComponent },
+  { path: 'sujet-modification/:id', component: SujetModificationComponent }, // Assuming the component name is SujetModificationComponent
+
 
 ];
 

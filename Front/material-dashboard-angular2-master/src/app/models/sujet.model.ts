@@ -15,6 +15,6 @@ export enum TypeSujet {
     requirements: string;
     typeSujet: TypeSujet;
     nomentreprise: string;
-    mailentreprisey: string;
+    mailentreprise: string;
   }
   

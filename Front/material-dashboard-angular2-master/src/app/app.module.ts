@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {AdminLayoutModule} from "./layouts/admin-layout/admin-layout.module";
 import { ConventionComponent } from './convention/convention.component';
-import { SujetComponent } from './sujet/sujet.component';
+import { SujetModificationComponent } from './sujet-modification/sujet-modification.component';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { SujetComponent } from './sujet/sujet.component';
     AppComponent,
     AdminLayoutComponent,
     ConventionComponent,
-    SujetComponent,
+    SujetModificationComponent,
 
 
   ],

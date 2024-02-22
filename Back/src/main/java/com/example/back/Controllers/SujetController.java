@@ -44,4 +44,9 @@ public class SujetController {
     public void delete(@PathVariable long idSujet) {
         sujetService.delete(idSujet);
     }
-}
+
+
+    }
+
+
+

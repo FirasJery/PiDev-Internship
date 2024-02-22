@@ -1,0 +1,57 @@
+<div class="container">
+    <h2>Modifier Sujet</h2>
+    <form [formGroup]="sujetForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="titreSujet">Titre Sujet:</label>
+            <input type="text" class="form-control" id="titreSujet" formControlName="titre_Sujet">
+        </div>
+
+        <div class="form-group">
+            <label for="descriptionSujet">Description Sujet:</label>
+            <input type="text" class="form-control" id="descriptionSujet" formControlName="description_Sujet">
+        </div>
+
+        <div class="form-group">
+            <label for="dureSujet">Durée Sujet:</label>
+            <input type="text" class="form-control" id="dureSujet" formControlName="dure_Sujet">
+        </div>
+
+        <div class="form-group">
+            <label for="lieu">Lieu:</label>
+            <input type="text" class="form-control" id="lieu" formControlName="lieu">
+        </div>
+
+        <div class="form-group">
+            <label for="nbrEtudiantRequired">Nombre d'étudiants requis:</label>
+            <input type="number" class="form-control" id="nbrEtudiantRequired" formControlName="nbr_etudiant_required">
+        </div>
+
+        <div class="form-group">
+            <label for="requirements">Exigences:</label>
+            <input type="text" class="form-control" id="requirements" formControlName="requirements">
+        </div>
+
+        <div class="form-group">
+            <label for="typeSujet">Type de sujet:</label>
+            <select class="form-control" id="typeSujet" formControlName="typeSujet">
+                <option value="STAGE_FORMATION_HUMAINE_SOCIALE">Stage Formation Humaine Sociale</option>
+                <option value="STAGE_IMMERSION_ENTREPRISE">Stage Immersion Entreprise</option>
+                <option value="STAGE_INGENIEUR">Stage Ingénieur</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nomentreprise">Nom de l'entreprise:</label>
+            <input type="text" class="form-control" id="nomentreprise" formControlName="nomentreprise">
+        </div>
+
+        <div class="form-group">
+            <label for="mailentreprise">Mail de l'entreprise:</label>
+            <input type="email" class="form-control" id="mailentreprise" formControlName="mailentreprise">
+        </div>
+
+        <!-- Add more form fields for modifying the subject -->
+
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
+</div>
