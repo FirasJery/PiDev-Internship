@@ -13,12 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(("/api/services/convention"))
+@CrossOrigin(origins = "http://localhost:3503")
+
 
 public class ConventionController {
 
      private final ConventionService conventionService;
 
-     @CrossOrigin(origins = "http://localhost:4200")
+
      @PostMapping("/addConvention")
      public Convention addConvention(@RequestBody Convention convention){
          return conventionService.addConvention(convention);
@@ -31,7 +33,6 @@ public class ConventionController {
     public Convention getConvention(@PathVariable Long id){
          return conventionService.findById(id);
      }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getConventions")
     public List<Convention> getConventions(){
          return conventionService.findAll();
@@ -41,7 +42,6 @@ public class ConventionController {
          conventionService.updateConvention(convention);
          return convention;
      }
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/validateConvention/{id}")
     public ResponseEntity<?> validateConvention(@PathVariable Long id) {
         boolean validated = conventionService.validateConvention(id);
