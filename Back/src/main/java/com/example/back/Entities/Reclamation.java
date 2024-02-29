@@ -19,13 +19,24 @@ public class Reclamation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     Long id_Reclamation;
+
     String description_Reclamation;
+
     @Enumerated(EnumType.STRING)
     Type_reclamation typeReclamation;
+
     String title;
+
     LocalDateTime date_Reclamation;
+
+    @PrePersist
+    public void prePersist() {
+        this.date_Reclamation = LocalDateTime.now();
+    }
+
     @Enumerated(EnumType.STRING)
     Statut_reclamation statut_reclamation;
+
     @OneToOne
     Reponse reponse;
 
