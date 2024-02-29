@@ -1,6 +1,6 @@
 package com.example.back.Entities;
 
-import com.example.back.Entities.Enums.Type_sujet;
+import com.example.internship_management.Entities.Enums.Type_sujet;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -15,17 +15,17 @@ public class Sujet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long id_Sujet;
-    String titre_Sujet;
-    String description_Sujet;
-    String dure_Sujet;
+    Long idsujet;
+    String titre;
+    String description;
+    String lieu;
+    int duree;
+    int nbretudiant ;
+    String requirements;
     String nomentreprise;
     String mailentreprise;
-    String lieu;
-    int nbr_etudiant_required ;
-    String requirements;
-    @Enumerated(EnumType.STRING)
-    Type_sujet typeSujet;
 
+    @Enumerated(EnumType.STRING)
+    Type_sujet typesujet;
 
 }

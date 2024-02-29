@@ -1,4 +1,4 @@
-package com.example.back.Entities.Enums;
+package com.example.internship_management.Entities.Enums;
 
 public enum Type_sujet {
     STAGE_FORMATION_HUMAINE_SOCIALE,

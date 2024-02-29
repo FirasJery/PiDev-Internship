@@ -13,6 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class SujetController {
 
+
+
     private final SujetService sujetService;
 
     @PostMapping("/add")
@@ -20,10 +22,12 @@ public class SujetController {
         return sujetService.addSujet(sujet);
     }
 
-    @PutMapping("/update/{idSujet}")
-    public Sujet updateSujet (@RequestBody  Sujet sujet,@PathVariable long idSujet){
-        return sujetService.updateSujet(sujet);
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{idSujet}")
+    public Sujet updateSujet(@RequestBody Sujet sujet, @PathVariable long idSujet) {
+        return sujetService.updateSujet(sujet, idSujet);
     }
+
 
     @GetMapping
     public List<Sujet> findAll() {
@@ -46,6 +50,5 @@ public class SujetController {
     }
 
 
-    }
 
-
+}

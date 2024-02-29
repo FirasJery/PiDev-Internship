@@ -1,5 +1,6 @@
 package com.example.back.ServiceImp;
 
+
 import com.example.back.Entities.Sujet;
 import com.example.back.Repositories.SujetRepository;
 import com.example.back.Services.SujetService;
@@ -25,33 +26,32 @@ public class SujetServiceImp implements SujetService {
     }
 
     @Override
-    public Sujet updateSujet(Sujet updatedSujet) {
-
-        // Retrieve the existing sujet from the repository
-        Sujet existingSujet = sujetRepository.findById(updatedSujet.getId_Sujet())
+    public Sujet updateSujet(Sujet updatedSujet, long idSujet) {
+        // Retrieve the existing sujet from the repository using the provided ID
+        Sujet existingSujet = sujetRepository.findById(idSujet)
                 .orElseThrow(() -> new EntityNotFoundException("Sujet not found"));
 
         // Update only the non-null fields from the updated sujet
-        if (updatedSujet.getTitre_Sujet() != null) {
-            existingSujet.setTitre_Sujet(updatedSujet.getTitre_Sujet());
+        if (updatedSujet.getTitre() != null) {
+            existingSujet.setTitre(updatedSujet.getTitre());
         }
-        if (updatedSujet.getDescription_Sujet() != null) {
-            existingSujet.setDescription_Sujet(updatedSujet.getDescription_Sujet());
+        if (updatedSujet.getDescription() != null) {
+            existingSujet.setDescription(updatedSujet.getDescription());
         }
-        if (updatedSujet.getDure_Sujet() != null) {
-            existingSujet.setDure_Sujet(updatedSujet.getDure_Sujet());
+        if (updatedSujet.getDuree() != 0) {
+            existingSujet.setDuree(updatedSujet.getDuree());
         }
         if (updatedSujet.getLieu() != null) {
             existingSujet.setLieu(updatedSujet.getLieu());
         }
-        if (updatedSujet.getNbr_etudiant_required() != 0) {
-            existingSujet.setNbr_etudiant_required(updatedSujet.getNbr_etudiant_required());
+        if (updatedSujet.getNbretudiant() != 0) {
+            existingSujet.setNbretudiant(updatedSujet.getNbretudiant());
         }
         if (updatedSujet.getRequirements() != null) {
             existingSujet.setRequirements(updatedSujet.getRequirements());
         }
-        if (updatedSujet.getTypeSujet() != null) {
-            existingSujet.setTypeSujet(updatedSujet.getTypeSujet());
+        if (updatedSujet.getTypesujet() != null) {
+            existingSujet.setTypesujet(updatedSujet.getTypesujet());
         }
 
         // Save the updated sujet
