@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Sujet } from '../../models/sujet.model';
-import { SujetService } from '../../Services/sujet.service';
+import { Sujet } from '../../../models/sujet.model';
+  import { SujetService } from '../../Services/sujet.service';
 
 @Component({
   selector: 'app-sujet',
