@@ -1,0 +1,37 @@
+<div [formGroup]="reclamationForm" class="entries-section-container">
+
+  <div class="form-field form-field-block">
+    <label class="text" for="titleField"> Title:</label>
+    <input type="text" id="titleField" formControlName="title" class="pika-single">
+    <mat-error *ngIf="reclamationForm.get('title')?.hasError('required')">
+      Ce champ est obligatoire
+    </mat-error>
+  </div>
+
+  <div class="form-field form-field-block">
+    <label class="text">Type de Réclamation (Obligatoire)</label>
+    <mat-form-field>
+      <mat-label>Type de Réclamation</mat-label>
+      <select matNativeControl required formControlName="typeReclamation">
+        <option value="ANNULATION">Annulation</option>
+        <option value="MODIFICATION">Modification</option>
+        <option value="AUTRES">Autres</option>
+      </select>
+      <mat-error *ngIf="reclamationForm.get('typeReclamation')?.hasError('required')">
+        Ce champ est obligatoire
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-field form-field-block">
+    <label class="text" for="descriptionTextArea">Description:</label>
+    <textarea type="text" id="descriptionTextArea" formControlName="description_Reclamation" class="pika-single"></textarea>
+    <mat-error *ngIf="reclamationForm.get('description_Reclamation')?.hasError('required')">
+      Ce champ est obligatoire
+    </mat-error>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" (click)="onDelete()" class="white">Annuler</button>
+    <button type="submit" (click)="onSubmit()" class="rounded-lg">Confirmer</button>
+  </div>
+</div>

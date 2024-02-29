@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Modifier Réclamation</h2>
+
+  <div *ngIf="isLoading" class="loading">Chargement en cours...</div>
+
+  <div *ngIf="!isLoading">
+    <div class="form-group">
+      <label for="titleField">Titre :</label>
+      <input type="text" id="titleField" [(ngModel)]="reclamation.title" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="typeField">Type de Réclamation :</label>
+      <select id="typeField" [(ngModel)]="reclamation.typeReclamation" class="form-control">
+        <option value="Annulation">Annulation</option>
+        <option value="Modification">Modification</option>
+        <option value="Autres">Autres</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="descriptionTextArea">Description :</label>
+      <textarea id="descriptionTextArea" [(ngModel)]="reclamation.description_Reclamation" class="form-control"></textarea>
+    </div>
+
+    <button (click)="updateReclamation()" class="btn btn-primary">Mettre à jour</button>
+  </div>
+</div>
