@@ -9,7 +9,17 @@ import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavBarComponent } from './back/nav-bar/nav-bar.component';
 import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.component';
-
+import { ReclamationComponent } from './components/Reclamationn/reclamation/reclamation.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { MatIconModule } from '@angular/material/icon';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {HttpClientModule} from "@angular/common/http";
+import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import { ReponseComponent } from './components/reponse/reponse.component';
+import { ReclamationListComponent } from './components/Reclamationn/reclamation-list/reclamation-list.component';
+import { ReclamationEditComponent } from './components/Reclamationn/reclamation-edit/reclamation-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,16 +28,30 @@ import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.compon
     BackHomeComponent,
     LoginComponent,
     NavBarComponent,
-    NavBarFrontComponent
+    NavBarFrontComponent,
+    ReclamationComponent,
+    ReponseComponent,
+    ReclamationListComponent,
+    ReclamationEditComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
     BrowserModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatFormField,
 
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
