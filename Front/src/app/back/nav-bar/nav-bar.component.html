@@ -10,7 +10,7 @@
     <div ngbNav class="nav-items" #nav="ngbNav" orientation="vertical">
 
       <ng-container ngbNavItem>
-        <a ngbNavLink class="nav-link">Comptes</a>
+        <a ngbNavLink [routerLink]="['/admins/add']" class="nav-link">Comptes</a>
       </ng-container>
       <ng-container ngbNavItem>
         <a ngbNavLink class="nav-link">Conventions</a>
@@ -34,7 +34,7 @@
         <ul class="dropdown-menu" aria-labelledby="accountDropdown">
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
+          <li><a (click)="logout()" class="dropdown-item">Logout</a></li>
         </ul>
       </ng-container>
 
@@ -46,7 +46,7 @@
   <div id="page-content-wrapper" [class.toggled]="isSidebarOpen">
     <div class="container-fluid">
       <h1 class="mt-4">Admin Dashboard Content</h1>
-      <!-- Your content here -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

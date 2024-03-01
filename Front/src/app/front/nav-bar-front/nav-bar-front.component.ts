@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {KeycloakService} from "keycloak-angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav-bar-front',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class NavBarFrontComponent {
 
+
+  constructor(private keycloakService: KeycloakService, private router : Router) {
+
+  }
+  logout()
+  {
+    this.keycloakService.logout();
+  }
 }
