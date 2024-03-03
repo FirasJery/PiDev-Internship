@@ -1,9 +1,7 @@
 package com.example.back.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,8 +17,13 @@ public class Tache_journal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long id_tache;
-    String Description_tache;
+    Long idtache;
+    String descriptiontache;
     LocalDateTime date_tache;
-    boolean is_valid;
+    boolean isValid ;
+
+
+    @ManyToOne   //(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    Journal journal;
 }
