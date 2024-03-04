@@ -20,7 +20,7 @@ export class BackHomeComponent implements OnInit
 
   getWelcomeMessage()
   {
-    this.welcome = this.UserService.getSuperAdmin();
+
   }
 
 

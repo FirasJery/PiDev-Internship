@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {FrontHomeComponent} from "./front/front-home/front-home.component";
 import {BackHomeComponent} from "./back/back-home/back-home.component";
 import {AuthGuard} from "./guard/auth.guard";
-import {UserManagementComponentComponent} from "./back/user-management-component/user-management-component.component";
+import {UserManagementComponentComponent} from "./back/UserComponents/user-management-component/user-management-component.component";
 import {NavBarComponent} from "./back/nav-bar/nav-bar.component";
 import {NavBarFrontComponent} from "./front/nav-bar-front/nav-bar-front.component";
 import {LoginComponent} from "./login/login.component";

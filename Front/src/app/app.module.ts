@@ -9,9 +9,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavBarComponent } from './back/nav-bar/nav-bar.component';
 import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.component';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
-import { UserManagementComponentComponent } from './back/user-management-component/user-management-component.component';
+import { UserManagementComponentComponent } from './back/UserComponents/user-management-component/user-management-component.component';
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -48,7 +49,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     NgbModule,
     BrowserModule,
     KeycloakAngularModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
 
   ],
   providers: [
