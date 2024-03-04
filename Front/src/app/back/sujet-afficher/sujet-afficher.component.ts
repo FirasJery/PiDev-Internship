@@ -63,4 +63,11 @@ export class SujetAfficherComponent implements OnInit {
   ajouterSujet(): void {
     this.router.navigate(['/ajoutsujet']);
   }
+
+  search(): void {
+    this.sujetService.searchSujets(this.searchTerm)
+      .subscribe(results => {
+        this.sujets = results;
+      });
+  }
 }

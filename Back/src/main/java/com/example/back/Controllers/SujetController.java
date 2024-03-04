@@ -39,6 +39,7 @@ public class SujetController {
         return sujetService.findByNomentrepriseContainingIgnoreCase(searchTerm);
     }
 
+
     @GetMapping("/{idSujet}")
     public Sujet getById(@PathVariable long idSujet){
         return sujetService.findById(idSujet);
@@ -50,5 +51,14 @@ public class SujetController {
     }
 
 
+    @GetMapping("/filter/byNbretudiantDesc")
+    public List<Sujet> filterByNbretudiantDescending() {
+        return sujetService.findByNbretudiantOrderByNbretudiantDesc();
+    }
+
+    @GetMapping("/filter/byDureeDesc")
+    public List<Sujet> filterByDureeDescending() {
+        return sujetService.findByDureeOrderByDureeDesc();
+    }
 
 }

@@ -4,9 +4,16 @@
     <div class="row">
       <!-- Search Input -->
       <div class="col-md-12">
-        <!-- You can uncomment the input below if you want to include the search functionality -->
-        <!-- <input type="text" class="form-control" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search enterprise name..."> -->
+        <input type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Chercher par nom d'entreprise">
       </div>
+
+      <div class="col-md-12">
+        <select [(ngModel)]="filterOption" (change)="applyFilter()">
+          <option value="nbreEtudiant">par nombre d'etudiant</option>
+          <option value="dureeStage">par duree</option>
+        </select>
+      </div>
+
     </div>
     <!-- Sujets List -->
     <div class="row">
@@ -22,6 +29,7 @@
             <p><strong>Nombre d'étudiants requis:</strong> {{ sujet.nbretudiant }}</p>
             <p><strong>Exigences:</strong> {{ sujet.requirements }}</p>
             <p><strong>Type de sujet:</strong> {{ sujet.typesujet }}</p>
+            <button class="btn btn-primary" (click)="postuler(sujet.idsujet)">Postuler</button>
           </div>
         </div>
       </div>

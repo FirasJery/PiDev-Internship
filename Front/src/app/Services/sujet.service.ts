@@ -27,11 +27,12 @@ export class SujetService {
     return this.http.get<Sujet[]>(this.apiUrl, { params });
   }
 
-  searchSujets(searchTerm: string): Observable<Sujet[]> {
-    const params = { searchTerm };
-    return this.http.get<Sujet[]>(`${this.apiUrl}/search`, { params });
+  getSujets(): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}`);
   }
-  
+  searchSujets(searchTerm: string): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}/search`, { params: { searchTerm } });
+  }
 
   addSujet(sujet: Sujet): Observable<Sujet> {
     const url = `${this.apiUrl}/add`;
@@ -50,6 +51,14 @@ export class SujetService {
   supprimerSujet(idSujet: number): Observable<void> {
     const url = `${this.apiUrl}/${idSujet}`;
     return this.http.delete<void>(url);
+  }
+
+  filterByNbretudiantDescending(): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byNbretudiantDesc`);
+  }
+
+  filterByDureeDescending(): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byDureeDesc`);
   }
 
 

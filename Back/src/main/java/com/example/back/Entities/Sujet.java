@@ -1,9 +1,13 @@
 package com.example.back.Entities;
 
 import com.example.internship_management.Entities.Enums.Type_sujet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,5 +31,9 @@ public class Sujet {
 
     @Enumerated(EnumType.STRING)
     Type_sujet typesujet;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "sujet")
+    private Set<Postulation> postulationtSet;
 
 }

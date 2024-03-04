@@ -12,7 +12,9 @@ import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.compon
 import { SujetComponent } from './front/sujet/sujet.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SujetAjoutComponent } from './back/sujet-ajout/sujet-ajout.component';
-import { SujetAfficherComponent } from './back/sujet-afficher/sujet-afficher.component'; 
+import { SujetAfficherComponent } from './back/sujet-afficher/sujet-afficher.component';
+import { PostulationComponent } from './front/postulation/postulation.component';
+import { AffichPostulationComponent } from './front/affich-postulation/affich-postulation.component'; 
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { SujetAfficherComponent } from './back/sujet-afficher/sujet-afficher.com
     NavBarFrontComponent,
     SujetComponent,
     SujetAjoutComponent,
-    SujetAfficherComponent
+    SujetAfficherComponent,
+    PostulationComponent,
+    AffichPostulationComponent
   ],
   imports: [
     BrowserModule,

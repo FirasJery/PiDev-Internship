@@ -13,6 +13,7 @@ public interface SujetService {
     List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm);
     void delete (long idSujet);
 
+    public List<Sujet> findByNbretudiantOrderByNbretudiantDesc() ;
 
-
+    public List<Sujet> findByDureeOrderByDureeDesc() ;
 }

@@ -80,11 +80,8 @@ public class SujetServiceImp implements SujetService {
     @Override
 
     public List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm) {
-        return sujetRepository.findByNomentrepriseContainingIgnoreCaseOrderByNomentrepriseAsc(searchTerm);
+        return sujetRepository.findByNomentrepriseContainingIgnoreCase(searchTerm);
     }
-
-
-
 
     @Override
     public void delete(long idSujet) {
@@ -100,6 +97,14 @@ public class SujetServiceImp implements SujetService {
 
         // Delete the sujet
         sujetRepository.deleteById(idSujet);
+    }
+
+    public List<Sujet> findByNbretudiantOrderByNbretudiantDesc() {
+        return sujetRepository.findByOrderByNbretudiantDesc();
+    }
+
+    public List<Sujet> findByDureeOrderByDureeDesc() {
+        return sujetRepository.findByOrderByDureeDesc();
     }
 
 }

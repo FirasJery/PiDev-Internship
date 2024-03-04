@@ -8,6 +8,9 @@ import java.util.List;
 public interface SujetRepository extends JpaRepository<Sujet, Long> {
 
     List<Sujet> findByOrderByMailentrepriseAsc();
-    List<Sujet> findByNomentrepriseContainingIgnoreCaseOrderByNomentrepriseAsc(String searchTerm);
 
+    List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm);
+
+    List<Sujet>findByOrderByNbretudiantDesc();
+    List<Sujet>findByOrderByDureeDesc();
 }

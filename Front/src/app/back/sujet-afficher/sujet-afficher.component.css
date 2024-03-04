@@ -1,3 +1,13 @@
+/* styles.css */
+input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 20px;
+  margin-bottom: 10px; /* Add margin-bottom to create space below the input */
+  width: 300px;
+}
 /* Updated CSS for the .nav-bar class */
 .nav-bar {
     /* Add styling for the navigation bar */

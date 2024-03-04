@@ -19,6 +19,8 @@ public class User {
     @Setter(AccessLevel.NONE)
     Long id_User;
     String login;
+    String nom;
+    String prenom;
     String password;
     @Enumerated(EnumType.STRING)
     Role_user roleUser;
@@ -36,6 +38,8 @@ public class User {
     private Set<File> fileSet;
     @OneToMany
     private Set<Convention> conventionSet;
-    @OneToMany
-    private Set<Sujet> sujetSet;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Postulation> postulations;
+
 }
