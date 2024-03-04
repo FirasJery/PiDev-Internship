@@ -32,6 +32,7 @@ public class Tache_journalServiceImp implements Tache_journalService {
     @Override
     public Tache_journal addTache_JournalAndAssignToJournal(Tache_journal tache_journal, long id_Journal) {
         tache_journal.setDate_tache(LocalDateTime.now());
+        tache_journal.setValid(false);
 
         Journal journal = journalRepos.findById(id_Journal).orElse(null);
         if (journal != null) {

@@ -32,7 +32,7 @@ public class Tache_journalController {
         }
 
         @PostMapping("/{id_Journal}")
-        public Tache_journal addTache_JournalAndAssignToJournal(@RequestBody Tache_journal tache_journal, @PathVariable long id_Journal) {
+        public Tache_journal addTache_JournalAndAssignToJournal(@RequestBody Tache_journal tache_journal, @PathVariable Long id_Journal) {
 
             return tache_journalService.addTache_JournalAndAssignToJournal(tache_journal, id_Journal);
         }
