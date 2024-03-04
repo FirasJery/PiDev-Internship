@@ -22,7 +22,7 @@ public class Postulation {
     String region;
     String titrecandidature;
     String lettremotivation;
-    boolean status;
+    int status;
     String comm;
 
     @ManyToOne

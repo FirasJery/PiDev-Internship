@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +23,17 @@ public class PostulationServiceImp implements PostulationService {
     @Autowired
     private PostulationRepository postulationRepository;
 
+    @Autowired
+    private SujetRepository sujetRepository;
+
     @Override
     public Postulation addPostulation(Postulation postulation) {
         return postulationRepository.save(postulation);
     }
 
-
+    public List<Postulation> getPostulationsByStatus(int status) {
+        return postulationRepository.findByStatus(status);
+    }
 
 
         @Override
@@ -90,5 +96,6 @@ public class PostulationServiceImp implements PostulationService {
             // Delete the Postulation
             postulationRepository.deleteById(idP);
         }
+
 
     }

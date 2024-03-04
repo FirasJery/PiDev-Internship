@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+import { Sujet } from "./sujet.model";
 export class Postulation {
   idp!: number;
   datedeb!: Date;
@@ -5,8 +7,8 @@ export class Postulation {
   region!: string;
   titrecandidature!: string;
   lettremotivation!: string;
-  status!: boolean;
+  status!: number;
   comm!: string;
-  idsujet!: number; 
-  iduser!: number;
+  user!: User;
+  sujet!: Sujet;
 }

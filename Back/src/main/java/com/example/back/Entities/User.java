@@ -1,6 +1,7 @@
 package com.example.back.Entities;
 
 import com.example.internship_management.Entities.Enums.Role_user;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -39,6 +40,7 @@ public class User {
     @OneToMany
     private Set<Convention> conventionSet;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Postulation> postulations;
 

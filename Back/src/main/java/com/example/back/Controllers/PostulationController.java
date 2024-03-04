@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +21,7 @@ public class PostulationController {
 
     private final SujetRepository sujetRepository;
     private final PostulationRepository postulationRepository;
-
+    private final SujetService sujetService ;
     private final PostulationService postulationService;
 
     @PostMapping("/add")
@@ -38,6 +39,26 @@ public class PostulationController {
         Postulation savedPostulation = postulationRepository.save(postulation);
         return ResponseEntity.ok(savedPostulation);
     }
+
+
+    @GetMapping("/byAccepted")
+    public List<Postulation> filterByAccepted() {
+        List<Postulation> acceptedPostulations = postulationService.getPostulationsByStatus(1);
+        return acceptedPostulations;
+    }
+
+    @GetMapping("/byRefused")
+    public List<Postulation> filterByRefused() {
+        List<Postulation> refusedPostulations = postulationService.getPostulationsByStatus(2);
+        return refusedPostulations;
+    }
+
+    @GetMapping("/byAttente")
+    public List<Postulation> filterByAttente() {
+        List<Postulation> waitingPostulations = postulationService.getPostulationsByStatus(0);
+        return waitingPostulations;
+    }
+
 
 
 
@@ -66,6 +87,13 @@ public class PostulationController {
 
 
 
-
-
+    @GetMapping("/sujet/{id}")
+    public Sujet getSujetById(@PathVariable("id") Long sujetId) {
+        Sujet sujet = sujetService.findById(sujetId);
+        if (sujet != null) {
+            return sujet;
+        } else {
+            return null;
+        }
+    }
 }

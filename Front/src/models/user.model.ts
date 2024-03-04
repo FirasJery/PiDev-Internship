@@ -1,3 +1,5 @@
+import { Postulation } from "./postulation.model";
+
 export enum RoleUser {
   SUPER_ADMIN = 'SUPER_ADMIN',
   ETUDIANT = 'ETUDIANT',
@@ -8,14 +10,19 @@ export enum RoleUser {
 export class User {
   id_User!: number;
   login!: string;
-  password!: string;
   nom!: string;
   prenom!: string;
-  roleUser!: RoleUser; 
+  password!: string;
+  roleUser!: RoleUser;
   classe!: string;
   email!: string;
   num_tel!: number;
   role_enreprise!: string;
   identifiant!: string;
   specialite!: string;
+  //postSet!: Post[];
+ // reclamationSet!: Reclamation[];
+  fileSet!: File[];
+//  conventionSet!: Convention[];
+  postulations!: Postulation[];
 }
