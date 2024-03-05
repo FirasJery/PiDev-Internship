@@ -54,7 +54,7 @@ export class JournalstudentComponent implements OnInit {
 
   }
 
-  public openDialogUpdate(idTache: number) {
+ /* public openDialogUpdate(idTache: number) {
     const dialogRef = this.dialog.open(UpdateTacheDialogComponent, {
       width: '700px',
       height: '640px',
@@ -63,7 +63,41 @@ export class JournalstudentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }*/
+
+ /*  li tna7a ekher wehed openDialogUpdate(idTache: number) {
+    const dialogRef = this.dialog.open(UpdateTacheDialogComponent, {
+      width: '700px',
+      height: '640px',
+      data: { idTache: idTache }
+    });
+
+    dialogRef.afterClosed().subscribe(updatedTache => {
+      if (updatedTache) {
+        const index = this.taches.findIndex(t => t.idtache === updatedTache.idtache);
+        if (index !== -1) {
+          this.taches[index] = updatedTache;
+        }
+      }
+
+        // Mettez à jour la liste des tâches ou effectuez d'autres actions nécessaires
+
+    });
+  }*/
+
+  openUpdateTacheDialog(tache: TacheJournal): void {
+    const dialogRef = this.dialog.open(UpdateTacheDialogComponent, {
+      width: '250px',
+      data: { tache }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // La tâche a été mise à jour, vous pouvez rafraîchir la liste des tâches si nécessaire
+      }
+    });
   }
+
 
   /*public openDialogg() {
     const dialogRef = this.dialog.open(AjoutTacheDialogComponent, {
@@ -92,5 +126,15 @@ export class JournalstudentComponent implements OnInit {
       }
     });
   }
+
+
+  deleteTache(idtache: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')) {
+      this.tacheJournalService.deleteTacheJournal(idtache).subscribe(() => {
+        // Mettez à jour la liste des tâches ou rafraîchissez les données
+      });
+    }
+  }
+
 
 }

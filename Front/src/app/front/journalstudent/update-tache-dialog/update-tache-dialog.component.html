@@ -1,4 +1,4 @@
-<div fxFlex="3.5rem" fxLayoutAlign="start center">
+<!--<div fxFlex="3.5rem" fxLayoutAlign="start center">
   <span class="smr-caption--lg">
     <h1><b><u style="padding-left: 250px;color:#6c43a1;">Modifier Tache</u></b></h1>
   </span>
@@ -40,4 +40,20 @@
       </div>
     </div>
   </form>
-</div>
+</div> -->
+<!-- update-tache-dialog.component.html -->
+<!-- update-tache-dialog.component.html -->
+<h2 mat-dialog-title>Mettre à jour la tâche</h2>
+<mat-dialog-content>
+  <form [formGroup]="updateTacheForm">
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="descriptiontache">
+    </mat-form-field>
+    <!-- Ajoutez d'autres champs si nécessaire -->
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onUpdate()">Mettre à jour</button>
+  <button mat-button mat-dialog-close>Annuler</button>
+</mat-dialog-actions>

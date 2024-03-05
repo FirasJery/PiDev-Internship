@@ -26,9 +26,17 @@ export class TacheJournalService {
     return this.http.get<TacheJournal[]>(`http://localhost:9099/api/services/tache_journal/${id}`);
   }
 
-  updateTache_Journal(tacheJournal:TacheJournal){
-    return this.http.put<TacheJournal[]> (this.apiUrl,tacheJournal)
+  /*updateTache_Journal(tacheJournal:TacheJournal){
+    return this.http.put<TacheJournal[]> (`${this.apiUrl}/updatetache/${tacheJournal.idtache}`, tacheJournal);
+  }*/
 
+  updateTache_Journal(idtache: number, tacheJournal: TacheJournal): Observable<TacheJournal> {
+    return this.http.put<TacheJournal>(`${this.apiUrl}/updatetache/${idtache}`, tacheJournal);
+  }
+
+
+  deleteTacheJournal(idtache: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/removetache/${idtache}`);
   }
 
 

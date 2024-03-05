@@ -20,6 +20,10 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,12 @@ import {MatSelect} from "@angular/material/select";
     FormsModule,
     MatFormField,
     MatOption,
-    MatSelect
+    MatSelect,
+
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
 
   ],
   providers: [],
