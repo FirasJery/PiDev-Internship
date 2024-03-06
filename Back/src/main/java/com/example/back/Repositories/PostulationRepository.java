@@ -11,6 +11,7 @@ public interface PostulationRepository extends JpaRepository<Postulation, Long> 
 
     List<Postulation> findByStatus(int status);
 
+    List<Postulation> getPostulationsByStatus(int status);
 
 
 }

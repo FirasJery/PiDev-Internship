@@ -7,6 +7,7 @@ import { SujetAjoutComponent } from './back/sujet-ajout/sujet-ajout.component';
 import { SujetAfficherComponent } from './back/sujet-afficher/sujet-afficher.component';
 import { PostulationComponent } from './front/postulation/postulation.component';
 import { AffichPostulationComponent } from './front/affich-postulation/affich-postulation.component';
+import { PostulationValiderComponent } from './back/postulation-valider/postulation-valider.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'sujets', component: SujetComponent },
   { path: 'ajoutsujet', component: SujetAjoutComponent },
   { path: 'affichsujet', component: SujetAfficherComponent },
+  { path: 'validerpostulation', component: PostulationValiderComponent },
+
 ];
 
 @NgModule({

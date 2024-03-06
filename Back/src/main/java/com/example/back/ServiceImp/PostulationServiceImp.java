@@ -25,15 +25,19 @@ public class PostulationServiceImp implements PostulationService {
 
     @Autowired
     private SujetRepository sujetRepository;
+    @Autowired
+    private SujetService sujetservice ;
 
     @Override
     public Postulation addPostulation(Postulation postulation) {
         return postulationRepository.save(postulation);
     }
 
+    @Override
     public List<Postulation> getPostulationsByStatus(int status) {
         return postulationRepository.findByStatus(status);
     }
+
 
 
         @Override
@@ -97,5 +101,12 @@ public class PostulationServiceImp implements PostulationService {
             postulationRepository.deleteById(idP);
         }
 
-
+    @Override
+    public String getSujetTypeById(long sujetId) {
+        Sujet sujet = sujetRepository.findById(sujetId)
+                .orElseThrow(() -> new EntityNotFoundException("Subject not found with id: " + sujetId));
+        return sujet.getTypesujet().toString();
     }
+
+
+}

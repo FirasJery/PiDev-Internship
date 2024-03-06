@@ -50,18 +50,23 @@ export class PostulationComponent implements OnInit {
           console.log('Postulation added:', response);
           this.postulationForm.reset();
           this.isPostulationAdded = true;
-          // Optional: Comment out the following line if you don't want to navigate after submission
-          // this.router.navigate(['/']); // Replace with your desired route after successful submission
         },
         (error) => {
           console.error('Error adding Postulation:', error);
+          // Check if the error message received from the backend indicates an invalid period
+          if (error === 'Invalid period') {
+            // Display a specific error message to the user
+            alert('Invalid period. Please check the start and end dates.');
+          } else {
+            // Handle other errors if needed
+          }
         }
       );
     } else {
       console.error('Form is not valid');
       // Output detailed information about invalid form controls (optional)
-      // ...
     }
   }
+  
   
 }

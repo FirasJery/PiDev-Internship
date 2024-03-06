@@ -8,9 +8,11 @@ import java.util.Optional;
 
 public interface PostulationService {
     Postulation addPostulation(Postulation postulation);
-    List<Postulation> getPostulationsByStatus(int status);
     Postulation updatePostulation(Postulation updatedPostulation, long idP)    ;
     List<Postulation> findAll();
     Postulation findById (long idP);
      void delete (long idP);
+     List<Postulation> getPostulationsByStatus(int status);
+
+    String getSujetTypeById(long sujetId);
 }
