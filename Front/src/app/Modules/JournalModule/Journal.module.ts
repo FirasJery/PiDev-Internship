@@ -4,7 +4,7 @@ import { Evaluation } from  '../EvaluationModule/Evaluation.module';
 export class Journal {
   idJournal: number;
   remarque: string;
-  total_note_evaluation: number;
+  totalNoteEvaluation: number;
   journalIsValid: boolean;
  // stage?: Stage;
   tache_journal?: TacheJournal[];

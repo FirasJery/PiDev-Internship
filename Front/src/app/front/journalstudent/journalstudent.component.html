@@ -8,7 +8,7 @@
         <h2>Journal Details</h2>
         <p><strong>ID:</strong> {{ journal.idJournal }}</p>
         <p><strong>Remark:</strong> {{ journal.remarque }}</p>
-        <p><strong>Total Evaluation Score:</strong> {{ journal.total_note_evaluation }}</p>
+        <p><strong>Total Evaluation Score:</strong> {{ journal.totalNoteEvaluation }}</p>
         <p><strong>Is Valid:</strong> {{ journal.journalIsValid ? 'Yes' : 'No' }}</p>
 
 
@@ -38,7 +38,7 @@
 
 
             <td>{{ tache.descriptiontache }}</td>
-            <td>{{ tache.date_tache | date }}</td>
+            <td>{{ tache.datetache | date }}</td>
 
              <td>{{ tache.valid ? 'Yes' : 'No'  }}</td>
 

@@ -78,7 +78,7 @@ import {TacheJournalService} from "../../../Services/TacheJournalService/tachejo
 
 @Component({
   selector: 'app-update-tache-dialog',
- // templateUrl: './update-tache-dialog.component.html',
+  // templateUrl: './update-tache-dialog.component.html',
   templateUrl: './update-tache-dialog.component.html',
   styleUrls: ['./update-tache-dialog.component.css']
 })

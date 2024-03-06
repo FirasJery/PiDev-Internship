@@ -19,11 +19,14 @@ import {FormsModule} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GrilleComponent } from './back/grille/grille.component';
+import { AjoutGrilleDialogComponent } from './back/grille/ajout-grille-dialog/ajout-grille-dialog.component';
+import { UpdateGrilleDialogComponent } from './back/grille/update-grille-dialog/update-grille-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     JournalComponent,
     JournalstudentComponent,
     UpdateTacheDialogComponent,
-    AjoutTacheDialogComponent
+    AjoutTacheDialogComponent,
+    GrilleComponent,
+    AjoutGrilleDialogComponent,
+    UpdateGrilleDialogComponent,
+
   ],
   imports: [
     BrowserModule,
