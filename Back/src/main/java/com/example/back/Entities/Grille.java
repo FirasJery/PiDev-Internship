@@ -1,7 +1,10 @@
 package com.example.back.Entities;
 
-import com.example.back.Entities.Enums.Appreciation;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,14 +14,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Evaluation {
+public class Grille {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long idEvaluation;
-    double noteEvaluation;
-    String description;
-    @Enumerated(EnumType.STRING)
-    Appreciation appreciation;
-
+    Long idGrille;
+    String descriptionGrille;
 }

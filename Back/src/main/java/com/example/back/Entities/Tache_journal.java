@@ -19,7 +19,7 @@ public class Tache_journal {
     @Setter(AccessLevel.NONE)
     Long idtache;
     String descriptiontache;
-    LocalDateTime date_tache;
+    LocalDateTime datetache;
     boolean isValid ;
 
 

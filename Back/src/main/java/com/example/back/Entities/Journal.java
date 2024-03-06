@@ -21,7 +21,7 @@ public class Journal {
     @Setter(AccessLevel.NONE)
     Long idJournal;
     String remarque;
-    float total_note_evaluation;
+    float totalNoteEvaluation;
     //@Column(nullable = false)
     boolean journalIsValid = false;
 
