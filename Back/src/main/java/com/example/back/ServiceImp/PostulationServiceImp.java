@@ -108,5 +108,9 @@ public class PostulationServiceImp implements PostulationService {
         return sujet.getTypesujet().toString();
     }
 
+    @Override
+    public List<Postulation> getPostulationsBySujetIdAndAttente(Long sujetId) {
+        return postulationRepository.findBySujetIdAndStatus(sujetId, 0); // Assuming "0" represents "attente" status
+    }
 
 }

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sujet-afficher',
   templateUrl: './sujet-afficher.component.html',
-  styleUrl: './sujet-afficher.component.css'
+  styleUrls: ['./sujet-afficher.component.css']
 })
 export class SujetAfficherComponent implements OnInit {
   apiUrl: string;
@@ -70,4 +70,8 @@ export class SujetAfficherComponent implements OnInit {
         this.sujets = results;
       });
   }
+  displayPostulations(idsujet: number): void {
+    this.router.navigate(['/postulation_sujet', idsujet]);
+  }
+  
 }

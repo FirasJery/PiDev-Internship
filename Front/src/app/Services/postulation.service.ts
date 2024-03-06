@@ -69,5 +69,9 @@ export class PostulationService {
   rejectPostulation(postulation: Postulation): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/reject-postulation/${postulation.idp}`, null);
   }
+
+  filterByAttenteAndSujet(sujetId: number): Observable<Postulation[]> {
+    return this.http.get<Postulation[]>(`${this.apiUrl}/byIdSujetAndAttente/${sujetId}`);
+  }
   
 }

@@ -15,12 +15,12 @@ export class PostulationValiderComponent implements OnInit {
   constructor(private postulationService: PostulationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.fetchPostulations('0');
-    }
+    this.fetchPostulations();
+  }
 
-
+  
   fetchPostulations(searchTerm?: string): void {
-    this.postulationService.filterByAttente()
+    this.postulationService.getPostulationsAttente()
       .subscribe(postulations => {
         console.log(postulations);
         this.postulations = postulations;

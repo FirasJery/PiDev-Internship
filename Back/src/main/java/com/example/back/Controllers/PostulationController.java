@@ -170,7 +170,10 @@ public class PostulationController {
     public List<Postulation> getPostulationsAttente() {
         return postulationService.getPostulationsByStatus(0);
     }
-
+    @GetMapping("/byIdSujetAndAttente/{sujetId}")
+    public List<Postulation> getPostulationsByIdSujetAndAttente(@PathVariable Long sujetId) {
+        return postulationService.getPostulationsBySujetIdAndAttente(sujetId);
+    }
 
 
 }
