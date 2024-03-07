@@ -17,9 +17,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
-import { ReponseComponent } from './components/reponse/reponse.component';
+import { ReponseComponent } from './components/Reponsee/reponse/reponse.component';
 import { ReclamationListComponent } from './components/Reclamationn/reclamation-list/reclamation-list.component';
 import { ReclamationEditComponent } from './components/Reclamationn/reclamation-edit/reclamation-edit.component';
+import { ReponseListComponent } from './components/Reponsee/reponse-list/reponse-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReclamationEditComponent } from './components/Reclamationn/reclamation-
     ReclamationComponent,
     ReponseComponent,
     ReclamationListComponent,
-    ReclamationEditComponent
+    ReclamationEditComponent,
+    ReponseListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,6 @@ import { ReclamationEditComponent } from './components/Reclamationn/reclamation-
     ReactiveFormsModule,
     HttpClientModule,
     MatFormField,
-
   ],
   providers: [
     provideAnimationsAsync()
