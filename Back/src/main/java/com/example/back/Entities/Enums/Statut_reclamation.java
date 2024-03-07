@@ -1,8 +1,8 @@
-package com.example.internship_management.Entities.Enums;
+package com.example.back.Entities.Enums;
 
 public enum Statut_reclamation {
-    EN_ATTENTE,
+    ENATTENTE,
     APPROUVE,
     REJETE,
-    A_LETUDE
+    ALETUDE
 }

@@ -1,7 +1,7 @@
 package com.example.back.Entities;
 
-import com.example.internship_management.Entities.Enums.Statut_reclamation;
-import com.example.internship_management.Entities.Enums.Type_reclamation;
+import com.example.back.Entities.Enums.Statut_reclamation;
+import com.example.back.Entities.Enums.Type_reclamation;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -35,13 +35,8 @@ public class Reclamation {
     }
 
     @Enumerated(EnumType.STRING)
-    Statut_reclamation statut_reclamation;
+    Statut_reclamation statutReclamation;
 
     @OneToOne
     Reponse reponse;
-
-
-
-
-
 }

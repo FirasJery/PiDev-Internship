@@ -3,11 +3,13 @@ package com.example.back.ServiceImp;
 import com.example.back.Entities.Reclamation;
 import com.example.back.Repositories.ReclamationRepository;
 import com.example.back.Services.ReclamationService;
+import com.example.back.Entities.Enums.Statut_reclamation;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class ReclamationServiceImp implements ReclamationService {
     private final ReclamationRepository reclamationRepository;
     @Override
     public Reclamation addReclamation(Reclamation reclamation) {
+        reclamation.setStatutReclamation(Statut_reclamation.valueOf("ENATTENTE"));
         return reclamationRepository.save(reclamation);
     }
 
@@ -28,6 +31,8 @@ public class ReclamationServiceImp implements ReclamationService {
         existingReclamation.setTitle(updatedReclamation.getTitle());
         existingReclamation.setTypeReclamation(updatedReclamation.getTypeReclamation());
         existingReclamation.setDescription_Reclamation(updatedReclamation.getDescription_Reclamation());
+        existingReclamation.setStatutReclamation(updatedReclamation.getStatutReclamation());
+        existingReclamation.setReponse(updatedReclamation.getReponse());
 
         // Enregistrer la réclamation mise à jour dans la base de données
         return reclamationRepository.save(existingReclamation);
@@ -46,4 +51,18 @@ public class ReclamationServiceImp implements ReclamationService {
     public void delete(long id_reclamation) {
         reclamationRepository.deleteById(id_reclamation);
     }
+
+//    @Override
+//    public void updateReclamationStatus(long id_Reclamation, Statut_reclamation newStatus) {
+//        Optional<Reclamation> optionalReclamation = reclamationRepository.findById(id_Reclamation);
+//        if (optionalReclamation.isPresent()) {
+//            Reclamation reclamation = optionalReclamation.get();
+//            reclamation.setStatutReclamation(newStatus);
+//            reclamationRepository.save(reclamation);
+//        } else {
+//            // Handle case when reclamation is not found
+//            throw new RuntimeException("Reclamation not found with ID: " + id_Reclamation);
+//        }
+//    }
+
 }

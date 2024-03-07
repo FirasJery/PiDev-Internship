@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/services/reponse")
 
 public class ReponseController {
@@ -19,20 +20,20 @@ public class ReponseController {
     public Reponse addReponse (@RequestBody Reponse reponse) {
         return reponseService.addReponse(reponse);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/{id_Reponse}")
     public Reponse updateReponse (@PathVariable long id_Reponse, @RequestBody Reponse reponse) {
         return reponseService.updateReponse(reponse);
     }
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Reponse> findAll() {
         return reponseService.findAll();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{id_Reponse}")
     public Reponse findById(@PathVariable long id_Reponse) {
         Reponse reponse = reponseService.findById(id_Reponse);
         return reponse;
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id_Reponse}")
     public void deleteReponse(@PathVariable long id_Reponse) {
         reponseService.delete(id_Reponse);
     }

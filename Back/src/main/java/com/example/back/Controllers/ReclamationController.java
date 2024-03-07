@@ -27,6 +27,7 @@ public class ReclamationController {
     }
     @PutMapping("/{id_Reclamation}")
     public ResponseEntity<Reclamation> updateReclamation(@PathVariable long id_Reclamation, @RequestBody Reclamation updatedReclamation) {
+        
         try {
             Reclamation updated = reclamationService.updateReclamation(id_Reclamation, updatedReclamation);
             return ResponseEntity.ok(updated);
@@ -49,4 +50,8 @@ public class ReclamationController {
     public void deleteReclamation(@PathVariable long id_Reclamation) {
         reclamationService.delete(id_Reclamation);
     }
+//    @PutMapping("/{id_Reclamation}/status")
+//    public void updateReclamationStatus(@PathVariable long id_Reclamation, @RequestBody com.example.internship_management.Entities.Enums.Statut_reclamation newStatus) {
+//        reclamationService.updateReclamationStatus(id_Reclamation, newStatus);
+//    }
 }
