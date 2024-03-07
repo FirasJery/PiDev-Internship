@@ -1,16 +1,20 @@
 package com.example.back.Controllers;
 
+import com.example.back.Entities.EmailRequest;
 import com.example.back.Entities.Postulation;
 import com.example.back.Entities.Sujet;
 import com.example.back.Repositories.PostulationRepository;
 import com.example.back.Repositories.SujetRepository;
+import com.example.back.ServiceImp.EmailServiceImp;
 import com.example.back.Services.PostulationService;
 import com.example.back.Services.SujetService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date; // Import Date class
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +26,13 @@ public class PostulationController {
     private final PostulationRepository postulationRepository;
     private final SujetService sujetService;
     private final PostulationService postulationService;
+
+    @Autowired
+    private EmailServiceImp emailService;
+    @PostMapping("/send-email")
+    public void sendEmail(@RequestBody EmailRequest emailRequest) {
+        emailService.sendSimpleEmail(emailRequest.getToEmail(), emailRequest.getSubject(), emailRequest.getBody());
+    }
 
     @PostMapping("/add")
     public Postulation addPostulation(@RequestParam Long sujetId, @RequestBody Postulation postulation) {

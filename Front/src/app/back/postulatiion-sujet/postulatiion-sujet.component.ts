@@ -53,6 +53,7 @@ export class PostulatiionSujetComponent implements OnInit {
     this.postulationService.confirmPostulation(postulation)
       .subscribe(() => {
         this.fetchPostulations();
+        this.sendEmail(postulation);
       });
   }
 
@@ -60,6 +61,12 @@ export class PostulatiionSujetComponent implements OnInit {
     this.postulationService.rejectPostulation(postulation)
       .subscribe(() => {
         this.fetchPostulations();
+        this.sendEmail(postulation);
       });
   }
+
+
+  sendEmail(postulation: Postulation): void {}
+
+  
 }
