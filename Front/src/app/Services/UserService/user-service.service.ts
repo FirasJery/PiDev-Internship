@@ -1,28 +1,55 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from "@angular/router";
-import {KeycloakService} from "keycloak-angular";
+import {KeycloakEventType, KeycloakService} from "keycloak-angular";
 import {KeycloakUser, keyCredential} from "../../Modules/UserModule/KeycloakUserRep";
 import {CrossOrigin} from "@angular-devkit/build-angular";
 import {User, UserWrapper} from "../../Modules/UserModule/User";
+import {KeycloakProfile} from "keycloak-js";
+import {KeycloakAuthorizationPromise} from "keycloak-js/dist/keycloak-authz";
+import {catchError, tap} from "rxjs";
+import { filter } from 'rxjs/operators';
+import {ApiResponse} from "../../Modules/UserModule/ApiResponse";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class UserServiceService {
+export class UserServiceService  {
 
   message: string = '';
   isRedirected = false;
-  url : string = "http://localhost:9090";
-  constructor(private http: HttpClient,private keycloakService: KeycloakService, private router: Router) {}
+  response : ApiResponse = {} as ApiResponse;
+  url : string = "http://localhost:9090/api/service/user";
+  currentUser: any = {};
+  constructor(private http: HttpClient,private keycloakService: KeycloakService, private router: Router) {
+   /*  this.keycloakService.keycloakEvents$.pipe(
+        filter(event => event.type === KeycloakEventType.OnAuthSuccess),
+        tap(() => this.redirectAfterLogin())
+      ).subscribe();*/
+
+     this.keycloakService.getKeycloakInstance().onTokenExpired = () => {
+       console.log('Token expired');
+       this.updateTokenOnFailure();
+     }
+  }
+  private async updateTokenOnFailure() {
+    try {
+      const newToken = await this.keycloakService.getKeycloakInstance().updateToken(5); // Adjust time as needed
+      console.log('Token refreshed explicitly:', newToken);
+      // Update user data if needed
+    } catch (error) {
+      console.error('Failed to refresh token (both silent and explicit):', error);
+      // Handle complete refresh failure (e.g., prompt user for re-authentication)
+    }
+  }
    redirectAfterLogin() {
     console.log('Redirected = ' + this.isRedirected);
     if (!this.isRedirected) {
       const isAuthenticated = this.keycloakService.isLoggedIn();
       if (isAuthenticated) {
         const userRoles = this.keycloakService.getUserRoles();
-        if (userRoles.includes('Super-Admin') || userRoles.includes('Agent-esprit')) {
+        if (userRoles.includes('SuperAdmin') || userRoles.includes('Agentesprit')) {
           console.log('Redirecting to admin');
           this.router.navigate(['/admins']);
           this.isRedirected = true;
@@ -33,24 +60,65 @@ export class UserServiceService {
           this.isRedirected = true;
         }
       }
+      else
+      {
+        console.log('not connected');
+      }
     }
   }
 
-  adduser()
+
+  adduser(u : User , password : string ,role : string , fn:string , ln : string)
   {
-    let creds = new keyCredential('password','123456',true);
-    let keyUser: KeycloakUser = new KeycloakUser('userAngular',true,'userAngular@gmail.com',[creds],['etudiant'],'rejel');
-    let user : User = new User('userAngular','userAngular@gmail.com','3A13',12345678,"",'123JMT158','gl');
-    let userWrapper : UserWrapper = new UserWrapper(keyUser,user);
+    let creds = new keyCredential('password',password,true);
+    let realmrole = [];
+    realmrole.push(role)
+    let keyUser: KeycloakUser = new KeycloakUser(u.login,true,u.email,[creds],realmrole,fn , ln);
+    let userWrapper : UserWrapper = new UserWrapper(keyUser,u);
     //console.log('UserWrapper object:', userWrapper);
     console.log('UserWrapper JSON:', JSON.stringify(userWrapper));
-    this.http.post<{message : string}>(this.url + '/api/service/user/CreateUser',userWrapper).subscribe(
-      (responseData) => {
-        this.message = responseData.message;
-      }
-    );
-    return this.message;
+    return this.http.post<ApiResponse>(this.url + '/CreateUser',userWrapper).pipe();
   }
+
+  getCurrentUser(): Promise<any> {
+    const keycloak = this.keycloakService.getKeycloakInstance();
+    if (keycloak.authenticated) {
+      return keycloak.loadUserInfo()
+        .then(userInfo => {
+          this.currentUser = userInfo; // Save user info in a variable
+          console.log('Current user:', this.currentUser);
+          return this.currentUser;
+        });
+    } else {
+      // If the user is not authenticated, return a rejected Promise or handle the case accordingly
+      return Promise.reject('User is not authenticated');
+    }
+  }
+
+
+  getUsers() {
+    return this.http.get<User[]>(this.url+'/GetAllUsers');
+  }
+
+  getUserWarpperByEmail( email : String)
+  {
+    return this.http.get<UserWrapper>(this.url+'/GetUserByEmail/' + email);
+  }
+
+  updateUser(u : User ,role : string , fn:string , ln : string)
+  {
+    let keyUser: KeycloakUser = new KeycloakUser(u.login,true,u.email,[],[role],fn , ln);
+    let userWrapper : UserWrapper = new UserWrapper(keyUser,u);
+    console.log('UserWrapper object:', userWrapper);
+    return this.http.put<ApiResponse>(this.url + '/UpdateUser',userWrapper).pipe();
+
+  }
+
+  deleteUser(username : string)
+  {
+    return this.http.delete<ApiResponse>(this.url + '/DeleteUser/' + username).pipe();
+  }
+
 
 
 }

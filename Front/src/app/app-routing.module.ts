@@ -7,14 +7,18 @@ import {UserManagementComponentComponent} from "./back/UserComponents/user-manag
 import {NavBarComponent} from "./back/nav-bar/nav-bar.component";
 import {NavBarFrontComponent} from "./front/nav-bar-front/nav-bar-front.component";
 import {LoginComponent} from "./login/login.component";
+import {ProfileBackComponent} from "./back/UserComponents/profile-back/profile-back.component";
+import {UpdateUserComponent} from "./back/UserComponents/update-user/update-user.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['Super-Admin', 'Agent-esprit'] },
+  { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdmin', 'Agentesprit'] },
     children :
   [
     { path: '', component: BackHomeComponent },
-    { path: 'add', component: UserManagementComponentComponent }
+    { path: 'add', component: UserManagementComponentComponent },
+    { path: 'profile', component: ProfileBackComponent},
+    { path : 'update/:email', component: UpdateUserComponent}
   ]
   }
   ,
@@ -22,7 +26,7 @@ const routes: Routes = [
     path: 'user',
     component: NavBarFrontComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['etudiant', 'Agent-entreprise']},
+    data: {roles: ['etudiant', 'Agententreprise']},
     children:
       [
         {path: '', component: NavBarFrontComponent}

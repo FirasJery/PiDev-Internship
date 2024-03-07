@@ -13,7 +13,10 @@ import { UserManagementComponentComponent } from './back/UserComponents/user-man
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
-
+import { ProfileBackComponent } from './back/UserComponents/profile-back/profile-back.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UpdateUserComponent } from './back/UserComponents/update-user/update-user.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -41,6 +44,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     NavBarFrontComponent,
     UserManagementComponentComponent,
     LoginComponent,
+    ProfileBackComponent,
+    UpdateUserComponent,
 
   ],
   imports: [
@@ -50,7 +55,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BrowserModule,
     KeycloakAngularModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({ // Configure Toastr globally
+      timeOut: 3000, // Set default timeout for notifications in milliseconds
+      positionClass: 'toast-top-right', // Set default position
+      preventDuplicates: true, // Prevent duplicate notifications
+      progressBar: true // Display a progress bar
+    }),
+    BrowserAnimationsModule
 
   ],
   providers: [

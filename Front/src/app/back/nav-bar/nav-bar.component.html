@@ -39,7 +39,7 @@
           Account
         </a>
         <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/admins/profile']">Profile</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a (click)="logout()" class="dropdown-item">Logout</a></li>
         </ul>
@@ -49,10 +49,12 @@
 
 
   <!-- Page content wrapper -->
-  <div id="page-content-wrapper" class = "text-center" [class.toggled]="isSidebarOpen">
+  <div id="page-content-wrapper" [class.toggled]="isSidebarOpen">
     <h1 class="mt-4">Admin Dashboard</h1>
+    <div class="container-fluid">
       <router-outlet></router-outlet>
+    </div>
   </div>
-
-
 </div>
+
+

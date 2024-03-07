@@ -4,12 +4,17 @@ export class User {
   login: string;
   email: string;
   classe: string;
+  role : string;
+  firstName: string;
+  lastName: string;
   num_tel: number;
   role_enreprise: string;
   identifiant: string;
   specialite: string;
+  id_User : number;
 
-  constructor(login: string, email: string, classe: string, num_tel: number, role_enreprise: string, identifiant: string, specialite: string) {
+  constructor(login: string, email: string, classe: string, num_tel: number, role_enreprise: string, identifiant: string, specialite: string, role : string,firstName: string, lastName: string,id_User : number ) {
+
     this.login = login;
     this.email = email;
     this.classe = classe;
@@ -17,12 +22,16 @@ export class User {
     this.role_enreprise = role_enreprise;
     this.identifiant = identifiant;
     this.specialite = specialite;
+    this.role = role;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.id_User = id_User ;
   }
 }
 
 export class UserWrapper {
-  private keycloakUser: KeycloakUser;
-  private user: User;
+   keycloakUser: KeycloakUser;
+   user: User;
 
   constructor(keycloakUser: KeycloakUser, user: User) {
     this.keycloakUser = keycloakUser;

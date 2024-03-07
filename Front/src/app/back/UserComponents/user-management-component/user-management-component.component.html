@@ -9,10 +9,6 @@
     <input type="email" id="email" formControlName="email">
   </div>
   <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password">
-  </div>
-  <div>
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" formControlName="firstName">
   </div>
@@ -21,17 +17,21 @@
     <input type="text" id="lastName" formControlName="lastName">
   </div>
   <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password">
+  </div>
+  <div>
     <label for="role">Role:</label>
     <select id="role" formControlName="role">
-      <option value="Super-Admin">Super-Admin</option>
-      <option value="Agent-esprit">Agent-esprit</option>
-      <option value="Etudiant">Etudiant</option>
-      <option value="Agent-entreprise">Agent-entreprise</option>
+      <option value="SuperAdmin">Super Admin</option>
+      <option value="Agentesprit">Agent esprit</option>
+      <option value="etudiant">Etudiant</option>
+      <option value="Agententreprise">Agent entreprise</option>
     </select>
   </div>
   <div *ngIf="showRoleEntrepriseFields">
-    <label for="roleEntreprise">Role Entreprise:</label>
-    <input type="text" id="roleEntreprise" formControlName="roleEntreprise">
+    <label for="role_entreprise">Role Entreprise:</label>
+    <input type="text" id="role_entreprise" formControlName="role_entreprise">
   </div>
   <div *ngIf="showEtudiantFields">
     <label for="identifiant">Identifiant:</label>

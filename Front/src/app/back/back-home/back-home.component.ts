@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserServiceService} from "../../Services/UserService/user-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../../Modules/UserModule/User";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-back-home',
@@ -9,18 +11,55 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class BackHomeComponent implements OnInit
 {
-
+  message: string = '';
+  username : string = '';
   welcome: string = "Welcome to the back office";
-  constructor(private UserService: UserServiceService, private router: Router, private route: ActivatedRoute) {
+  userList : User[] = [];
+  constructor(private UserService: UserServiceService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private toastr: ToastrService
+  ) {
   }
   sidebarExpanded = true;
 
   ngOnInit() {
+    this.UserService.getUsers().subscribe(users => {
+      this.userList = users;
+    });
+    this.getCurrentUser();
   }
 
-  getWelcomeMessage()
-  {
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.username = userInfo.preferred_username;
+        this.welcome = "hello " + this.username;
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+  }
 
+  updateUser(user: User) {
+    this.router.navigate(['/admins/update', user.email]);
+  }
+
+  deleteUser(user: User) {
+    this.UserService.deleteUser(user.email).subscribe(response => {
+      if (response.success) {
+        console.log(response.message);
+        this.UserService.getUsers().subscribe(users => {
+          this.userList = users; // Update the component's user list
+        });
+        this.message = response.message;
+        this.toastr.success(response.message, 'Success');
+      } else {
+        console.log(response.message);
+        this.message = response.message;
+        this.toastr.error(response.message, 'Error');
+      }
+    });
   }
 
 
