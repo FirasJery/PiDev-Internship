@@ -1,18 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {ReclamationService} from "../../../Services/ReclamationService/reclamation-service.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ReclamationService } from "../../../Services/ReclamationService/reclamation-service.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+
+interface TypeStatut {
+  type: string;
+}
 
 @Component({
   selector: 'app-reclamation-list',
   templateUrl: './reclamation-list.component.html',
-  styleUrl: './reclamation-list.component.css'
+  styleUrls: ['./reclamation-list.component.css']
 })
 export class ReclamationListComponent implements OnInit {
+  typeControl = new FormControl<TypeStatut | null>(null, Validators.required);
+  selectFormControl = new FormControl('', Validators.required);
+  typeReclamation: TypeStatut[] = [
+    { type: 'EN_ATTENTE' },
+    { type: 'APPROUVE' },
+    { type: 'REJETE' },
+    { type: 'A_LETUDE' }
+  ];
   reclamations: any[] = [];
+  reclamationListForm!: FormGroup;
+  isLoading: boolean = false;
+  selectedReclamations: any[] = [];
 
-  constructor(private reclamationService: ReclamationService, private router: Router) { }
+  constructor(private reclamationService: ReclamationService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.reclamationListForm = new FormGroup({
+      Statut_reclamation: new FormControl('', Validators.required)
+    });
     this.fetchReclamations();
   }
 
@@ -27,21 +46,26 @@ export class ReclamationListComponent implements OnInit {
         }
       );
   }
+
   deleteReclamation(id: number): void {
     if (confirm('Voulez-vous vraiment supprimer cette réclamation ?')) {
       this.reclamationService.deleteReclamation(id).subscribe(
         () => {
           console.log('Réclamation supprimée avec succès !');
-          // Rechargez la liste des réclamations après la suppression
           this.fetchReclamations();
         },
         (error: any) => {
           console.error('Erreur lors de la suppression de la réclamation : ', error);
-        }
+        },
       );
     }
   }
+
   goToEditReclamation(id: number): void {
-    this.router.navigate(['/modifier-reclamation', id]);
+    this.router.navigate(['/reclamationEdit', id]);
+  }
+
+  goToReponse(): void {
+    this.router.navigate(['/reponse'], { relativeTo: this.route });
   }
 }

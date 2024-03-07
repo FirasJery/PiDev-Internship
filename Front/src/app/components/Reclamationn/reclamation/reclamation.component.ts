@@ -34,16 +34,25 @@ export class ReclamationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.reclamationService.addReclamation(this.reclamationForm.value)
-      .subscribe(
-        response => {
-          console.log('Réclamation créée avec succès !', response);
-          this.reclamationForm.reset();
-        },
-        error => {
-          console.error('Erreur lors de la création de la réclamation : ', error);
-        }
-      );
+    if (this.reclamationForm.valid) {
+      const newReclamation = {
+        title: this.reclamationForm.value.title,
+        typeReclamation: this.reclamationForm.value.typeReclamation,
+        description_Reclamation: this.reclamationForm.value.description_Reclamation,
+        statut: 'EN_ATTENTE' // Par défaut, le statut est en attente
+      };
+
+      this.reclamationService.addReclamation(newReclamation)
+        .subscribe(
+          response => {
+            console.log('Réclamation créée avec succès !', response);
+            this.reclamationForm.reset();
+          },
+          error => {
+            console.error('Erreur lors de la création de la réclamation : ', error);
+          }
+        );
+    }
   }
 
   onDelete(): void {

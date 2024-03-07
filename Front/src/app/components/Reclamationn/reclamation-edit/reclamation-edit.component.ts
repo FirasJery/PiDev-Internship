@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ReclamationService} from "../../../Services/ReclamationService/reclamation-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-reclamation-edit',
   templateUrl: './reclamation-edit.component.html',
-  styleUrl: './reclamation-edit.component.css'
+  styleUrl: './reclamation-edit.component.css',
 })
-export class ReclamationEditComponent {
+export class ReclamationEditComponent implements OnInit {
   id_Reclamation!: number;
   reclamation: any = {};
   isLoading: boolean = false;
-
+  reclamationForm!: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -43,7 +44,7 @@ export class ReclamationEditComponent {
       response => {
         console.log('Réclamation mise à jour avec succès !', response);
         this.isLoading = false;
-        this.router.navigate(['/liste-reclamations']);
+        this.router.navigate(['/reclamationList']);
       },
       error => {
         console.error('Erreur lors de la mise à jour de la réclamation : ', error);
