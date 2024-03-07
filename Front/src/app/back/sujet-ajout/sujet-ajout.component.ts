@@ -74,14 +74,11 @@ export class SujetAjoutComponent implements OnInit {
 const validatorsByType: { [key: string]: ValidatorFn | null } = {
   STAGE_FORMATION_HUMAINE_SOCIALE: Validators.compose([
     Validators.required,
-    // Add more validators as needed
   ]),
   STAGE_IMMERSION_ENTREPRISE: Validators.compose([
     Validators.required,
-    // Add more validators as needed
   ]),
   STAGE_INGENIEUR: Validators.compose([
     Validators.required,
-    // Add more validators as needed
   ]),
 };
