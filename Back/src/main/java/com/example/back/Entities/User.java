@@ -1,6 +1,6 @@
 package com.example.back.Entities;
 
-import com.example.back.Entities.Enums.UserRole;
+import com.example.internship_management.Entities.Enums.Role_user;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +12,6 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
@@ -20,31 +19,23 @@ public class User {
     @Setter(AccessLevel.NONE)
     Long id_User;
     String login;
-    String email;
-    String firstName;
-    String lastName;
+    String password;
     @Enumerated(EnumType.STRING)
-    UserRole role;
-    int num_tel;
-    String role_entreprise;
-    String identifiant;
+    Role_user roleUser;
     String classe;
+    String email;
+    int num_tel;
+    String role_enreprise;
+    String identifiant;
     String specialite;
     @OneToMany
-    @ToString.Exclude
     private Set<Post> postSet;
     @OneToMany
-    @ToString.Exclude
     private Set<Reclamation> reclamationSet;
     @OneToMany
-    @ToString.Exclude
     private Set<File> fileSet;
     @OneToMany
-    @ToString.Exclude
     private Set<Convention> conventionSet;
     @OneToMany
-    @ToString.Exclude
     private Set<Sujet> sujetSet;
-
-
 }
