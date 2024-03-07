@@ -9,30 +9,37 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Convention</a>
+          <a class="nav-link active" aria-current="page" routerLink="/conventionF">Convention</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Sujets</a>
+          <a class="nav-link active" aria-current="page" routerLink="/sujets">Sujets</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Forum</a>
+          <a class="nav-link active" aria-current="page" routerLink="/forum">Forum</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Reclamation</a>
+          <a class="nav-link active" aria-current="page" routerLink="/reclamation">Reclamation</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Journal</a>
+          <a class="nav-link active" aria-current="page" routerLink="/journal">Journal</a>
         </li>
-        <li class="nav-item dropdown ms-auto" >
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/stage">Stage En Cours</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/myconventions">Mes Convention</a>
+        </li>
+        <li class="nav-item dropdown ms-auto">
+
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Account
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Log out</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" routerLink="/logout">Log out</a></li>
+            <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
           </ul>
         </li>
       </ul>

@@ -13,7 +13,7 @@
         <a ngbNavLink class="nav-link">Comptes</a>
       </ng-container>
       <ng-container ngbNavItem>
-        <a ngbNavLink class="nav-link">Conventions</a>
+        <a ngbNavLink routerLink="/convention" class="nav-link">Conventions</a>
       </ng-container>
       <ng-container ngbNavItem>
         <a ngbNavLink class="nav-link">Journal</a>
@@ -42,11 +42,10 @@
   </div>
 
 
-  <!-- Page content wrapper -->
   <div id="page-content-wrapper" [class.toggled]="isSidebarOpen">
     <div class="container-fluid">
-      <h1 class="mt-4">Admin Dashboard Content</h1>
       <!-- Your content here -->
+
     </div>
   </div>
 </div>

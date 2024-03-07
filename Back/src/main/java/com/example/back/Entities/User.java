@@ -34,8 +34,8 @@ public class User {
     private Set<Reclamation> reclamationSet;
     @OneToMany
     private Set<File> fileSet;
-    @OneToMany
-    private Set<Convention> conventionSet;
+    @OneToOne
+    private Convention convention;
     @OneToMany
     private Set<Sujet> sujetSet;
 }
