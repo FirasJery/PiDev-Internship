@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Postulation } from  '../../models/postulation.model';
 import { Sujet } from '../../models/sujet.model';
+import { EmailRequest } from '../../models/EmailRequest.mosels';
 
 @Injectable({
   providedIn: 'root'
@@ -74,4 +75,10 @@ export class PostulationService {
     return this.http.get<Postulation[]>(`${this.apiUrl}/byIdSujetAndAttente/${sujetId}`);
   }
   
+
+  sendEmail(emailRequest: EmailRequest): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/send-email`, emailRequest);
+  }
+
+
 }
