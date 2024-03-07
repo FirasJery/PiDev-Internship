@@ -6,7 +6,7 @@ import { Sujet } from '../../models/sujet.model';
 import { EmailRequest } from '../../models/EmailRequest.mosels';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'      // you ensure that Angular creates only one instance of the service and provides it globally.
 })
 export class PostulationService {
 

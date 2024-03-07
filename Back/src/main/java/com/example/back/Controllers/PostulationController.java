@@ -36,13 +36,15 @@ public class PostulationController {
 
     @PostMapping("/add")
     public Postulation addPostulation(@RequestParam Long sujetId, @RequestBody Postulation postulation) {
+        // Handle error if sujetId is missing
         if (sujetId == null) {
-            throw new IllegalArgumentException("sujetId is missing"); // Handle error if sujetId is missing
+            throw new IllegalArgumentException("sujetId is missing");
         }
 
         Sujet sujet = sujetRepository.findById(sujetId).orElse(null);
+        // Handle error if sujet is not found
         if (sujet == null) {
-            throw new IllegalArgumentException("Sujet not found"); // Handle error if sujet is not found
+            throw new IllegalArgumentException("Sujet not found");
         }
 
         // Set the default status to 0 if not provided in the request body
@@ -74,14 +76,14 @@ public class PostulationController {
 
 
 
-    // Method to check if the period is valid based on the specified duration
-    private boolean isValidPeriod(Date dateDebut, Date dateFin, int minimumDurationInDays) {
+     //milliseconds to days.
+    //(1000 milliseconds * 60 seconds * 60 minutes * 24 hours).
+   private boolean isValidPeriod(Date dateDebut, Date dateFin, int minimumDurationInDays) {
         long differenceInTime = dateFin.getTime() - dateDebut.getTime();
         long differenceInDays = differenceInTime / (1000 * 3600 * 24);
         return differenceInDays >= minimumDurationInDays;
     }
 
-    // Other methods...
 
 
 
