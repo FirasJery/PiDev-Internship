@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {KeycloakService} from "keycloak-angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,4 +9,27 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+
+  constructor(private keycloak: KeycloakService, private router: Router) {
+    if (this.keycloak.isLoggedIn())
+    {
+        const roles = this.keycloak.getUserRoles();
+        if (roles.includes('Super-Admin') || roles.includes('Agent-esprit')) {
+          console.log('Redirecting to admin');
+          this.router.navigate(['/admins']);
+        } else {
+          console.log('Redirecting to user');
+          this.router.navigate(['/user']);
+        }
+      }
+    else
+    {
+      this.login();
+    }
+
+  }
+
+  login() {
+    this.keycloak.login();
+  }
 }
