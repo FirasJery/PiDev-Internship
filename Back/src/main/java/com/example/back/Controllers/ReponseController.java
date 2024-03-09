@@ -23,7 +23,7 @@ public class ReponseController {
     public Reponse updateReponse (@PathVariable long id_Reponse, @RequestBody Reponse reponse) {
         return reponseService.updateReponse(reponse);
     }
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Reponse> findAll() {
         return reponseService.findAll();
     }

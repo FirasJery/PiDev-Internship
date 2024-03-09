@@ -14,7 +14,7 @@ export class LoginComponent {
     if (this.keycloak.isLoggedIn())
     {
         const roles = this.keycloak.getUserRoles();
-        if (roles.includes('Super-Admin') || roles.includes('Agent-esprit')) {
+        if (roles.includes('SuperAdmin') || roles.includes('Agentesprit')) {
           console.log('Redirecting to admin');
           this.router.navigate(['/admins']);
         } else {

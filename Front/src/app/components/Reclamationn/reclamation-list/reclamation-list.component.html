@@ -1,6 +1,18 @@
 <h1 class="centre">Liste des Réclamations</h1>
+
 <form [formGroup]="reclamationListForm">
   <div  class="entries-section-container">
+    <div class="search-bar-container">
+      <input type="text" [(ngModel)]="searchValue" (keyup)="getSuggestions()" placeholder="Rechercher par titre">
+      <ul *ngIf="suggestions.length > 0">
+        <li *ngFor="let suggestion of suggestions">
+          {{ suggestion.title }}
+        </li>
+      </ul>
+    </div>
+
+<!--    <tr *ngFor="let reclamation of reclamations | transform: searchValue">-->
+<!--    </tr>-->
     <table class="table-auto" >
         <thead>
         <tr>

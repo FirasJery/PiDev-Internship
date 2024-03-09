@@ -154,3 +154,8 @@ tr:hover {
   background-color: black;
   color: white;
 }
+.centree {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

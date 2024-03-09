@@ -35,8 +35,14 @@
       <td>{{ user.classe }}</td>
       <td>{{ user.specialite }}</td>
       <td>
-        <button type="button" class="btn btn-primary" (click)="updateUser(user)">Update</button>
-        <button type="button" class="btn btn-danger" (click)="deleteUser(user)">Delete</button>
+        <div class="nav-justified">
+          <button type="button" class="Button_Reply" (click)="updateUser(user)">Update</button>
+
+
+        <button type="button" class="Button_Delete" (click)="deleteUser(user)">Delete</button>
+
+        </div>
+
       </td>
     </tr>
     </tbody>

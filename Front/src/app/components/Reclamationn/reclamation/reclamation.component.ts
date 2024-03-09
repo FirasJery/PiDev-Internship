@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { ReclamationService } from "../../../Services/ReclamationService/reclamation-service.service";
+import {ToastrService} from "ngx-toastr";
 
 interface TypeReclamation {
   type: string;
@@ -23,7 +24,10 @@ export class ReclamationComponent implements OnInit {
   @Input() description_Reclamation: string = '';
   reclamationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private reclamationService: ReclamationService) { }
+  constructor(private formBuilder: FormBuilder,
+              private reclamationService: ReclamationService,
+              private toastr: ToastrService
+              ) { }
 
   ngOnInit(): void {
     this.reclamationForm = this.formBuilder.group({
@@ -46,12 +50,18 @@ export class ReclamationComponent implements OnInit {
         .subscribe(
           response => {
             console.log('Réclamation créée avec succès !', response);
+            this.toastr.success("Reclamation envoyée ! ", 'Success');
             this.reclamationForm.reset();
           },
           error => {
+            this.toastr.error("Probleme technique", 'Error');
             console.error('Erreur lors de la création de la réclamation : ', error);
           }
         );
+    }
+    else
+    {
+      this.toastr.warning("Remplir tou les champs", 'Warning');
     }
   }
 
