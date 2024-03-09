@@ -56,7 +56,7 @@ export class ConventionService {
   }
   uploadStageReport(stageId: number, formData: FormData): Observable<any> {
     // Adjust the URL based on your API endpoint
-    return this.http.post<any>(`http://localhost:9090/api/stage/uploadReport/2`, formData, {
+    return this.http.post<any>(`http://localhost:9090/api/services/stage/uploadReport/3`, formData, {
       reportProgress: true,
       observe: 'events'
     });

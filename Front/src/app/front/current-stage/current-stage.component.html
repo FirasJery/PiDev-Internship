@@ -36,8 +36,7 @@
                   <!-- Existing table and other elements -->
 
                   <td>
-                    <input type="file" (change)="onFileSelected($event, stage)" hidden #fileInput>
-                    <button type="button" (click)="fileInput.click()">Choose File</button>
+                    <input type="file" (change)="onFileSelected($event, stage)"  #fileInput>
                     <button type="button" (click)="uploadFile(stage)" >Upload</button>
                   </td>
 

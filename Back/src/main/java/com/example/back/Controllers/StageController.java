@@ -55,7 +55,6 @@ public class StageController  {
         List<Stage> stages = stageService.getStagesByUserId(userId);
         return ResponseEntity.ok(stages);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/uploadReport/{stageId}")
     public ResponseEntity<?> uploadReport(@PathVariable Long stageId, @RequestParam("file") MultipartFile reportFile) {
         stageService.saveReport(stageId, reportFile);

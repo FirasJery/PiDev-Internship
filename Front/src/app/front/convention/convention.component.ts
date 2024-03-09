@@ -39,7 +39,7 @@ export class ConventionComponent implements OnInit {
 
   submitForm() {
     // Hard-code the userId value here
-    const userId = 2; // Example userId, change this to the actual userId you need
+    const userId = 1; // Example userId, change this to the actual userId you need
 
     if (this.conventionForm.valid) {
       this.conventionService.addConventionAndAssignToUser(this.conventionForm.value, userId).subscribe({

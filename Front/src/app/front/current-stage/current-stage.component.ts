@@ -14,7 +14,7 @@ export class CurrentStageComponent {
   constructor(private conventionService: ConventionService) { }
 
   ngOnInit(): void {
-    const userId = 2; // Replace with the actual user ID
+    const userId = 1; // Replace with the actual user ID
     this.conventionService.getStageByUser(userId).subscribe(stage => {
       this.stage = stage;
     });
@@ -31,12 +31,12 @@ export class CurrentStageComponent {
       const formData = new FormData();
       formData.append('file', stage.selectedFile);
 
-      // Assuming your service has a method for uploading files
-      // and updating the 'nom_fichier_rapport' column in your database
       this.conventionService.uploadStageReport(stage.idStage, formData).subscribe({
         next: (response) => {
-          console.log('File uploaded successfully', response);
+          console.log('file uploaded successfully', response);
           stage.nom_fichier_rapport = response.filePath; // Update the path after successful upload
+          console.log(stage)
+
         },
         error: (error) => console.error('Error uploading file:', error)
       });

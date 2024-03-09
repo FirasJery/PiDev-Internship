@@ -14,7 +14,7 @@ export class MyconventionsComponent {
   }
 
   ngOnInit(): void {
-    const userId = 2; // Replace with the actual user ID
+    const userId = 1; // Replace with the actual user ID
     this.conventionService.getConventionsByUser(userId).subscribe(conventions => {
       this.conventions = conventions;
     });
