@@ -4,13 +4,16 @@
     <div class="row">
       <!-- Search Input -->
       <div class="col-md-12">
-        <input type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Chercher par nom d'entreprise">
+        <input type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Chercher ">
       </div>
 
       <div class="col-md-12">
         <select [(ngModel)]="filterOption" (change)="applyFilter()">
-          <option value="nbreEtudiant">par nombre d'etudiant</option>
-          <option value="dureeStage">par duree</option>
+          <option value="nbreEtudiantAsc">par nombre d'etudiant Asc</option>
+          <option value="nbreEtudiantDesc">par nombre d'etudiant Desc</option>
+          <option value="dureeStageAsc">par duree Asc</option>
+          <option value="dureeStageDesc">par duree Desc</option>
+
         </select>
       </div>
 

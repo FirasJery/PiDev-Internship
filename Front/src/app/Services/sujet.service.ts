@@ -30,9 +30,9 @@ export class SujetService {
   getSujets(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}`);
   }
-  searchSujets(searchTerm: string): Observable<Sujet[]> {
-    return this.http.get<Sujet[]>(`${this.apiUrl}/search`, { params: { searchTerm } });
-  }
+    searchSujets(searchTerm: string): Observable<Sujet[]> {
+      return this.http.get<Sujet[]>(`${this.apiUrl}/search`, { params: { searchTerm } });
+    }
 
   addSujet(sujet: Sujet): Observable<Sujet> {
     const url = `${this.apiUrl}/add`;
@@ -55,6 +55,13 @@ export class SujetService {
 
   filterByNbretudiantDescending(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byNbretudiantDesc`);
+  }
+  
+  filterByNbretudiantAscending(): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byNbreEtudiantAsc`);
+  }
+  filterByDureeAscending(): Observable<Sujet[]> {
+    return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byDureeAsc`);
   }
 
   filterByDureeDescending(): Observable<Sujet[]> {

@@ -11,6 +11,13 @@ public interface SujetRepository extends JpaRepository<Sujet, Long> {
 
     List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm);
 
+    List<Sujet> findByNomentrepriseContainingIgnoreCaseOrRequirementsContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String nomentrepriseSearchTerm, String requirementsSearchTerm, String descriptionSearchTerm);
+
+
+
     List<Sujet>findByOrderByNbretudiantDesc();
+    List<Sujet>findByOrderByNbretudiantAsc();
     List<Sujet>findByOrderByDureeDesc();
+    List<Sujet>findByOrderByDureeAsc();
+
 }

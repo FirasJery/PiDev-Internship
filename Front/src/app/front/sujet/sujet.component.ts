@@ -46,11 +46,17 @@ export class SujetComponent implements OnInit {
 
   fetchData(): void {
     // Fetch data based on filter option
-    if (this.filterOption === 'nbreEtudiant') {
+    if (this.filterOption === 'nbreEtudiantDesc') {
       this.sujetService.filterByNbretudiantDescending()
         .subscribe(sujets => this.sujets = sujets);
-    } else if (this.filterOption === 'dureeStage') {
+    } else if (this.filterOption === 'nbreEtudiantAsc') {
+      this.sujetService.filterByNbretudiantAscending()
+        .subscribe(sujets => this.sujets = sujets);
+    }else if (this.filterOption === 'dureeStageDesc') {
       this.sujetService.filterByDureeDescending()
+        .subscribe(sujets => this.sujets = sujets);
+    } else if (this.filterOption === 'dureeStageAsc') {
+      this.sujetService.filterByDureeAscending()
         .subscribe(sujets => this.sujets = sujets);
     } else {
       // Fetch all subjects if no filter option selected

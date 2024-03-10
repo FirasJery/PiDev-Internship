@@ -10,10 +10,13 @@ public interface SujetService {
     List<Sujet> findAll();
     Sujet findById (long idSujet);
     List<Sujet> findAllSortedByMailentreprise();
-    List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm);
+    List<Sujet> searchSujets(String searchTerm);
     void delete (long idSujet);
 
-    public List<Sujet> findByNbretudiantOrderByNbretudiantDesc() ;
+     List<Sujet> findByNbretudiantOrderByNbretudiantDesc() ;
+     List<Sujet> findByNbretudiantOrderByNbretudiantAsc();
 
-    public List<Sujet> findByDureeOrderByDureeDesc() ;
+     List<Sujet> findByDureeOrderByDureeDesc() ;
+    List<Sujet> findByDureeOrderByDureeAsc() ;
+
 }

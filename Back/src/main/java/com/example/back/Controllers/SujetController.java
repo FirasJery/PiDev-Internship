@@ -36,8 +36,9 @@ public class SujetController {
 
     @GetMapping("/search")
     public List<Sujet> searchSujets(@RequestParam String searchTerm) {
-        return sujetService.findByNomentrepriseContainingIgnoreCase(searchTerm);
+        return sujetService.searchSujets(searchTerm);
     }
+
 
 
     @GetMapping("/{idSujet}")
@@ -55,10 +56,21 @@ public class SujetController {
     public List<Sujet> filterByNbretudiantDescending() {
         return sujetService.findByNbretudiantOrderByNbretudiantDesc();
     }
+    @GetMapping("/filter/byNbreEtudiantAsc")
+    public List<Sujet> filterByNbretudiantAscending() {
+        return sujetService.findByNbretudiantOrderByNbretudiantAsc();
+    }
 
     @GetMapping("/filter/byDureeDesc")
     public List<Sujet> filterByDureeDescending() {
         return sujetService.findByDureeOrderByDureeDesc();
     }
+
+    @GetMapping("/filter/byDureeAsc")
+    public List<Sujet> filterByDureeAscending() {
+        return sujetService.findByDureeOrderByDureeAsc();
+    }
+
+
 
 }

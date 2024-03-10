@@ -78,10 +78,10 @@ public class SujetServiceImp implements SujetService {
     }
 
     @Override
-
-    public List<Sujet> findByNomentrepriseContainingIgnoreCase(String searchTerm) {
-        return sujetRepository.findByNomentrepriseContainingIgnoreCase(searchTerm);
+    public List<Sujet> searchSujets(String searchTerm) {
+        return sujetRepository.findByNomentrepriseContainingIgnoreCaseOrRequirementsContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm, searchTerm);
     }
+
 
     @Override
     public void delete(long idSujet) {
@@ -99,12 +99,11 @@ public class SujetServiceImp implements SujetService {
         sujetRepository.deleteById(idSujet);
     }
 
-    public List<Sujet> findByNbretudiantOrderByNbretudiantDesc() {
-        return sujetRepository.findByOrderByNbretudiantDesc();
-    }
+    public List<Sujet> findByNbretudiantOrderByNbretudiantDesc() { return sujetRepository.findByOrderByNbretudiantDesc(); }
+    public List<Sujet> findByNbretudiantOrderByNbretudiantAsc() { return sujetRepository.findByOrderByNbretudiantAsc();  }
 
-    public List<Sujet> findByDureeOrderByDureeDesc() {
-        return sujetRepository.findByOrderByDureeDesc();
-    }
+    public List<Sujet> findByDureeOrderByDureeDesc() { return sujetRepository.findByOrderByDureeDesc();  }
+
+    public List<Sujet> findByDureeOrderByDureeAsc() { return sujetRepository.findByOrderByDureeAsc();  }
 
 }
