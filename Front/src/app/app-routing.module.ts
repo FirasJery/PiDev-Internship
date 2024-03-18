@@ -1,14 +1,24 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {FrontHomeComponent} from "./front/front-home/front-home.component";
 import {BackHomeComponent} from "./back/back-home/back-home.component";
+import {SujetComponent} from './front/sujet/sujet.component';
+import {SujetAjoutComponent} from './back/sujet-ajout/sujet-ajout.component';
+import {SujetAfficherComponent} from './back/sujet-afficher/sujet-afficher.component';
+import {PostulationComponent} from './front/postulation/postulation.component';
+import {AffichPostulationComponent} from './front/affich-postulation/affich-postulation.component';
+import {PostulationValiderComponent} from './back/postulation-valider/postulation-valider.component';
+import {PostulatiionSujetComponent} from './back/postulatiion-sujet/postulatiion-sujet.component';
+
 import {ReclamationComponent} from "./components/Reclamationn/reclamation/reclamation.component";
 import {ReclamationListComponent} from "./components/Reclamationn/reclamation-list/reclamation-list.component";
 import {ReclamationEditComponent} from "./components/Reclamationn/reclamation-edit/reclamation-edit.component";
 import {ReponseComponent} from "./components/Reponsee/reponse/reponse.component";
 import {ReponseListComponent} from "./components/Reponsee/reponse-list/reponse-list.component";
 import {AuthGuard} from "./guard/auth.guard";
-import {UserManagementComponentComponent} from "./back/UserComponents/user-management-component/user-management-component.component";
+import {
+  UserManagementComponentComponent
+} from "./back/UserComponents/user-management-component/user-management-component.component";
 import {NavBarComponent} from "./back/nav-bar/nav-bar.component";
 import {NavBarFrontComponent} from "./front/nav-bar-front/nav-bar-front.component";
 import {LoginComponent} from "./login/login.component";
@@ -20,21 +30,36 @@ const routes: Routes = [
   //{ path: 'back', component : BackHomeComponent },
   //{ path: 'reclamation', component : ReclamationComponent }, // add
   //{ path: 'reclamationList', component : ReclamationListComponent },
-  { path: 'reponse', component:ReponseComponent},
+  {path: 'reponse', component: ReponseComponent},
 
-  { path: '', component: LoginComponent },
-  { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdmin', 'Agentesprit'] },
-    children :
-  [
-    { path: '', component: BackHomeComponent },
-    { path: 'add', component: UserManagementComponentComponent },
-    { path: 'profile', component: ProfileBackComponent},
-    { path : 'update/:email', component: UpdateUserComponent},
-    { path: 'reclamationList', component : ReclamationListComponent },
-    { path: 'reclamationEdit/:id', component: ReclamationEditComponent },
-    { path: 'reponse', component:ReponseComponent},
-    { path: 'reponseList', component:ReponseListComponent},
-  ]
+  {
+    path: 'postuler/:idsujet', component: PostulationComponent
+  },
+  {path: '', redirectTo: 'front', pathMatch: 'full'},
+  {path: 'front', component: FrontHomeComponent},
+  {path: 'postuler', component: PostulationComponent},
+  {path: 'affich_postulation', component: AffichPostulationComponent},
+  {path: 'back', component: BackHomeComponent},
+  {path: 'sujets', component: SujetComponent},
+  {path: 'ajoutsujet', component: SujetAjoutComponent},
+  {path: 'affichsujet', component: SujetAfficherComponent},
+  {path: 'validerpostulation', component: PostulationValiderComponent},
+  {path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent},
+
+  {path: '', component: LoginComponent},
+  {
+    path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: {roles: ['SuperAdmin', 'Agentesprit']},
+    children:
+      [
+        {path: '', component: BackHomeComponent},
+        {path: 'add', component: UserManagementComponentComponent},
+        {path: 'profile', component: ProfileBackComponent},
+        {path: 'update/:email', component: UpdateUserComponent},
+        {path: 'reclamationList', component: ReclamationListComponent},
+        {path: 'reclamationEdit/:id', component: ReclamationEditComponent},
+        {path: 'reponse', component: ReponseComponent},
+        {path: 'reponseList', component: ReponseListComponent},
+      ]
   }
   ,
   {
@@ -45,7 +70,7 @@ const routes: Routes = [
     children:
       [
         {path: '', component: NavBarFrontComponent},
-        { path: 'reclamation', component : ReclamationComponent },
+        {path: 'reclamation', component: ReclamationComponent},
       ]
   }
 ];
@@ -54,4 +79,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

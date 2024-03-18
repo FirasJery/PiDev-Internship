@@ -1,5 +1,5 @@
 package com.example.back.Entities;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.back.Entities.Enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,7 +26,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     UserRole role;
     int num_tel;
-    String role_entreprise;
+    String role_enreprise;
     String identifiant;
     String classe;
     String specialite;
@@ -42,9 +42,9 @@ public class User {
     @OneToMany
     @ToString.Exclude
     private Set<Convention> conventionSet;
-    @OneToMany
     @ToString.Exclude
-    private Set<Sujet> sujetSet;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<Postulation> postulations;
 
 }
