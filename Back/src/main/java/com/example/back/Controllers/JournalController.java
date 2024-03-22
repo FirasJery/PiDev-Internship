@@ -6,6 +6,8 @@ import com.example.back.Services.JournalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/services/journal")
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class JournalController {
 
-    public  final JournalService journalService;
+    public final JournalService journalService;
 
 
     @PostMapping
@@ -24,7 +26,7 @@ public class JournalController {
     @PostMapping("/{id_Stage}")
     public Journal addJournalAndAssignToStage(@RequestBody Journal journal, @PathVariable long id_Stage) {
 
-        return  journalService.addJournalAndAssignToStage(journal, id_Stage);
+        return journalService.addJournalAndAssignToStage(journal, id_Stage);
     }
 
 
@@ -35,7 +37,14 @@ public class JournalController {
     }
 
     @GetMapping("/{id_Journal}")
-    public Journal findById(@PathVariable Long id_Journal){
-        return  journalService.findById(id_Journal);
+    public Journal findById(@PathVariable Long id_Journal) {
+        return journalService.findById(id_Journal);
+    }
+
+
+    @GetMapping("/getjournalbyencadrant/{mailEncadrant}")
+    public Set<Journal> GetJournalByEncadrant(@PathVariable String mailEncadrant) {
+
+     return journalService.GetJournalByEncadrant(mailEncadrant);
     }
 }

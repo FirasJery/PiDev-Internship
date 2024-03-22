@@ -26,6 +26,7 @@ public class Tache_journalServiceImp implements Tache_journalService {
     @Override
     public Tache_journal addTache_Journal(Tache_journal tache_journal) {
         tache_journal.setDatetache(LocalDateTime.now());
+        tache_journal.setValid(false);
         return tache_journalRepos.save(tache_journal);
     }
 

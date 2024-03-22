@@ -19,12 +19,12 @@ public class Convention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long id_Convention;
-    String nom_entreprise;
-    Date date_debut;
-    Date date_fin;
+    Long idConvention;
+    String nomEntreprise;
+    Date dateDebut;
+    Date dateFin;
     String adresse;
-    int num_tel;
-    String nom_encadrant;
-    String email_encadrant;
+    int numTel;
+    String nomEncadrant;
+    String emailEncadrant;
 }

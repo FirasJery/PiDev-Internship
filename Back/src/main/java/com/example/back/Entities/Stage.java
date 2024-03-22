@@ -16,11 +16,11 @@ public class Stage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long id_Stage;
-    String sujet_Stage;
-    float note_stage;
+    Long idStage;
+    String sujetStage;
+    float notestage;
     boolean archived;
-    String nom_fichier_rapport;
+    String nomFichierRapport;
     @OneToOne
     private Convention convention;
     @OneToOne

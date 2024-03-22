@@ -17,4 +17,6 @@ public interface JournalService {
 
 
     Journal addJournalAndAssignToStage(Journal journal , Long id_Stage);
+
+    Set<Journal> GetJournalByEncadrant(String mailEncadrant);
 }

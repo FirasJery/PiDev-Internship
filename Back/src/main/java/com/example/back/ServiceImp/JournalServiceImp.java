@@ -49,6 +49,8 @@ public class JournalServiceImp implements JournalService {
     public Journal addJournalAndAssignToStage(Journal journal, Long id_Stage) {
 
         Stage stage = stageRepos.findById(id_Stage).orElse(null);
+        Set<Tache_journal> tjs = new HashSet<>();
+        journal.setTache_journal(tjs);
 
         journalRepos.save(journal);
 
@@ -56,6 +58,11 @@ public class JournalServiceImp implements JournalService {
         stageRepos.save(stage);
 
         return journal;
+    }
+
+    @Override
+    public Set<Journal> GetJournalByEncadrant(String mailEncadrant) {
+        return journalRepos.findByStage_Convention_EmailEncadrantLike(mailEncadrant);
     }
 
 }
