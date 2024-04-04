@@ -9,6 +9,11 @@ import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavBarComponent } from './back/nav-bar/nav-bar.component';
 import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.component';
+import { PostComponent } from './back/post/post.component';
+import { PostfComponent } from './front/postf/postf.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import { MypostsComponent } from './front/myposts/myposts.component';
 
 
 @NgModule({
@@ -18,13 +23,18 @@ import { NavBarFrontComponent } from './front/nav-bar-front/nav-bar-front.compon
     BackHomeComponent,
     LoginComponent,
     NavBarComponent,
-    NavBarFrontComponent
+    NavBarFrontComponent,
+    PostComponent,
+    PostfComponent,
+    MypostsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
 
   ],
   providers: [],

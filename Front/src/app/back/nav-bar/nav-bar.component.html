@@ -22,7 +22,7 @@
         <a ngbNavLink class="nav-link">Sujet</a>
       </ng-container>
       <ng-container ngbNavItem>
-        <a ngbNavLink class="nav-link">Forum</a>
+        <a ngbNavLink routerLink="/post" class="nav-link">Forum</a>
       </ng-container>
       <ng-container ngbNavItem>
         <a ngbNavLink class="nav-link">Reclamation</a>
@@ -43,10 +43,5 @@
 
 
   <!-- Page content wrapper -->
-  <div id="page-content-wrapper" [class.toggled]="isSidebarOpen">
-    <div class="container-fluid">
-      <h1 class="mt-4">Admin Dashboard Content</h1>
-      <!-- Your content here -->
-    </div>
-  </div>
+
 </div>
