@@ -5,6 +5,7 @@ import com.example.back.Entities.Post;
 import com.example.back.ServiceImp.CommentaireServiceImp;
 import com.example.back.Services.CommentaireService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,12 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.List;
+
 
 
 @RequiredArgsConstructor
@@ -50,6 +57,7 @@ public class CommentaireController {
     public Commentaire addCommentToPost(@RequestBody Commentaire commentaire, @PathVariable Long postId) {
         return commentaireService.createCommentaireWithPost(commentaire, postId);
     }
+
     @PostMapping("/addCommentToPostAndAssignToUser/{postId}/users/{userId}/comments")
     public ResponseEntity<?> addCommentToUserPost(
             @RequestBody Commentaire commentaire,

@@ -67,6 +67,7 @@ export class PostComponent {
   addPost(): void {
     var userId =1
     this.postService.createPost(this.newPost,userId).subscribe(post => {
+
       this.posts.push(post); // Add the new post to the posts array
       // Reset the newPost object for the next entry
       this.newPost = {

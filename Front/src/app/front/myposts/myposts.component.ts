@@ -34,8 +34,10 @@ export class MypostsComponent {
   }
 
   getAllPosts(): void {
+
     var userId=1
     this.postService.getAllPostsbyUserId(userId).subscribe(posts => {
+
       this.posts = posts;
     });
   }

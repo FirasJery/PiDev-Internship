@@ -6,6 +6,7 @@ import com.example.back.Entities.User;
 import com.example.back.Repositories.CommentaireRepository;
 import com.example.back.Repositories.PostRepository;
 import com.example.back.Repositories.UserRepository;
+import com.example.back.Repositories.CommentaireRepository;
 import com.example.back.Services.CommentaireService;
 import com.example.back.Services.PostService;
 import jakarta.persistence.EntityNotFoundException;
@@ -90,5 +91,6 @@ public class CommentaireServiceImp implements CommentaireService {
         return commentaireRepository.save(commentaire);
     }
     }
+
 
 

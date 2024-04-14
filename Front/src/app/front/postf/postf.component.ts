@@ -23,7 +23,7 @@ export class PostfComponent {
     sujet_Post: '',
     isAnonymous: false,
     date_Post: new Date().toISOString(),
-    profileImage: '', // Default image path
+    profileImage: 'assets/user.png', // Default image path
     likes: 0, // Initialize likes to 0
     dislikes: 0,
     isLikedByCurrentUser: false,
@@ -93,6 +93,26 @@ export class PostfComponent {
       };
      });
    }*/
+  // addPost(): void {
+  //   this.postService.createPost(this.newPost).subscribe(post => {
+  //     this.posts.push(post); // Add the new post to the posts array
+  //     // Reset the newPost object for the next entry
+  //     this.newPost = {
+  //       idPost: 0,
+  //       contenu_Post: '',
+  //       sujet_Post: '',
+  //       isAnonymous: false,
+  //       date_Post: new Date().toISOString(),
+  //       profileImage: 'assets/user.png', // Default image path
+  //       likes: 0, // Initialize likes to 0
+  //       dislikes: 0,
+  //       isLikedByCurrentUser: false,
+  //       isDislikedByCurrentUser: false
+  //
+  //
+  //     };
+  //   });
+  // }
 
   viewComments(post: Post): void {
     // If comments have not been fetched yet, fetch them

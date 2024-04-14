@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -36,14 +40,16 @@ public class PostController {
         return post;
     }
 
+
     @GetMapping("/getallpost/all")
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
 
+
     @PutMapping("/updatepost/updateP")
     public Post updatePost(@RequestBody Post post) {
-        return postService.updatePost(post);
+        return  postService.updatePost(post);
     }
 
     @DeleteMapping("/deletepost/{idPost}")
@@ -107,3 +113,5 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }}
 }
+
+
