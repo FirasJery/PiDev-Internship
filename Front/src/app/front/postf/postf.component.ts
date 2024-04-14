@@ -73,7 +73,7 @@ export class PostfComponent {
   //   this.editingPost = null; // Cancel editing and clear the form
   // }
 
-  addPost(): void {
+  /*addPost(): void {
      this.postService.createPost(this.newPost).subscribe(post => {
   this.posts.push(post); // Add the new post to the posts array
       // Reset the newPost object for the next entry
@@ -92,7 +92,7 @@ export class PostfComponent {
 
       };
      });
-   }
+   }*/
 
   viewComments(post: Post): void {
     // If comments have not been fetched yet, fetch them

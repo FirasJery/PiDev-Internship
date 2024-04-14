@@ -2,7 +2,10 @@ package com.example.back.ServiceImp;
 
 import com.example.back.Entities.Commentaire;
 import com.example.back.Entities.Post;
+import com.example.back.Entities.User;
 import com.example.back.Repositories.CommentaireRepository;
+import com.example.back.Repositories.PostRepository;
+import com.example.back.Repositories.UserRepository;
 import com.example.back.Services.CommentaireService;
 import com.example.back.Services.PostService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +21,8 @@ import java.util.List;
 public class CommentaireServiceImp implements CommentaireService {
     private final CommentaireRepository commentaireRepository;
     private final PostService postService;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
     @Override
     public Commentaire createCommentaire(Commentaire commentaire) {
         return commentaireRepository.save(commentaire);
@@ -65,4 +70,25 @@ public class CommentaireServiceImp implements CommentaireService {
         return null;
     }
 
-}
+    @Override
+    @Transactional
+
+    public Commentaire addCommentToPostAndAssignToUser(Commentaire commentaire, Long postId, Long userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+
+
+        // Verify that the post exists and get it
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
+
+        // Set the post to the comment
+        commentaire.setPost(post);
+
+        // Save the comment
+        return commentaireRepository.save(commentaire);
+    }
+    }
+
+

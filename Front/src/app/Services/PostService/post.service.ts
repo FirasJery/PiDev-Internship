@@ -16,8 +16,8 @@ export class PostService {
 
   constructor(private  http:HttpClient) { }
 
-  createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiURL}/addpost`, post);
+  createPost(post: Post, userId:number): Observable<Post> {
+    return this.http.post<Post>(`${this.apiURL}/createPostForUser/${userId}`, post);
   }
 
   getPostById(idPost: number): Observable<Post> {
@@ -26,6 +26,9 @@ export class PostService {
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.apiURL}/getallpost/all`);
+  }
+  getAllPostsbyUserId(userId:number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiURL}/getpostbyuserid/${userId}`);
   }
 
   updatePost(post: Post): Observable<Post> {

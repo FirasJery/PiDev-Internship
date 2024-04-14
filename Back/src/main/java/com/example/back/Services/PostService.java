@@ -16,6 +16,9 @@ public interface PostService {
     Post dislikePost(Long idPost);
      Post unlikePost(Long idPost);
      Post undislikePost(Long idPost) ;
+    Post createPostAndAssignToUser(Post post,Long userId);
+    List<Post> getPostsByUser(Long userId);
+
 
 
 

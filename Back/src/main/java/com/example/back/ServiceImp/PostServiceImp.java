@@ -2,23 +2,26 @@ package com.example.back.ServiceImp;
 
 import com.example.back.Entities.Commentaire;
 import com.example.back.Entities.Post;
+import com.example.back.Entities.User;
 import com.example.back.Repositories.PostRepository;
+import com.example.back.Repositories.UserRepository;
 import com.example.back.Services.PostService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImp implements PostService {
 
     private final PostRepository postRepository;
-
-
-
+    private final UserRepository userRepository;
 
 
     @Override
@@ -132,8 +135,30 @@ public class PostServiceImp implements PostService {
         return post;
     }
 
+    @Override
+    @Transactional
+    public Post createPostAndAssignToUser(Post post, Long userId) {
+        // Retrieve the user by ID
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User with ID " + userId + " not found"));
 
+        // Save the post to generate its ID
+        Post savedPost = postRepository.save(post);
+
+        // Add a relationship entry in the join table
+        postRepository.assignPostToUser(user.getId_User(), savedPost.getIdPost());
+
+        // Return the saved post
+        return savedPost;
     }
+
+    @Override
+    public List<Post> getPostsByUser(Long userId) {
+        return postRepository.findPostsByUserId(userId);
+    }
+
+
+}
 
 
 

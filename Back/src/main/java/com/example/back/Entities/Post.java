@@ -1,5 +1,6 @@
 package com.example.back.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,6 +23,7 @@ public class Post {
     String sujet_Post;
     boolean isAnonymous;
     LocalDateTime date_Post;
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Commentaire> commentaires;
     String profileImage ;// Add this attribute for the profile image

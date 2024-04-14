@@ -12,5 +12,6 @@ public interface CommentaireService {
     Boolean deleteCommentaire(Long idCommentaire);
     List<Commentaire> getCommentsByPostId(Long idPost);
     Commentaire createCommentaireWithPost(Commentaire commentaire, Long postId);
+    Commentaire addCommentToPostAndAssignToUser(Commentaire commentaire, Long postId, Long userId);
 
 }
