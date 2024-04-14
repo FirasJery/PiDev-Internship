@@ -45,6 +45,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.5.9</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/java/com/example/back/Config/minio-8.5.9-all.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<build>
