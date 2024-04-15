@@ -40,32 +40,37 @@ public class FileSeviceImp implements FileService {
         return filePath.toString();
     }
 
-    public Res uploadImageToDrive(File file) throws GeneralSecurityException, IOException {
+    public Res uploadFileToDrive(MultipartFile file) throws GeneralSecurityException, IOException {
         Res res = new Res();
 
-        try{
+        try {
             String folderId = "1cLKshx8ru7eXFxR7YJIe-ukOhlkVO2WP";
             Drive drive = createDriveService();
             com.google.api.services.drive.model.File fileMetaData = new com.google.api.services.drive.model.File();
-            fileMetaData.setName(file.getName());
+            fileMetaData.setName(file.getOriginalFilename());
             fileMetaData.setParents(Collections.singletonList(folderId));
-            FileContent mediaContent = new FileContent("image/jpeg", file);
+            FileContent mediaContent = new FileContent(file.getContentType(), convertMultipartFileToFile(file));
             com.google.api.services.drive.model.File uploadedFile = drive.files().create(fileMetaData, mediaContent)
                     .setFields("id").execute();
-            String imageUrl = "https://drive.google.com/uc?export=view&id="+uploadedFile.getId();
-            System.out.println("IMAGE URL: " + imageUrl);
-            file.delete();
+            String fileUrl = "https://drive.google.com/uc?export=view&id=" + uploadedFile.getId();
+            System.out.println("File URL: " + fileUrl);
             res.setStatus(200);
-            res.setMessage("Image Successfully Uploaded To Drive");
-            res.setUrl(imageUrl);
-        }catch (Exception e){
+            res.setMessage("File Successfully Uploaded To Drive");
+            res.setUrl(fileUrl);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             res.setStatus(500);
             res.setMessage(e.getMessage());
         }
-        return  res;
-
+        return res;
     }
+
+    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+        File convertedFile = new File(System.getProperty("java.io.tmpdir") + "/" + file.getOriginalFilename());
+        file.transferTo(convertedFile);
+        return convertedFile;
+    }
+
 
     private Drive createDriveService() throws GeneralSecurityException, IOException {
 

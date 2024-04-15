@@ -9,9 +9,8 @@ import java.security.GeneralSecurityException;
 
 public interface FileService {
 
+    Res uploadFileToDrive(MultipartFile file) throws GeneralSecurityException, IOException;
 
-
-    Res uploadImageToDrive(File file) throws GeneralSecurityException, IOException ;
 
     //  void uploadFile(MultipartFile file, String bucketName, String objectName, String contentType);
 }

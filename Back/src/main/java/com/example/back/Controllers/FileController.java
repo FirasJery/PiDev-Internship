@@ -21,14 +21,13 @@ public class FileController {
     @Autowired
     private  FileService fileService;
 
+
     @PostMapping("/uploadToGoogleDrive")
-    public Object handleFileUpload(@RequestParam("image") MultipartFile file) throws IOException, GeneralSecurityException {
+    public Object handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, GeneralSecurityException {
         if (file.isEmpty()) {
-            return "FIle is empty";
+            return "File is empty";
         }
-        File tempFile = File.createTempFile("temp", null);
-        file.transferTo(tempFile);
-        Res res = fileService.uploadImageToDrive(tempFile);
+        Res res = fileService.uploadFileToDrive(file);
         System.out.println(res);
         return res;
     }
