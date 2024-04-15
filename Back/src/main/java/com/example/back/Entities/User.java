@@ -35,13 +35,17 @@ public class User {
     private Set<Post> postSet;
     @OneToMany
     private Set<Reclamation> reclamationSet;
-    @OneToMany
-    private Set<File> fileSet;
+
     @OneToMany
     private Set<Convention> conventionSet;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Postulation> postulations;
+
+
+    @OneToMany
+    private Set<File> fileSet;
+
 
 }

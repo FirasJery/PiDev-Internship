@@ -18,9 +18,10 @@ export class PostulationService {
     return this.http.get<Sujet>(`${this.apiUrl}/sujet/${idsujet }`); 
   }
 
-  addPostulation(postulation: Postulation, sujetId: number): Observable<Postulation> {
-    return this.http.post<Postulation>(`${this.apiUrl}/add?sujetId=${sujetId}`, postulation);
+ addPostulation(postulation: Postulation, sujetId: number): Observable<Postulation> {
+   return this.http.post<Postulation>(`${this.apiUrl}/add?sujetId=${sujetId}`, postulation);
   }
+
   
 
   updatePostulation(postulation: Postulation, id: number): Observable<Postulation> {

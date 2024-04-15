@@ -1,7 +1,5 @@
 package com.example.back.Entities;
 
-import com.example.internship_management.Entities.Enums.Note_evaluation;
-import com.example.internship_management.Entities.Enums.Type_file;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -1,6 +1,6 @@
 package com.example.internship_management.Entities.Enums;
 
-public enum Type_file {
+public enum Typefile {
     DEMANDE_STAGE,
     RAPPORT,
     ATTESTATION
