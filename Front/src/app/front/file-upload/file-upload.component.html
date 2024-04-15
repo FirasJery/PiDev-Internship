@@ -1,0 +1,11 @@
+<app-nav-bar-front></app-nav-bar-front>
+
+<div class="app">
+    <div *ngIf="resultMessage" [class]="resultMessage.type">
+    {{ resultMessage.result.status == 200 ? 'Success: ' + resultMessage.result.message : 'Error: ' + resultMessage.result.message }}
+    </div>
+    <h1>Ajouter votre papier de stage</h1>
+    <input type="file" (change)="handleFileChange($event)" />
+    <button (click)="handleUpload()" [disabled]="!selectedFile">Télécharger le fichier</button>
+</div>
+    

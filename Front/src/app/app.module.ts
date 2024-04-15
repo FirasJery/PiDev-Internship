@@ -16,7 +16,8 @@ import { SujetAfficherComponent } from './back/sujet-afficher/sujet-afficher.com
 import { PostulationComponent } from './front/postulation/postulation.component';
 import { AffichPostulationComponent } from './front/affich-postulation/affich-postulation.component';
 import { PostulationValiderComponent } from './back/postulation-valider/postulation-valider.component';
-import { PostulatiionSujetComponent } from './back/postulatiion-sujet/postulatiion-sujet.component'; 
+import { PostulatiionSujetComponent } from './back/postulatiion-sujet/postulatiion-sujet.component';
+import { FileUploadComponent } from './front/file-upload/file-upload.component';
 
 
 @NgModule({
@@ -33,8 +34,9 @@ import { PostulatiionSujetComponent } from './back/postulatiion-sujet/postulatii
     PostulationComponent,
     AffichPostulationComponent,
     PostulationValiderComponent,
-    PostulatiionSujetComponent
-  ],
+    PostulatiionSujetComponent,
+    FileUploadComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,
