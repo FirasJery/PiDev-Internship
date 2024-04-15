@@ -1,7 +1,11 @@
-package com.example.internship_management.Entities.Enums;
+package com.example.back.Entities.Enums;
 
 public enum Typefile {
-    DEMANDE_STAGE,
-    RAPPORT,
-    ATTESTATION
+
+
+        DEMANDE_STAGE,
+        RAPPORT,
+        ATTESTATION
+
+
 }

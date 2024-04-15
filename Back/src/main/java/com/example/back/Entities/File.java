@@ -1,10 +1,11 @@
 package com.example.back.Entities;
 
+import com.example.back.Entities.Enums.Typefile;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import  com.example.internship_management.Entities.Enums.Typefile;
-    @Entity
+
+@Entity
     @Getter
     @Setter
     @AllArgsConstructor
@@ -18,6 +19,9 @@ import  com.example.internship_management.Entities.Enums.Typefile;
         String filename;
         @Enumerated(EnumType.STRING)
         Typefile type;
+
+        @Lob
+        byte[] filecontent;
 
 
     }
