@@ -1,17 +1,9 @@
 package com.example.back.ServiceImp;
 
 import com.example.back.Entities.*;
+import com.example.back.Entities.Enums.Typefile;
 import com.example.back.Repositories.*;
 import com.example.back.Services.*;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.IOException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
@@ -19,28 +11,35 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+
 @Service
 public class FileSeviceImp implements FileService {
 
-   // private  FileRepository fileRepository;
+    @Autowired
+    private
+    FileRepository fileRepository;
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String SERVICE_ACOUNT_KEY_PATH = getPathToGoodleCredentials();
+    private static final String SERVICE_ACOUNT_KEY_PATH = getPathToGoogleCredentials();
 
-
-
-    private static String getPathToGoodleCredentials() {
+    private static String getPathToGoogleCredentials() {
         String currentDirectory = System.getProperty("user.dir");
         Path filePath = Paths.get(currentDirectory, "cred.json");
         return filePath.toString();
     }
 
-    public Res uploadFileToDrive(MultipartFile file) throws GeneralSecurityException, IOException {
+    @Override
+    public Res uploadFileToDrive(MultipartFile file, Typefile type) throws GeneralSecurityException, IOException {
         Res res = new Res();
 
         try {
@@ -57,6 +56,14 @@ public class FileSeviceImp implements FileService {
             res.setStatus(200);
             res.setMessage("File Successfully Uploaded To Drive");
             res.setUrl(fileUrl);
+
+            //  store file URL and type in the database
+            com.example.back.Entities.File fileEntity = new com.example.back.Entities.File();
+            fileEntity.setFileurl(fileUrl);
+            fileEntity.setType(type);
+            // Save fileEntity to the database
+             fileRepository.save(fileEntity); // Uncomment this line after injecting fileRepository
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             res.setStatus(500);
@@ -71,71 +78,13 @@ public class FileSeviceImp implements FileService {
         return convertedFile;
     }
 
-
     private Drive createDriveService() throws GeneralSecurityException, IOException {
-
         GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(SERVICE_ACOUNT_KEY_PATH))
                 .createScoped(Collections.singleton(DriveScopes.DRIVE));
-
         return new Drive.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JSON_FACTORY,
                 credential)
                 .build();
-
     }
-
-
-
-
-
-/*
-    private String saveFileToLocal(MultipartFile reportFile) {
-        try {
-            // Define the directory path where you want to save the files
-            String directoryPath = "C:/Users/Yasoulanda/OneDrive/Desktop/Files";
-            String originalFileName = reportFile.getOriginalFilename();
-            String filePath = directoryPath + File.separator + originalFileName;
-
-            // Create a file object with the full file path
-            File destinationFile = new File(filePath);
-
-            // Make directories if they do not exist
-            if (!destinationFile.getParentFile().exists()) {
-                destinationFile.getParentFile().mkdirs();
-            }
-
-            // Transfer the file to the given path
-            reportFile.transferTo(destinationFile);
-
-            // Return the path for storage in the database
-            return filePath;
-        } catch (IOException e) {
-            // Handle the exception as per your requirements
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    @Autowired
-    private MinioClient minioClient;
-
-    public void uploadFile(MultipartFile file, String bucketName, String objectName, String contentType) {
-        try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-            if (!found) {
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
-            }
-            minioClient.putObject(
-                    PutObjectArgs.builder().bucket(bucketName).object(objectName).stream(
-                                    file.getInputStream(), file.getSize(), -1)
-                            .contentType(contentType)
-                            .build());
-        } catch (Exception e) {
-            throw new RuntimeException("Error uploading file: " + e.getMessage());
-        }
-    }
-
-*/
 }

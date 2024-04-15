@@ -10,10 +10,10 @@ export class FileUploadService {
 
   constructor(private http: HttpClient) { }
 
-  uploadFileToGoogleDrive(file: File): Observable<any> {
+  uploadFileToGoogleDrive(file: File, type: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post(`${this.apiUrl}/uploadToGoogleDrive`, formData);
+    return this.http.post(`${this.apiUrl}/uploadToGoogleDrive?type=${type}`, formData);
   }
 }

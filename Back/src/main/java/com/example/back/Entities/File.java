@@ -16,12 +16,16 @@ import lombok.experimental.FieldDefaults;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Setter(AccessLevel.NONE)
         Long idfile;
-        String filename;
+        String fileurl;
         @Enumerated(EnumType.STRING)
         Typefile type;
 
-        @Lob
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+
+     /*   @Lob
         byte[] filecontent;
 
-
+*/
     }

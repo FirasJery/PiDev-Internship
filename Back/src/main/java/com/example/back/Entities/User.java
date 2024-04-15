@@ -44,8 +44,8 @@ public class User {
     private Set<Postulation> postulations;
 
 
-    @OneToMany
-    private Set<File> fileSet;
+    @OneToMany(mappedBy = "user")
+    private Set<File> files;
 
 
 }

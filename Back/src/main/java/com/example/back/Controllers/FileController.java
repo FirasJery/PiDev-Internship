@@ -1,6 +1,7 @@
 package com.example.back.Controllers;
 
 
+import com.example.back.Entities.Enums.Typefile;
 import com.example.back.Services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,14 @@ public class FileController {
 
 
     @PostMapping("/uploadToGoogleDrive")
-    public Object handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, GeneralSecurityException {
+    public Object handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("type") Typefile type) throws IOException, GeneralSecurityException {
         if (file.isEmpty()) {
             return "File is empty";
         }
-        Res res = fileService.uploadFileToDrive(file);
+        Res res = fileService.uploadFileToDrive(file, type);
         System.out.println(res);
         return res;
     }
-
 
 
 }

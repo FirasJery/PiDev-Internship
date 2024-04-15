@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FileUploadService } from '../../Services/file-upload.service';
 
-
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -9,22 +8,35 @@ import { FileUploadService } from '../../Services/file-upload.service';
 })
 export class FileUploadComponent {
 
-  selectedFile: File | null = null;
+  selectedDemandeStageFile: File | null = null;
+  selectedAttestationFile: File | null = null;
+  selectedRapportFile: File | null = null;
   resultMessage: { type: string; result: any } | null = null;
 
   constructor(private fileUploadService: FileUploadService) { }
 
-  handleFileChange(event: any): void {
-    this.selectedFile = event.target.files[0];
+  handleFileChange(event: any, type: string): void {
+    const file = event.target.files[0];
+    switch (type) {
+      case 'DEMANDE_STAGE':
+        this.selectedDemandeStageFile = file;
+        break;
+      case 'ATTESTATION':
+        this.selectedAttestationFile = file;
+        break;
+      case 'RAPPORT':
+        this.selectedRapportFile = file;
+        break;
+    }
   }
 
-  async handleUpload(): Promise<void> {
+  async handleUpload(file: File | null, type: string): Promise<void> {
     try {
-      if (!this.selectedFile) {
+      if (!file) {
         throw new Error('No file selected');
       }
 
-      const response = await this.fileUploadService.uploadFileToGoogleDrive(this.selectedFile).toPromise();
+      const response = await this.fileUploadService.uploadFileToGoogleDrive(file, type).toPromise();
 
       if (response) {
         this.resultMessage = { type: 'success', result: response };
