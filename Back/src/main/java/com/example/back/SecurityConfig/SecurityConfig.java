@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
                // .authorizeHttpRequests(a->a.requestMatchers("/api/services/user/**").hasAuthority("SUPER_ADMIN"))
-                .authorizeHttpRequests(a->a.anyRequest().authenticated())
+//                .authorizeHttpRequests(a->a.anyRequest().authenticated())
                 .oauth2ResourceServer(ors->ors.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConv)))
                 .build();
     }

@@ -35,7 +35,6 @@ const routes: Routes = [
 
   { path:'front' , component : FrontHomeComponent },
   { path: 'back', component : BackHomeComponent },
-  {path: 'stage', component : CurrentStageComponent},
 
 
   { path: '', component: LoginComponent },
@@ -67,6 +66,8 @@ const routes: Routes = [
         { path: 'reclamation', component : ReclamationComponent },
         {path :'conventionF', component : ConventionComponent},
         {path: 'myconventions', component : MyconventionsComponent},
+        {path: 'stage', component : CurrentStageComponent},
+
 
       ]
   }

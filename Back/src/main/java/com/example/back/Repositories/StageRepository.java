@@ -12,7 +12,13 @@ public interface StageRepository extends JpaRepository<Stage, Long> {
     Optional<Stage> findByConvention_IdConvention(Long conventionId);
    // List<Stage> findByArchivedTrue(boolean archived);
 
-    @Query("SELECT s FROM Stage s WHERE s.convention.idConvention = (SELECT u.convention.idConvention FROM User u WHERE u.id_User = :userId)")
+
+
+    @Query(value = "SELECT s.* FROM stage s JOIN convention c ON s.convention_id_convention = c.id_convention JOIN user u ON c.user_id_user = u.id_user WHERE u.id_user = :userId", nativeQuery = true)
     List<Stage> findStageByUserId(@Param("userId") Long userId);
+
+
+
+
 
 }

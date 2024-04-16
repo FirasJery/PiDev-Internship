@@ -39,10 +39,10 @@ public class User {
     @OneToMany
     @ToString.Exclude
     private Set<File> fileSet;
-    @OneToOne
-    @ToString.Exclude
-    private Convention convention;
     @OneToMany
+    @ToString.Exclude
+    private Set<Convention> conventionSet;
+    @OneToMany 
     @ToString.Exclude
     private Set<Sujet> sujetSet;
 

@@ -29,6 +29,8 @@ export class ConventionComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeToFormChanges();
     this.getCurrentUser();
+    console.log("from init ! : "+this.idUser);
+
 
   }
 
@@ -63,7 +65,7 @@ export class ConventionComponent implements OnInit {
     // Hard-code the userId value here
 
     if (this.conventionForm.valid) {
-      console.log(this.idUser);
+      console.log("from submit : " +this.idUser);
       this.conventionService.addConventionAndAssignToUser(this.conventionForm.value, this.idUser).subscribe({
         next: (response) => {
           console.log('Convention added and assigned to user:', response);

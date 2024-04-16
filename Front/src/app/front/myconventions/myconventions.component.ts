@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Convention} from "../../Modules/ConventionModule/Convention.module";
 import {ConventionService} from "../../Services/ConventionService/convention.service";
+import {UserServiceService} from "../../Services/UserService/user-service.service";
 
 @Component({
   selector: 'app-myconventions',
@@ -9,14 +10,41 @@ import {ConventionService} from "../../Services/ConventionService/convention.ser
 })
 export class MyconventionsComponent {
   conventions: Convention[] = [];
-
-  constructor(private conventionService: ConventionService) {
+  idUser : number=0;
+  email : string  = '';
+  constructor(private conventionService: ConventionService, private UserService: UserServiceService) {
   }
 
   ngOnInit(): void {
-    const userId = 1; // Replace with the actual user ID
-    this.conventionService.getConventionsByUser(userId).subscribe(conventions => {
+this.getCurrentUser()
+  }
+
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.email = userInfo.email;
+        console.log(this.email);
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+
+          console.log("responce   "+  this.idUser);
+this.getAllConventionsByUser();
+
+        });
+
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+
+  }
+  getAllConventionsByUser(){
+    this.conventionService.getConventionsByUser(this.idUser).subscribe(conventions => {
       this.conventions = conventions;
+      console.log("this is the user id from getAllConventionsByUser :  " + this.idUser  )
+
     });
+
   }
 }
