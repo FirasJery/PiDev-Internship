@@ -42,9 +42,10 @@ public class User {
     @OneToMany
     @ToString.Exclude
     private Set<Convention> conventionSet;
-    @OneToMany 
     @ToString.Exclude
-    private Set<Sujet> sujetSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<Postulation> postulations;
 
 
 }

@@ -12,14 +12,11 @@ export class AppComponent implements OnInit{
   title = 'test1';
   constructor(private us : UserServiceService) {
   console.log("creating app component");
-
   }
-
 
   ngOnInit() {
    // this.us.redirectAfterLogin();
   }
-
 
 
 }

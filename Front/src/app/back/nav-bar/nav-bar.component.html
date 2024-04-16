@@ -25,7 +25,11 @@
         <a ngbNavLink class="nav-link">Journal</a>
       </ng-container>
       <ng-container ngbNavItem>
-        <a ngbNavLink class="nav-link">Sujet</a>
+
+        <a class="nav-link" aria-current="page" href="/ajoutsujet">Sujet</a>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a class="nav-link" aria-current="page" href="/validerpostulation">Postulations</a>
       </ng-container>
       <ng-container ngbNavItem>
         <a ngbNavLink class="nav-link">Forum</a>
@@ -48,12 +52,11 @@
   </div>
 
 
+  <!-- Page content wrapper -->
   <div id="page-content-wrapper" [class.toggled]="isSidebarOpen">
     <h1 class="mt-4">Admin Dashboard</h1>
     <div class="container-fluid">
-
       <router-outlet></router-outlet>
-
     </div>
   </div>
 </div>

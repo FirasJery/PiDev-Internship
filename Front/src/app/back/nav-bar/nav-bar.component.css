@@ -33,6 +33,7 @@
 }
 
 #sidebar {
+<<<<<<< HEAD
   min-height: 100vh;
   width: 250px; /* Adjust the width of the sidebar as needed */
 }
@@ -44,25 +45,27 @@
 .nav-link:hover {
   background-color: #670000; /* Darker red for hover state */
 }
-
 /* Toggle effect adjustments */
 #sidebar.toggled {
   margin-left: -170px; /* Adjust so that 20px of the sidebar are visible */
 }
 
 #page-content-wrapper.toggled {
+<<<<<<< HEAD
   margin-left: 30px; /* Optional: Shift content to the right to make space for the sidebar peek */
 }
 #page-content-wrapper {
   margin-left: 30px; /* Optional: Shift content to the right to make space for the sidebar peek */
   min-width: 80%; /* Ensure the content takes up the full width */
+=======
+  margin-left: 20px; /* Optional: Shift content to the right to make space for the sidebar peek */
+>>>>>>> 62ba761ea5cda86ba74aa5a498b98df26b8dc29a
 }
 
 /* Ensure you have the transitions for smooth toggling */
 #sidebar, #page-content-wrapper {
   transition: margin 0.25s ease-out;
 }
-
 img.img-fluid {
   max-height: 50px; /* Adjust based on your logo size */
   margin-bottom: 1rem;

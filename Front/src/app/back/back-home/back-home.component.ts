@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import {UserServiceService} from "../../Services/UserService/user-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -71,7 +72,4 @@ export class BackHomeComponent implements OnInit
       }
     });
   }
-
-
-
 }
