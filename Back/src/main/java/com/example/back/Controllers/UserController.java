@@ -82,12 +82,14 @@ public class UserController {
 
     //tested and using it in the front end
     @GetMapping("/GetUserByEmail/{email}")
-    @PreAuthorize("hasAnyAuthority('SuperAdmin')")
     public UserWrapper getUserByEmail(@PathVariable String email){
         Keycloak k = KeycloakConfig.getInstance();
         log.info("executing getUserByEmail");
         UserWrapper userWrapper = new UserWrapper();
-        userWrapper.setUser(userService.GetUserByEmail(email));
+        User u =userService.GetUserByEmail(email);
+        userWrapper.setUser(u);
+        log.info(u.getEmail() +"   "+ u.getId_User());
+
         try {
             k.realm("GestionStageRealm").users().searchByEmail(email,true).forEach(
                     user -> {

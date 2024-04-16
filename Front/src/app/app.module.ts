@@ -1,10 +1,15 @@
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {FrontHomeComponent} from './front/front-home/front-home.component';
-import {BackHomeComponent} from './back/back-home/back-home.component';
-import {ReclamationComponent} from './components/Reclamationn/reclamation/reclamation.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FrontHomeComponent } from './front/front-home/front-home.component';
+import { BackHomeComponent } from './back/back-home/back-home.component';
+import { CenventionComponent } from './back/cenvention/cenvention.component';
+import { ConventionComponent } from './front/convention/convention.component';
+import { ArchiveconventionComponent } from './back/archiveconvention/archiveconvention.component';
+import { CurrentStageComponent } from './front/current-stage/current-stage.component';
+import { MyconventionsComponent } from './front/myconventions/myconventions.component';
+import { ReclamationComponent } from './components/Reclamationn/reclamation/reclamation.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from '@angular/material/icon';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
@@ -16,9 +21,7 @@ import {ReclamationListComponent} from './components/Reclamationn/reclamation-li
 import {ReclamationEditComponent} from './components/Reclamationn/reclamation-edit/reclamation-edit.component';
 import {ReponseListComponent} from './components/Reponsee/reponse-list/reponse-list.component';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
-import {
-  UserManagementComponentComponent
-} from './back/UserComponents/user-management-component/user-management-component.component';
+import {UserManagementComponentComponent} from './back/UserComponents/user-management-component/user-management-component.component';
 import {ProfileBackComponent} from './back/UserComponents/profile-back/profile-back.component';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -53,7 +56,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 
 }
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BackHomeComponent,
     NavBarComponent,
     NavBarFrontComponent,
+    CenventionComponent,
+    ConventionComponent,
+    ArchiveconventionComponent,
+    CurrentStageComponent,
+    MyconventionsComponent,
     ReclamationComponent,
     ReponseComponent,
     ReclamationListComponent,
@@ -89,6 +96,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppRoutingModule,
     NgbModule,
     BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -119,5 +128,4 @@ function initializeKeycloak(keycloak: KeycloakService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

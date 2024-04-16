@@ -16,6 +16,8 @@ export class BackHomeComponent implements OnInit
   username : string = '';
   welcome: string = "Welcome to the back office";
   userList : User[] = [];
+  email : string  = '';
+  idUser : number=0;
   constructor(private UserService: UserServiceService,
               private router: Router,
               private route: ActivatedRoute,
@@ -35,13 +37,21 @@ export class BackHomeComponent implements OnInit
     this.UserService.getCurrentUser()
       .then(userInfo => {
         this.username = userInfo.preferred_username;
-        this.welcome = "hello " + this.username;
+        this.email = userInfo.email;
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+        });
+          this.welcome = "hello " + this.username;
       })
       .catch(error => {
         console.error(error); // Handle errors here
       });
   }
 
+  getCurrentUserId(){
+
+  }
   updateUser(user: User) {
     this.router.navigate(['/admins/update', user.email]);
   }

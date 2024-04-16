@@ -26,7 +26,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     UserRole role;
     int num_tel;
-    String role_enreprise;
+    String role_entreprise;
     String identifiant;
     String classe;
     String specialite;

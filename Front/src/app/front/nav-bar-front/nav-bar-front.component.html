@@ -3,8 +3,7 @@
     <a class="navbar-brand" href="#">
       <img src="/assets/logo.png" alt="Logo" width="100" height="50" class="d-inline-block align-text-top">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -13,7 +12,7 @@
           <a class="nav-link active" aria-current="page">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Convention</a>
+          <a class="nav-link active" aria-current="page" routerLink="/user/conventionF">Convention</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/sujets">Sujets</a>
@@ -31,7 +30,13 @@
         <!--        <a mat-button (click)="GoToReclamation()" class="fas fa-file-alt"><span class="space"> Reclamation </span> </a>-->
         <!--      </li>-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Journal</a>
+          <a class="nav-link active" aria-current="page" routerLink="/journal">Journal</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/user/stage">Stage En Cours</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/user/myconventions">Mes Convention</a>
         </li>
         <li class="nav-item dropdown ms-auto">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
