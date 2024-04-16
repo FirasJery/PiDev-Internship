@@ -22,4 +22,9 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
             "WHERE j.id_journal=?1 ", nativeQuery = true)
     List<Evaluation>findAllEvaluationsByIdJournal(Long id_Journal);
 
+    @Query(  value = "SELECT je.journal_id_journal FROM journal_evaluations je WHERE je.evaluations_id_evaluation = :evaluationId",
+            nativeQuery = true
+    )
+    Long findJournalIdsByEvaluationId(Long evaluationId);
+
 }

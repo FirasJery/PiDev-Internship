@@ -7,6 +7,7 @@ import com.example.back.Repositories.EvaluationRepository;
 import com.example.back.Repositories.GrilleRepository;
 import com.example.back.Repositories.JournalRepository;
 import com.example.back.Services.EvaluationService;
+import com.example.back.Services.JournalService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ public class EvaluationServiceImp implements EvaluationService {
  private final EvaluationRepository evaluationRepos;
  private final GrilleRepository grilleRepos;
  private final JournalRepository journalRepos;
+
+ //private final JournalService journalService;
 
  @Override
  public Set<Evaluation> addEvaluationAndAssignToJournal( long id_Journal) {
@@ -76,7 +79,7 @@ Evaluation ev = new Evaluation();
     }
 
     @Override
-    public Evaluation updateEvaluation(Long idEvaluation, Evaluation updtevaluation) {
+    public Long updateEvaluation(Long idEvaluation, Evaluation updtevaluation) {
 
         Evaluation existingEvaluation = evaluationRepos.findById(idEvaluation)
                 .orElseThrow(() -> new EntityNotFoundException("Evaluation non trouvée avec l'ID : " + idEvaluation));
@@ -94,9 +97,10 @@ Evaluation ev = new Evaluation();
             case SATISFAISANT -> existingEvaluation.setNoteEvaluation(2);
             case INSATISFAISANT  -> existingEvaluation.setNoteEvaluation(1);
         }
-
-
-        return  evaluationRepos.save(existingEvaluation);
+        evaluationRepos.save(existingEvaluation);
+       Long journalIdByEvaluationId = evaluationRepos.findJournalIdsByEvaluationId(existingEvaluation.getIdEvaluation());
+       // journalService.calculTotalNote(journalIdsByEvaluationId);
+        return journalIdByEvaluationId ;
     }
 
 

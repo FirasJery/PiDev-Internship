@@ -1,9 +1,11 @@
 package com.example.back.ServiceImp;
 
+import com.example.back.Entities.Enums.Statut;
 import com.example.back.Entities.Journal;
 import com.example.back.Entities.Tache_journal;
 import com.example.back.Repositories.JournalRepository;
 import com.example.back.Repositories.Tache_journalRepository;
+import com.example.back.Services.JournalService;
 import com.example.back.Services.Tache_journalService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ public class Tache_journalServiceImp implements Tache_journalService {
     private final Tache_journalRepository tache_journalRepos;
     private final JournalRepository journalRepos;
 
+    private final JournalService journalService;
+
     @Override
     public Tache_journal addTache_Journal(Tache_journal tache_journal) {
         tache_journal.setDatetache(LocalDateTime.now());
@@ -34,11 +38,16 @@ public class Tache_journalServiceImp implements Tache_journalService {
     public Tache_journal addTache_JournalAndAssignToJournal(Tache_journal tache_journal, long id_Journal) {
         tache_journal.setDatetache(LocalDateTime.now());
         tache_journal.setValid(false);
+        tache_journal.setStatus(Statut.EnCours);
 
         Journal journal = journalRepos.findById(id_Journal).orElse(null);
         if (journal != null) {
+
+
+
             tache_journal.setJournal(journal);
             tache_journalRepos.save(tache_journal);
+            journalService.ValidJournal(id_Journal);
         }
         return tache_journal;
     }
@@ -71,8 +80,13 @@ public class Tache_journalServiceImp implements Tache_journalService {
 
           existingTache.setDescriptiontache(updttache.getDescriptiontache());
           existingTache.setValid(false);
+          existingTache.setStatus(Statut.EnCours);
+
+          journalService.ValidJournal(existingTache.getJournal().getIdJournal());
 
       }
+
+
       //existingTache.setDate_tache(LocalDateTime.now());
    // if ( updttache.isValid()) {
          // existingTache.setValid(false);
@@ -88,6 +102,26 @@ public class Tache_journalServiceImp implements Tache_journalService {
                 .orElseThrow(() -> new EntityNotFoundException("Tache non trouvée avec l'ID : " + idtache));
 
         existingTache.setValid(true);
+        existingTache.setStatus(Statut.Validé);
+
+        journalService.ValidJournal(existingTache.getJournal().getIdJournal());
+
+        //    tache_journalRepos.updateIsValidByIdtache(idtache);
+
+
+        return tache_journalRepos.save(existingTache);
+    }
+
+    @Override
+    public Tache_journal updateNonValidByIdtache(Long idtache, Tache_journal updtnonvalid) {
+
+        Tache_journal existingTache = tache_journalRepos.findById(idtache)
+                .orElseThrow(() -> new EntityNotFoundException("Tache non trouvée avec l'ID : " + idtache));
+
+        existingTache.setValid(false);
+        existingTache.setStatus(Statut.NonValidé);
+
+        journalService.ValidJournal(existingTache.getJournal().getIdJournal());
 
         //    tache_journalRepos.updateIsValidByIdtache(idtache);
 
@@ -117,6 +151,7 @@ public class Tache_journalServiceImp implements Tache_journalService {
 
     @Override
     public void removeTache(Long idtache) {
+
         tache_journalRepos.deleteById(idtache);
     }
 

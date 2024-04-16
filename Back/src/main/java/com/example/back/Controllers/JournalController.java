@@ -38,6 +38,8 @@ public class JournalController {
 
     @GetMapping("/{id_Journal}")
     public Journal findById(@PathVariable Long id_Journal) {
+
+       // journalService.calculTotalNote(id_Journal);
         return journalService.findById(id_Journal);
     }
 
@@ -46,5 +48,17 @@ public class JournalController {
     public Set<Journal> GetJournalByEncadrant(@PathVariable String mailEncadrant) {
 
      return journalService.GetJournalByEncadrant(mailEncadrant);
+    }
+
+
+    @PutMapping("/calculTotalNote/{id_Journal}")
+    public Journal calculTotalNote(Long id_Journal) {
+
+        return journalService.calculTotalNote(id_Journal);
+    }
+
+    @PutMapping("/ValidJournal/{id_Journal}")
+    public Journal ValidJournal(Long id_Journal) {
+        return journalService.ValidJournal(id_Journal);
     }
 }

@@ -17,7 +17,7 @@ public interface EvaluationService {
 
     List<Evaluation> findAll();
 
-    Evaluation updateEvaluation(Long idEvaluation , Evaluation updtevaluation ) ;
+    Long updateEvaluation(Long idEvaluation , Evaluation updtevaluation ) ;
 
 
 }

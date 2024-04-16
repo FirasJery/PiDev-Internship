@@ -1,9 +1,6 @@
 package com.example.back.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -27,4 +24,11 @@ public class Convention {
     int numTel;
     String nomEncadrant;
     String emailEncadrant;
+
+    @OneToOne
+    private Stage stage;
+
+
+    @ManyToOne
+    User user;
 }

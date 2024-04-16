@@ -19,4 +19,8 @@ public interface JournalService {
     Journal addJournalAndAssignToStage(Journal journal , Long id_Stage);
 
     Set<Journal> GetJournalByEncadrant(String mailEncadrant);
+
+    Journal calculTotalNote(Long id_Journal);
+
+    Journal ValidJournal(Long id_Journal);
 }

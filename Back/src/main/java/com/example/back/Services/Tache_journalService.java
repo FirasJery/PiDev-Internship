@@ -20,6 +20,9 @@ public interface Tache_journalService {
     Tache_journal updateIsValidByIdtache(Long idtache , Tache_journal updtvalid ) ;
 
 
+    Tache_journal updateNonValidByIdtache(Long idtache , Tache_journal updtnonvalid);
+
+
     Tache_journal findTacheById(long id_tache);
 
 

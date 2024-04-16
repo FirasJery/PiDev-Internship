@@ -21,8 +21,12 @@ public class Stage {
     float notestage;
     boolean archived;
     String nomFichierRapport;
-    @OneToOne
+
+
+    @OneToOne (mappedBy = "stage")
     private Convention convention;
+
+
     @OneToOne
     private Journal journal;
 }

@@ -25,7 +25,7 @@ public class User {
     String classe;
     String email;
     int num_tel;
-    String role_enreprise;
+    String roleEnreprise;
     String identifiant;
     String specialite;
     @OneToMany
@@ -34,8 +34,10 @@ public class User {
     private Set<Reclamation> reclamationSet;
     @OneToMany
     private Set<File> fileSet;
-    @OneToMany
+
+    @OneToMany(mappedBy = "user")
     private Set<Convention> conventionSet;
+
     @OneToMany
     private Set<Sujet> sujetSet;
 }
