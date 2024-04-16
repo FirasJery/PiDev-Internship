@@ -11,10 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -75,18 +72,57 @@ public class ConventionServiceImp implements ConventionService {
     public Convention addConventionAndAssignToUser(Convention convention, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-        // Prevent creating a new convention if one already exists for the user
-        if (user.getConvention() != null) {
-            throw new IllegalStateException("This user already has a convention.");
+
+        // Date range for conventions
+        Calendar startPeriod = Calendar.getInstance();
+        startPeriod.set(Calendar.MONTH, Calendar.JUNE);
+        startPeriod.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar endPeriod = Calendar.getInstance();
+        endPeriod.set(Calendar.MONTH, Calendar.AUGUST);
+        endPeriod.set(Calendar.DAY_OF_MONTH, 30);
+
+        // Check if the convention's dates are within the specified period
+        if (convention.getDate_debut().before(startPeriod.getTime()) ||
+                convention.getDate_fin().after(endPeriod.getTime())) {
+            throw new IllegalArgumentException("Convention date must be between June 1st and August 30th.");
+        }
+
+        // Check for overlap with existing conventions
+        for (Convention existingConvention : user.getConventionSet()) {
+            if (!existingConvention.getDate_fin().before(convention.getDate_debut()) &&
+                    !existingConvention.getDate_debut().after(convention.getDate_fin())) {
+                throw new IllegalStateException("This convention overlaps with an existing convention.");
+            }
         }
 
         // Save the convention to the database
+        convention.setUser(user);
         Convention savedConvention = conventionRepository.save(convention);
+
         // Assign the saved convention to the user
-        user.setConvention(savedConvention);
-        userRepository.save(user); // Save the user with the assigned convention
-        return savedConvention; // Return the saved convention
+        user.getConventionSet().add(savedConvention);
+        userRepository.save(user); // Save the user with the assigned conventions
+
+        return savedConvention;
     }
+
+
+//    @Transactional
+//    public Convention addConventionAndAssignToUser(Convention convention, Long userId) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+//        // Prevent creating a new convention if one already exists for the user
+//        if (user.getConvention() != null) {
+//            throw new IllegalStateException("This user already has a convention.");
+//        }
+//
+//        // Save the convention to the database
+//        Convention savedConvention = conventionRepository.save(convention);
+//        // Assign the saved convention to the user
+//        user.setConvention(savedConvention);
+//        userRepository.save(user); // Save the user with the assigned convention
+//        return savedConvention; // Return the saved convention
+//    }
 
     @Transactional
     public Convention validateConvention(Long id) {

@@ -30,7 +30,7 @@ public class Convention {
     @OneToOne(mappedBy = "convention", cascade = CascadeType.ALL)
     Stage stage;
 
-    @OneToOne(mappedBy = "convention")
+    @ManyToOne
     @JsonIgnore
-    private User user;
+    User user;
 }
