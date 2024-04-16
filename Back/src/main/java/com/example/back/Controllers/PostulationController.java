@@ -198,7 +198,7 @@ public class PostulationController {
     private void sendConfirmationEmail(Postulation postulation) {
         String toEmail = postulation.getUser().getEmail();
         String subject = "Confirmation of your internship application";
-        String body = "Hello " + postulation.getUser().getNom() + " " + postulation.getUser().getPrenom() +
+        String body = "Hello " + postulation.getUser().getFirstName() + " " + postulation.getUser().getLastName() +
                 ", your internship application for the company " + postulation.getSujet().getNomentreprise() +
                 " has been accepted.";
         emailService.sendSimpleEmail(toEmail, subject, body);
@@ -207,7 +207,7 @@ public class PostulationController {
     private void sendRejectionEmail(Postulation postulation) {
         String toEmail = postulation.getUser().getEmail();
         String subject = "Rejection of your internship application";
-        String body = "Hello " + postulation.getUser().getNom() + " " + postulation.getUser().getPrenom() +
+        String body = "Hello " + postulation.getUser().getFirstName() + " " + postulation.getUser().getLastName() +
                 ", your internship application for the company " + postulation.getSujet().getNomentreprise() +
                 " has been rejected.";
         emailService.sendSimpleEmail(toEmail, subject, body);

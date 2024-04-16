@@ -10,10 +10,6 @@ export class PostService {
   private apiURL='http://localhost:9090/api/services/post';
   private apiURL1 = 'http://localhost:9090/api/services/report'; // Adjusted API URL based on report controller
 
-
-
-
-
   constructor(private  http:HttpClient) { }
 
 

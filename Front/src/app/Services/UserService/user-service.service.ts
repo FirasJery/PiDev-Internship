@@ -81,7 +81,7 @@ export class UserServiceService {
       return keycloak.loadUserInfo()
         .then(userInfo => {
           this.currentUser = userInfo; // Save user info in a variable
-          console.log('Current user :', this.currentUser);
+          console.log('Current user:', this.currentUser);
           return this.currentUser;
         });
     } else {

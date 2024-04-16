@@ -5,11 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.representations.idm.RoleRepresentation;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Slf4j
