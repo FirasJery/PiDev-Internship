@@ -39,6 +39,13 @@ export class TacheJournalService {
     return this.http.delete<void>(`${this.apiUrl}/removetache/${idtache}`);
   }
 
+  updateValidTache(idtache: number, tacheJournal: TacheJournal): Observable<TacheJournal> {
+    return this.http.put<TacheJournal>(`${this.apiUrl}/updateIsValidtache/${idtache}`, tacheJournal);
+  }
+
+  updateNonValidtache (idtache: number, tacheJournal: TacheJournal): Observable<TacheJournal> {
+    return this.http.put<TacheJournal>(`${this.apiUrl}/updateNonValidtache/${idtache}`, tacheJournal);
+  }
 
   // Add other service methods here
 }

@@ -30,6 +30,11 @@ export class JournalService {
     return this.http.get<Journal>(`${this.apiUrl}/${idJournal}`);
   }
 
+  GetJournalByEncadrant(mailEncadrant: string){
 
-  // ... include other methods as needed
+  return  this.http.get<Journal[]>(`${this.apiUrl}/getjournalbyencadrant/${mailEncadrant}`);
+  }
+
+
+
 }

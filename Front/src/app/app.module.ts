@@ -26,44 +26,53 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GrilleComponent } from './back/grille/grille.component';
 import { AjoutGrilleDialogComponent } from './back/grille/ajout-grille-dialog/ajout-grille-dialog.component';
 import { UpdateGrilleDialogComponent } from './back/grille/update-grille-dialog/update-grille-dialog.component';
+import { JournalencadrantComponent } from './front/journalencadrant/journalencadrant.component';
+import { DetailsJournalComponent } from './front/details-journal/details-journal.component';
+import { GrilleDetailComponent } from './front/details-journal/grille-detail/grille-detail.component';
+
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FrontHomeComponent,
-    BackHomeComponent,
-    LoginComponent,
-    NavBarComponent,
-    NavBarFrontComponent,
-    JournalComponent,
-    JournalstudentComponent,
-    UpdateTacheDialogComponent,
-    AjoutTacheDialogComponent,
-    GrilleComponent,
-    AjoutGrilleDialogComponent,
-    UpdateGrilleDialogComponent,
+    declarations: [
+        AppComponent,
+        FrontHomeComponent,
+        BackHomeComponent,
+        LoginComponent,
+        NavBarComponent,
+        NavBarFrontComponent,
+        JournalComponent,
+        JournalstudentComponent,
+        UpdateTacheDialogComponent,
+        AjoutTacheDialogComponent,
+        GrilleComponent,
+        AjoutGrilleDialogComponent,
+        UpdateGrilleDialogComponent,
+        JournalencadrantComponent,
+        DetailsJournalComponent,
+        GrilleDetailComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        BrowserModule,
+        HttpClientModule,
+        MatDialogModule,
+        FormsModule,
+        MatFormField,
+        MatOption,
+        MatSelect,
 
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    BrowserModule,
-    HttpClientModule,
-    MatDialogModule,
-    FormsModule,
-    MatFormField,
-    MatOption,
-    MatSelect,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule
 
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule
-
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ],
+    providers: [],
+    exports: [
+        GrilleComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
