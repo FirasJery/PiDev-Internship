@@ -21,6 +21,11 @@ import { ReponseComponent } from './components/Reponsee/reponse/reponse.componen
 import { ReclamationListComponent } from './components/Reclamationn/reclamation-list/reclamation-list.component';
 import { ReclamationEditComponent } from './components/Reclamationn/reclamation-edit/reclamation-edit.component';
 import { ReponseListComponent } from './components/Reponsee/reponse-list/reponse-list.component';
+import { ReclamationStatistiqueComponent } from './components/Reclamationn/reclamation-statistique/reclamation-statistique.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ReclamationEditUserComponent } from './components/Reclamationn/reclamation-edit-user/reclamation-edit-user.component';
+import { ReclamationListUserComponent } from './components/Reclamationn/reclamation-list-user/reclamation-list-user.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import { ReponseListComponent } from './components/Reponsee/reponse-list/reponse
     ReponseComponent,
     ReclamationListComponent,
     ReclamationEditComponent,
-    ReponseListComponent
+    ReponseListComponent,
+    ReclamationStatistiqueComponent,
+    ReclamationEditUserComponent,
+    ReclamationListUserComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,7 @@ import { ReponseListComponent } from './components/Reponsee/reponse-list/reponse
     ReactiveFormsModule,
     HttpClientModule,
     MatFormField,
+    NgxChartsModule,
   ],
   providers: [
     provideAnimationsAsync()

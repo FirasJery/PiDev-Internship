@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from "@angular/forms";
 import { ReclamationService } from "../../../Services/ReclamationService/reclamation-service.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
 
-interface TypeStatut {
-  type: string;
+interface Reclamation {
+  id_Reclamation: number;
+  title: string;
+  typeReclamation: string;
+  description_Reclamation: string;
+  date_Reclamation: string;
+  statutReclamation: string;
 }
 
 @Component({
@@ -13,40 +18,35 @@ interface TypeStatut {
   styleUrls: ['./reclamation-list.component.css']
 })
 export class ReclamationListComponent implements OnInit {
-  typeControl = new FormControl<TypeStatut | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  typeReclamation: TypeStatut[] = [
-    { type: 'EN_ATTENTE' },
-    { type: 'APPROUVE' },
-    { type: 'REJETE' },
-    { type: 'A_LETUDE' }
-  ];
-  reclamations: any[] = [];
   reclamationListForm!: FormGroup;
-  isLoading: boolean = false;
-  selectedReclamations: any[] = [];
+  reclamations: Reclamation[] = [];
+  displayedReclamations: Reclamation[] = [];
 
   constructor(private reclamationService: ReclamationService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.reclamationListForm = new FormGroup({
-      Statut_reclamation: new FormControl('', Validators.required)
+      searchTerm: new FormControl('')
     });
     this.fetchReclamations();
   }
 
   fetchReclamations(): void {
-    this.reclamationService.findAll()
-      .subscribe(
-        reclamations => {
-          this.reclamations = reclamations;
-        },
-        error => {
-          console.error('Erreur lors de la récupération des réclamations : ', error);
-        }
-      );
+    this.reclamationService.findAll().subscribe(
+      (reclamations: Reclamation[]) => {
+        this.reclamations = reclamations;
+        this.displayedReclamations = reclamations;
+      },
+      error => {
+        console.error('Erreur lors de la récupération des réclamations : ', error);
+      }
+    );
   }
 
+  searchReclamations(): void {
+    const searchTerm = this.reclamationListForm.get('searchTerm')?.value.trim().toLowerCase();
+    this.displayedReclamations = this.reclamations.filter(reclamation => reclamation.title.toLowerCase().includes(searchTerm));
+  }
   deleteReclamation(id: number): void {
     if (confirm('Voulez-vous vraiment supprimer cette réclamation ?')) {
       this.reclamationService.deleteReclamation(id).subscribe(
@@ -65,7 +65,7 @@ export class ReclamationListComponent implements OnInit {
     this.router.navigate(['/reclamationEdit', id]);
   }
 
-  goToReponse(): void {
-    this.router.navigate(['/reponse'], { relativeTo: this.route });
+  goToReponse(id: number): void {
+    this.router.navigate(['/reponse', id], { relativeTo: this.route });
   }
 }

@@ -139,12 +139,6 @@ tr:hover {
 }
 .centre {
   text-align: center;
-  margin: auto;
-}
-.search-container {
-  margin-bottom: 20px;
-  position: relative;
-  width: 100%;
 }
 .Button_Edit {
   border: 2px solid #000000;

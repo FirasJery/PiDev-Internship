@@ -28,4 +28,7 @@ export class ReclamationService {
     const getUrl = `${this.baseUrl}/${id}`;
     return this.http.get(getUrl);
   }
+  getReclamationStatistics(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/statistics`);
+  }
 }
