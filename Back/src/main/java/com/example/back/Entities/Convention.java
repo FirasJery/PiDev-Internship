@@ -1,9 +1,7 @@
 package com.example.back.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,11 +18,19 @@ public class Convention {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     Long idConvention;
-    String nomEntreprise;
-    Date dateDebut;
-    Date dateFin;
+    String nom_entreprise;
+    Date date_debut;
+    Date date_fin;
     String adresse;
-    int numTel;
-    String nomEncadrant;
-    String emailEncadrant;
+    int num_tel;
+    String nom_encadrant;
+    String email_encadrant;
+    boolean isvalid = false;
+    @JsonIgnore
+    @OneToOne(mappedBy = "convention", cascade = CascadeType.ALL)
+    Stage stage;
+
+    @ManyToOne
+    @JsonIgnore
+     User user;
 }

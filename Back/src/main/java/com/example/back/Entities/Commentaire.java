@@ -1,9 +1,7 @@
 package com.example.back.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,12 +17,13 @@ public class Commentaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    Long id_Commentaire;
-    int rating;
-    double averageRating;
-    String description;
+    Long idCommentaire;
+    String content;
     LocalDateTime date_commentaire;
-
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL) // Changed from CascadeType.REMOVE to CascadeType.ALL
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
 
 }
