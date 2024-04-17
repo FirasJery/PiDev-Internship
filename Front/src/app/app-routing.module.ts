@@ -34,10 +34,21 @@ import {GrilleComponent} from "./back/grille/grille.component";
 import {JournalencadrantComponent} from "./front/journalencadrant/journalencadrant.component";
 import {DetailsJournalComponent} from "./front/details-journal/details-journal.component";
 import { FileUploadComponent } from './front/file-upload/file-upload.component';
+import {
+  ReclamationStatistiqueComponent
+} from "./components/Reclamationn/reclamation-statistique/reclamation-statistique.component";
+import {
+  ReclamationListUserComponent
+} from "./components/Reclamationn/reclamation-list-user/reclamation-list-user.component";
+import {
+  ReclamationEditUserComponent
+} from "./components/Reclamationn/reclamation-edit-user/reclamation-edit-user.component";
 
 const routes: Routes = [
 
-
+  { path: 'reclamationStatistique', component : ReclamationStatistiqueComponent},
+  { path: 'reclamationEditUser/:id', component : ReclamationEditUserComponent},
+  { path: 'reclamationListUser', component : ReclamationListUserComponent},
   { path: '', component: LoginComponent },
   { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdmin', 'Agentesprit'] },
     children :

@@ -1,20 +1,28 @@
 package com.example.back.ServiceImp;
 
+import com.example.back.Entities.Enums.Type_reclamation;
 import com.example.back.Entities.Reclamation;
+import com.example.back.Entities.Reponse;
 import com.example.back.Repositories.ReclamationRepository;
 import com.example.back.Services.ReclamationService;
+import com.example.back.Entities.Enums.Statut_reclamation;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ReclamationServiceImp implements ReclamationService {
     private final ReclamationRepository reclamationRepository;
+
     @Override
     public Reclamation addReclamation(Reclamation reclamation) {
+        reclamation.setStatutReclamation(Statut_reclamation.ENATTENTE);
         return reclamationRepository.save(reclamation);
     }
 
@@ -28,10 +36,13 @@ public class ReclamationServiceImp implements ReclamationService {
         existingReclamation.setTitle(updatedReclamation.getTitle());
         existingReclamation.setTypeReclamation(updatedReclamation.getTypeReclamation());
         existingReclamation.setDescription_Reclamation(updatedReclamation.getDescription_Reclamation());
+        existingReclamation.setStatutReclamation(updatedReclamation.getStatutReclamation());
+        existingReclamation.setReponse(updatedReclamation.getReponse());
 
         // Enregistrer la réclamation mise à jour dans la base de données
         return reclamationRepository.save(existingReclamation);
     }
+
     @Override
     public List<Reclamation> findAll() {
         return (List<Reclamation>) reclamationRepository.findAll();
@@ -46,4 +57,13 @@ public class ReclamationServiceImp implements ReclamationService {
     public void delete(long id_reclamation) {
         reclamationRepository.deleteById(id_reclamation);
     }
+
+    @Override
+    public Map<Type_reclamation, Long> countByType() {
+        List<Reclamation> reclamations = reclamationRepository.findAll();
+        Map<Type_reclamation, Long> typeCounts = reclamations.stream()
+                .collect(Collectors.groupingBy(Reclamation::getTypeReclamation, Collectors.counting()));
+        return typeCounts;
+    }
 }
+

@@ -57,6 +57,11 @@ import { JournalencadrantComponent } from './front/journalencadrant/journalencad
 import { DetailsJournalComponent } from './front/details-journal/details-journal.component';
 import { GrilleDetailComponent } from './front/details-journal/grille-detail/grille-detail.component';
 import { FileUploadComponent } from './front/file-upload/file-upload.component';
+import { ReclamationStatistiqueComponent } from './components/Reclamationn/reclamation-statistique/reclamation-statistique.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ReclamationEditUserComponent } from './components/Reclamationn/reclamation-edit-user/reclamation-edit-user.component';
+import { ReclamationListUserComponent } from './components/Reclamationn/reclamation-list-user/reclamation-list-user.component';
+
 
 
 
@@ -139,7 +144,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AffichPostulationComponent,
     PostulationValiderComponent,
     PostulatiionSujetComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ReclamationStatistiqueComponent,
+    ReclamationEditUserComponent,
+    ReclamationListUserComponent
   ],
   imports: [
     BrowserModule,
@@ -189,6 +197,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppRoutingModule,
     NgbModule,
     BrowserModule,
+    NgxChartsModule,
     ToastrModule.forRoot({ // Configure Toastr globally
       timeOut: 3000, // Set default timeout for notifications in milliseconds
       positionClass: 'toast-top-right', // Set default position

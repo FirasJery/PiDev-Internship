@@ -1,4 +1,4 @@
-package com.example.internship_management.Entities.Enums;
+package com.example.back.Entities.Enums;
 
 public enum Type_reclamation {
     ANNULATION,
