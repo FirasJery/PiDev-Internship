@@ -35,7 +35,9 @@ export class NavBarFrontComponent implements OnInit{
           this.conventionService.getStageByUser(this.idUser).subscribe(stage => {
             this.stage = stage;
             console.log(stage);
-            this.idStage=stage.at(0).idStage;
+            if (stage.length > 0) {
+              this.idStage = stage.at(0).idStage;
+            }
             console.log("this is the user id from getAllStageForCurrentUser :  " + this.idUser  )
 
           });

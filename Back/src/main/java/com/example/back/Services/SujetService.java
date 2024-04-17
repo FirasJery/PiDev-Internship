@@ -1,11 +1,12 @@
 package com.example.back.Services;
 
 import com.example.back.Entities.Sujet;
+import com.example.back.Entities.User;
 
 import java.util.List;
 
 public interface SujetService {
-    Sujet addSujet(Sujet sujet);
+    Sujet addSujet(Sujet sujet , long id);
     Sujet updateSujet(Sujet updatedSujet, long idSujet)    ;
     List<Sujet> findAll();
     Sujet findById (long idSujet);
@@ -18,5 +19,7 @@ public interface SujetService {
 
      List<Sujet> findByDureeOrderByDureeDesc() ;
     List<Sujet> findByDureeOrderByDureeAsc() ;
+
+    List<Sujet> findAllByUser(User user);
 
 }

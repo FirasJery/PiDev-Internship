@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="flex-container">
+    <div class="flex-container">  
       <div class="content-container">
         <div class="main-content">
           <div class="row">
@@ -18,6 +18,7 @@
                         <h4>{{ postulation.sujet.titre }}</h4>
                         <p><strong>Nom entreprise :</strong> {{ postulation.sujet.nomentreprise }} </p>
                         <p><strong>Sujet :</strong> {{ postulation.titrecandidature }} </p>
+                        <p><strong>Identifiant etudiant :</strong> {{ postulation.user.identifiant }} </p>
                         <p><strong>Durée :</strong> {{ postulation.datedeb | date:'dd-MM-yyyy' }} - {{ postulation.datefin | date:'dd-MM-yyyy' }}</p>
                         <p><strong>Lieu :</strong> {{ postulation.sujet.lieu }} </p>
                         <p><strong>Lettre de motivation :</strong> {{ postulation.lettremotivation }} </p>

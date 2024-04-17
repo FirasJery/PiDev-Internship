@@ -1,10 +1,12 @@
 package com.example.back.Controllers;
 
-import com.example.back.Entities.Sujet;
-import com.example.back.Services.SujetService;
+import com.example.back.Entities.*;
+import com.example.back.Entities.Enums.UserRole;
+import com.example.back.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,10 +18,11 @@ public class SujetController {
 
 
     private final SujetService sujetService;
+    private final UserService userService;
 
-    @PostMapping("/add")
-    public Sujet addSujet(@RequestBody Sujet sujet ) {
-        return sujetService.addSujet(sujet);
+    @PostMapping("/add/{idadmin}")
+    public Sujet addSujet(@RequestBody Sujet sujet , @PathVariable Long idadmin) {
+        return sujetService.addSujet(sujet, idadmin);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -29,10 +32,21 @@ public class SujetController {
     }
 
 
-    @GetMapping
-    public List<Sujet> findAll() {
-        return sujetService.findAllSortedByMailentreprise();
+    @GetMapping("/affich/{idadmin}")
+    public List<Sujet> findAll(@PathVariable Long idadmin) {
+        User user = userService.findById(idadmin);
+
+        if (user != null) {
+            if (user.getRole() == UserRole.SuperAdmin || user.getRole() == UserRole.Agentesprit) {
+                return sujetService.findAllSortedByMailentreprise();
+            } else if (user.getRole() == UserRole.Agententreprise) {
+                return sujetService.findAllByUser(user);
+            }
+        }
+
+        return new ArrayList<>();
     }
+
 
     @GetMapping("/search")
     public List<Sujet> searchSujets(@RequestParam String searchTerm) {
@@ -71,6 +85,10 @@ public class SujetController {
         return sujetService.findByDureeOrderByDureeAsc();
     }
 
+    @GetMapping
+    public List<Sujet> findAll() {
+        return sujetService.findAllSortedByMailentreprise();
+    }
 
 
 }

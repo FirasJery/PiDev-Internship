@@ -38,7 +38,10 @@ public class PostulationServiceImp implements PostulationService {
         return postulationRepository.findByStatus(status);
     }
 
-
+    @Override
+    public List<Postulation> getPostulationsByStatusAndUserId(int status, Long userId) {
+        return postulationRepository.findByUserIdAndStatus(status, userId);
+    }
 
         @Override
         public Postulation updatePostulation(Postulation updatedPostulation, long idP) {

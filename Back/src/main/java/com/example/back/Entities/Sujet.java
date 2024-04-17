@@ -36,4 +36,9 @@ public class Sujet {
     @OneToMany(mappedBy = "sujet")
     private Set<Postulation> postulationtSet;
 
+
+    @ManyToOne
+    @JoinColumn(name = "idadmin")
+    private User user;
+
 }

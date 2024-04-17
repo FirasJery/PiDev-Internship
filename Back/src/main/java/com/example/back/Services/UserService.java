@@ -26,4 +26,6 @@ public interface UserService {
 
 
     String getmailUserByJournal (Long idJournal);
+
+    User findById(Long idadmin);
 }

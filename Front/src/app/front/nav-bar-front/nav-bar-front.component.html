@@ -14,14 +14,20 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/user/conventionF">Convention</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="role == 'etudiant'" class="nav-item">
           <a class="nav-link active" aria-current="page" href="/user/sujets">Sujets</a>
+        </li>
+        <li *ngIf="role == 'Agententreprise'" class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/user/affichsujet">Sujets</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/user/affich_postulation">Mes postulations</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/user/postf">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/user/fileupload">Mes fichiers</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/user/reclamation">Reclamation</a>

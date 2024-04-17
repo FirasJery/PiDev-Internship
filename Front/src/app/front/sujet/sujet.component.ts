@@ -15,7 +15,7 @@ export class SujetComponent implements OnInit {
   sujets: Sujet[] = [];
   searchTerm: string = '';
   filterOption: string = '';
-
+  idadmin : number = 11;
   constructor(private sujetService: SujetService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,13 +24,13 @@ export class SujetComponent implements OnInit {
 
   fetchSujets(searchTerm?: string): void {
     // Call the service method with searchTerm as the second parameter
-    this.sujetService.getAllSujets('mailentreprise', searchTerm || this.searchTerm)
+    this.sujetService.getAllSujetsf()
       .subscribe(sujets => {
         console.log(sujets); // Log the received data
         this.sujets = sujets;
       });
   }
-  
+
   onSearch(): void {
     // Call fetchSujets method again with the searchTerm when search button is clicked
     this.fetchSujets(); // No need to pass the searchTerm here
@@ -69,10 +69,10 @@ export class SujetComponent implements OnInit {
     // Fetch data when filter option changes
     this.fetchData();
   }
-  
+
   postuler(idsujet: number): void {
-    this.router.navigate(['/postuler', idsujet]);  
+    this.router.navigate(['/user/postuler', idsujet]);
   }
-  
+
 
 }

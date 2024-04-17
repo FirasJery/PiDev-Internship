@@ -100,4 +100,9 @@ public class UserServiceImp implements UserService {
          return  u.getEmail();
 
     }
+
+    @Override
+    public User findById(Long idadmin) {
+        return userRepository.findById(idadmin).orElse(null);
+    }
 }

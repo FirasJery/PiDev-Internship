@@ -23,4 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query(value = "DELETE FROM user_post_set WHERE post_set_id_post = :postId", nativeQuery = true)
     void deleteByPostId(@Param("postId") Long postId);
+
+
+
+
 }

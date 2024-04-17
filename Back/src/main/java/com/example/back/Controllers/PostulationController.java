@@ -3,15 +3,22 @@ package com.example.back.Controllers;
 import com.example.back.Entities.EmailRequest;
 import com.example.back.Entities.Postulation;
 import com.example.back.Entities.Sujet;
+import com.example.back.Entities.Enums.UserRole;
+import com.example.back.Entities.User;
 import com.example.back.Repositories.PostulationRepository;
 import com.example.back.Repositories.SujetRepository;
+import com.example.back.Repositories.UserRepository;
 import com.example.back.ServiceImp.EmailServiceImp;
 import com.example.back.Services.PostulationService;
 import com.example.back.Services.SujetService;
+import com.example.back.Services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Date; // Import Date class
 import java.util.List;
 
@@ -20,42 +27,57 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/services/postulation")
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class PostulationController {
 
     private final SujetRepository sujetRepository;
     private final PostulationRepository postulationRepository;
+    private final UserRepository userRepository;
+
     private final SujetService sujetService;
     private final PostulationService postulationService;
 
     @Autowired
     private EmailServiceImp emailService;
+    private final UserService userService;
+
     @PostMapping("/send-email")
     public void sendEmail(@RequestBody EmailRequest emailRequest) {
         emailService.sendSimpleEmail(emailRequest.getToEmail(), emailRequest.getSubject(), emailRequest.getBody());
     }
 
-    @PostMapping("/add")
-    public Postulation addPostulation(@RequestParam Long sujetId, @RequestBody Postulation postulation) {
-        // Handle error if sujetId is missing
+    @PostMapping("/add/{sujetId}/{userId}")
+    public Postulation addPostulation(@PathVariable Long sujetId, @PathVariable Long userId, @RequestBody Postulation postulation) {
+        // Gérer l'erreur si l'ID du sujet est manquant
         if (sujetId == null) {
-            throw new IllegalArgumentException("sujetId is missing");
+            throw new IllegalArgumentException("sujetId manquant");
         }
 
+        // Gérer l'erreur si l'ID de l'utilisateur est manquant
+        if (userId == null) {
+            throw new IllegalArgumentException("userId manquant");
+        }
+
+        // Récupérer l'utilisateur correspondant à partir de l'ID de l'utilisateur
+        User user = userRepository.findById(userId).orElse(null);
+
+        // Récupérer le sujet correspondant à partir de l'ID du sujet
         Sujet sujet = sujetRepository.findById(sujetId).orElse(null);
-        // Handle error if sujet is not found
+
+        // Gérer l'erreur si le sujet n'est pas trouvé
         if (sujet == null) {
-            throw new IllegalArgumentException("Sujet not found");
+            throw new IllegalArgumentException("Sujet non trouvé");
         }
 
-        // Set the default status to 0 if not provided in the request body
+        // Définir le statut par défaut à 0 s'il n'est pas fourni dans le corps de la requête
         if (postulation.getStatus() == 0) {
             postulation.setStatus(0);
         }
 
-        // Retrieve the type of internship for the subject
+        // Récupérer le type de stage pour le sujet
         String typeSujet = sujet.getTypesujet().toString();
 
-        // Check the period according to the type of internship
+        // Vérifier la période selon le type de stage
         int minimumDurationInDays = 0;
         if ("STAGE_FORMATION_HUMAINE_SOCIALE".equals(typeSujet)) {
             minimumDurationInDays = 30;
@@ -65,18 +87,22 @@ public class PostulationController {
             minimumDurationInDays = 60;
         }
 
-        // Validate the period
+        // Valider la période
         if (!isValidPeriod(postulation.getDatedeb(), postulation.getDatefin(), minimumDurationInDays)) {
-            throw new IllegalArgumentException("Invalid period"); // Handle error if the period is not valid
+            throw new IllegalArgumentException("Période invalide"); // Gérer l'erreur si la période n'est pas valide
         }
 
+        // Définir le sujet et l'utilisateur pour la postulation
         postulation.setSujet(sujet);
+        postulation.setUser(user);
+
+        // Enregistrer la postulation dans la base de données et la renvoyer
         return postulationRepository.save(postulation);
     }
 
 
 
-     //milliseconds to days.
+    //milliseconds to days.
     //(1000 milliseconds * 60 seconds * 60 minutes * 24 hours).
    private boolean isValidPeriod(Date dateDebut, Date dateFin, int minimumDurationInDays) {
         long differenceInTime = dateFin.getTime() - dateDebut.getTime();
@@ -156,10 +182,26 @@ public class PostulationController {
         }
     }
 
-    @GetMapping("/attente")
-    public List<Postulation> getPostulationsAttente() {
-        return postulationService.getPostulationsByStatus(0);
+    @GetMapping("/attente/{idadmin}")
+    public List<Postulation> getPostulationsAttente(@PathVariable Long idadmin) {
+        User user = userService.findById(idadmin);
+
+        if (user != null) {
+            if (user.getRole() == UserRole.SuperAdmin || user.getRole() == UserRole.Agentesprit) {
+                return postulationService.getPostulationsByStatus(0);
+            } else if (user.getRole() == UserRole.Agententreprise) {
+                return postulationService.getPostulationsByStatusAndUserId(0, idadmin);
+            }
+        }
+
+        return new ArrayList<>();
+
     }
+
+
+
+
+
     @GetMapping("/byIdSujetAndAttente/{sujetId}")
     public List<Postulation> getPostulationsByIdSujetAndAttente(@PathVariable Long sujetId) {
         return postulationService.getPostulationsBySujetIdAndAttente(sujetId);
@@ -167,32 +209,52 @@ public class PostulationController {
 
 
 
-    @PutMapping("/confirm-postulation/{idP}")
-    public Postulation confirmPostulation(@PathVariable long idP) {
+    @PutMapping("/confirm-postulation/{idP}/{userRole}")
+    public Postulation confirmPostulation(@PathVariable long idP , @PathVariable String userRole) {
+        log.info("idP: " + idP);
+        log.info("idadmin: " + userRole);
         Postulation postulation = postulationService.findById(idP);
-        if (postulation != null) {
+        if (userRole.equals("Agententreprise")) {
+            postulation.setStatusentr(1);
+            postulationService.updatePostulation(postulation, idP);
+        } else if (userRole.equals("SuperAdmin") || userRole.equals("Agentesprit")) {
             postulation.setStatus(1);
             postulationService.updatePostulation(postulation, idP);
-            // Send confirmation email to the user
-            sendConfirmationEmail(postulation);
-            return postulation;
-        } else {
-            throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
         }
+
+            if (postulation.getStatusentr() == 1 && postulation.getStatus() == 1) {
+                postulationService.updatePostulation(postulation, idP);
+                // Send confirmation email to the student
+                sendConfirmationEmail(postulation);
+
+            }
+
+        return postulation;
     }
 
-    @PutMapping("/reject-postulation/{idP}")
-    public Postulation rejectPostulation(@PathVariable long idP) {
+
+    @PutMapping("/reject-postulation/{idP}/{userRole}")
+    public Postulation rejectPostulation(@PathVariable long idP, @PathVariable String userRole) {
+
+        log.info("idP: " + idP);
+        log.info("idadmin: " + userRole);
         Postulation postulation = postulationService.findById(idP);
-        if (postulation != null) {
+        if (userRole.equals("Agententreprise")) {
+            postulation.setStatusentr(2);
+            postulationService.updatePostulation(postulation, idP);
+        } else if (userRole.equals("SuperAdmin") || userRole.equals("Agentesprit")) {
             postulation.setStatus(2);
             postulationService.updatePostulation(postulation, idP);
-            // Send rejection email to the user
-            sendRejectionEmail(postulation);
-            return postulation;
-        } else {
-            throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
         }
+
+        if (postulation.getStatusentr() == 2 && postulation.getStatus() == 2) {
+            postulationService.updatePostulation(postulation, idP);
+            // Send confirmation email to the student
+            sendRejectionEmail(postulation);
+
+        }
+
+        return postulation;
     }
 
     private void sendConfirmationEmail(Postulation postulation) {

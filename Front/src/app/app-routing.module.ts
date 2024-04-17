@@ -33,40 +33,36 @@ import {JournalstudentComponent} from "./front/journalstudent/journalstudent.com
 import {GrilleComponent} from "./back/grille/grille.component";
 import {JournalencadrantComponent} from "./front/journalencadrant/journalencadrant.component";
 import {DetailsJournalComponent} from "./front/details-journal/details-journal.component";
-
+import { FileUploadComponent } from './front/file-upload/file-upload.component';
 
 const routes: Routes = [
-
-
-  {path: 'postuler/:idsujet', component: PostulationComponent},
-  {path: 'postuler', component: PostulationComponent},
-  {path: 'affichsujet', component: SujetAfficherComponent},
-  {path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent},
-  { path: 'stage', component : CurrentStageComponent},
-  { path:'post',component :PostComponent},
 
 
   { path: '', component: LoginComponent },
   { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdmin', 'Agentesprit'] },
     children :
-  [
-    { path: '', component: BackHomeComponent },
-    { path: 'add', component: UserManagementComponentComponent },
-    { path: 'profile', component: ProfileBackComponent},
-    { path : 'update/:email', component: UpdateUserComponent},
-    { path: 'reclamationList', component : ReclamationListComponent },
-    { path: 'reclamationEdit/:id', component: ReclamationEditComponent },
-    { path: 'reponse', component:ReponseComponent},
-    { path: 'reponseList', component:ReponseListComponent},
-    {path : 'convention', component : CenventionComponent},
-    {path: 'archiveC', component : ArchiveconventionComponent},
-    {path: 'ajoutsujet', component: SujetAjoutComponent},
-    {path: 'validerpostulation', component: PostulationValiderComponent},
-    {path: 'reponse', component: ReponseComponent},
-    {path: 'grille', component: GrilleComponent},
+      [
+        { path: '', component: BackHomeComponent },
+        { path: 'add', component: UserManagementComponentComponent },
+        { path: 'profile', component: ProfileBackComponent},
+        { path : 'update/:email', component: UpdateUserComponent},
+        { path: 'reclamationList', component : ReclamationListComponent },
+        { path: 'reclamationEdit/:id', component: ReclamationEditComponent },
+        { path: 'reponse', component:ReponseComponent},
+        {path: 'reponseList', component:ReponseListComponent},
+        {path : 'convention', component : CenventionComponent},
+        {path: 'archiveC', component : ArchiveconventionComponent},
+        {path: 'ajoutsujet', component: SujetAjoutComponent},
+        {path: 'validerpostulation', component: PostulationValiderComponent},
+        {path: 'reponse', component: ReponseComponent},
+        {path: 'grille', component: GrilleComponent},
+        { path: 'ajoutsujet', component: SujetAjoutComponent },
+        { path: 'affichsujet', component: SujetAfficherComponent },
+        { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
+        { path: 'validerpostulation', component: PostulationValiderComponent },
 
 
-  ]
+      ]
   },
   {
     path: 'user',
@@ -88,6 +84,15 @@ const routes: Routes = [
         { path: 'journalencadrant/:mailEncadrant' , component: JournalencadrantComponent},
         { path: 'journalDetails/:id', component :  DetailsJournalComponent},
         { path:'myposts',component:MypostsComponent},
+        { path:'postuler' , component : PostulationComponent },
+        { path:'affich_postulation' , component : AffichPostulationComponent },
+        { path: 'sujets', component: SujetComponent },
+        { path: 'fileupload', component: FileUploadComponent },
+        {path: 'postuler/:idsujet', component: PostulationComponent},
+        { path: 'affichsujet', component: SujetAfficherComponent },
+        { path: 'ajoutsujet', component: SujetAjoutComponent },
+        { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
+
 
       ]
   }

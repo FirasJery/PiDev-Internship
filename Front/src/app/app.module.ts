@@ -56,6 +56,8 @@ import { UpdateGrilleDialogComponent } from './back/grille/update-grille-dialog/
 import { JournalencadrantComponent } from './front/journalencadrant/journalencadrant.component';
 import { DetailsJournalComponent } from './front/details-journal/details-journal.component';
 import { GrilleDetailComponent } from './front/details-journal/grille-detail/grille-detail.component';
+import { FileUploadComponent } from './front/file-upload/file-upload.component';
+
 
 
 
@@ -128,7 +130,16 @@ function initializeKeycloak(keycloak: KeycloakService) {
     UpdateGrilleDialogComponent,
     JournalencadrantComponent,
     DetailsJournalComponent,
-    GrilleDetailComponent
+    GrilleDetailComponent,
+    FileUploadComponent,
+    SujetComponent,
+    SujetAjoutComponent,
+    SujetAfficherComponent,
+    PostulationComponent,
+    AffichPostulationComponent,
+    PostulationValiderComponent,
+    PostulatiionSujetComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +182,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
     KeycloakAngularModule,
     HttpClientModule,
     FormsModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    NgbModule,
+    BrowserModule,
     ToastrModule.forRoot({ // Configure Toastr globally
       timeOut: 3000, // Set default timeout for notifications in milliseconds
       positionClass: 'toast-top-right', // Set default position

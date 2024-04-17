@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SujetService } from '../../Services/sujet.service';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import {UserServiceService} from "../../Services/UserService/user-service.service";
 
 
 @Component({
@@ -17,8 +18,11 @@ export class SujetAjoutComponent implements OnInit {
     'STAGE_IMMERSION_ENTREPRISE',
     'STAGE_INGENIEUR'
   ];
+  idUser: number = 0;
+  email: string = '';
+  role: string;
 
-  constructor(private sujetService: SujetService,private router: Router,) {
+  constructor(private UserService: UserServiceService,private sujetService: SujetService,private router: Router,) {
     this.sujetForm = new FormGroup({
       titre: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -34,18 +38,37 @@ export class SujetAjoutComponent implements OnInit {
     // Watch for changes in the typesujet control and update validators accordingly
     this.sujetForm.get('typesujet')?.valueChanges.subscribe((value) => {
       const validators = validatorsByType[value];
-  
+
     });
 }
 
 
   ngOnInit(): void {
+    this.getCurrentUser()
+  }
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.email = userInfo.email;
+        console.log(this.email);
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+          this.role = user.user.role;
+          console.log("responce   " + this.idUser);
+        });
+
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+
   }
 
   submitForm() {
     if (this.sujetForm.valid) {
       console.log('Form is valid:', this.sujetForm.value);
-      this.sujetService.addSujet(this.sujetForm.value).subscribe({
+      this.sujetService.addSujet(this.sujetForm.value, this.idUser).subscribe({
         next: (response) => {
           console.log('Sujet added:', response);
           this.sujetForm.reset();
@@ -63,11 +86,15 @@ export class SujetAjoutComponent implements OnInit {
         console.log(field, control?.errors);
       });
     }
-  } 
+  }
 
 
   afficherSujet(): void {
-    this.router.navigate(['/affichsujet']);
+    if (this.role == 'SuperAdmin' || this.role == 'Agentesprit') {
+    this.router.navigate(['/admins/affichsujet']);
+    } else {
+      this.router.navigate(['/user/affichsujet']);
+    }
   }
 }
 
