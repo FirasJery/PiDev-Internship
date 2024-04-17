@@ -1,5 +1,6 @@
 package com.example.back.Controllers;
 
+import com.example.back.Entities.Enums.Type_reclamation;
 import com.example.back.Entities.Reclamation;
 import com.example.back.ServiceImp.ReclamationServiceImp;
 import com.example.back.Services.ReclamationService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,13 +23,15 @@ public class ReclamationController {
     public ReclamationController(ReclamationService reclamationService) {
         this.reclamationService = reclamationService;
     }
+
     @PostMapping
     public Reclamation addReclamation(@RequestBody Reclamation reclamation) {
         return reclamationService.addReclamation(reclamation);
     }
+
     @PutMapping("/{id_Reclamation}")
     public ResponseEntity<Reclamation> updateReclamation(@PathVariable long id_Reclamation, @RequestBody Reclamation updatedReclamation) {
-        
+
         try {
             Reclamation updated = reclamationService.updateReclamation(id_Reclamation, updatedReclamation);
             return ResponseEntity.ok(updated);
@@ -37,21 +41,27 @@ public class ReclamationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
     @GetMapping("/findAll")
     public List<Reclamation> findAll() {
         return reclamationService.findAll();
     }
+
     @GetMapping("/{id_Reclamation}")
     public Reclamation findById(@PathVariable long id_Reclamation) {
         Reclamation reclamation = reclamationService.findById(id_Reclamation);
         return reclamation;
     }
+
     @DeleteMapping("/{id_Reclamation}")
     public void deleteReclamation(@PathVariable long id_Reclamation) {
         reclamationService.delete(id_Reclamation);
     }
-//    @PutMapping("/{id_Reclamation}/status")
-//    public void updateReclamationStatus(@PathVariable long id_Reclamation, @RequestBody com.example.internship_management.Entities.Enums.Statut_reclamation newStatus) {
-//        reclamationService.updateReclamationStatus(id_Reclamation, newStatus);
-//    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<Map<Type_reclamation, Long>> getReclamationStatistics() {
+        Map<Type_reclamation, Long> statistics = reclamationService.countByType();
+        return ResponseEntity.ok(statistics);
+    }
+
 }
