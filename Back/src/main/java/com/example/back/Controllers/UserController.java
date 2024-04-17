@@ -7,6 +7,7 @@ import com.example.back.Repositories.UserRepository;
 import com.example.back.SecurityConfig.KeycloakConfig;
 import com.example.back.Services.UserService;
 import jakarta.ws.rs.core.Response;
+import com.example.back.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
@@ -19,6 +20,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -146,4 +151,13 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.GetAllUsers();
     }
+
+
+
+    @GetMapping("/GetMailbyJournal/{id_Journal}")
+    public String getmailUserByJournal(Long idJournal) {
+
+        return userService.getmailUserByJournal(idJournal);
+    }
+
 }

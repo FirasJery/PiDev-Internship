@@ -1,5 +1,6 @@
 package com.example.back.Entities;
 
+import com.example.back.Entities.Enums.Statut;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,11 @@ public class Tache_journal {
     Long idtache;
     String descriptiontache;
     LocalDateTime datetache;
+
+    @Enumerated(EnumType.STRING)
+    Statut status;
+
+
     boolean isValid ;
 
 

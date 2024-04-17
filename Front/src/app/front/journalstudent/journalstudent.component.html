@@ -6,15 +6,16 @@
 
 
         <h2>Journal Details</h2>
-        <p><strong>ID:</strong> {{ journal.idJournal }}</p>
+
         <p><strong>Remark:</strong> {{ journal.remarque }}</p>
         <p><strong>Total Evaluation Score:</strong> {{ journal.totalNoteEvaluation }}</p>
-        <p><strong>Is Valid:</strong> {{ journal.journalIsValid ? 'Yes' : 'No' }}</p>
+        
+        <p><strong>Etat Journal:</strong> {{ journal.journalIsValid ? 'Journal Validé' : 'Journal Non Validé' }}</p>
 
 
         <h1 style="padding-top: 16px">Tache List</h1>
-        <div class="dropdown">
-          <button mat-raised-button class="custom-btn btn-8" (click)="openAjoutTacheDialog(journal.idJournal)">
+        <div class="ajout-button">
+          <button mat-raised-button class="btn-ajout" (click)="openAjoutTacheDialog(journal.idJournal)">
             <span><b>Ajouter</b></span>
           </button>
 
@@ -28,7 +29,7 @@
           <tr>
             <th>Description</th>
             <th>Date</th>
-            <th>isValid</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
           </thead>
@@ -36,20 +37,20 @@
 
           <tr *ngFor="let tache of taches">
 
-
             <td>{{ tache.descriptiontache }}</td>
             <td>{{ tache.datetache | date }}</td>
 
-             <td>{{ tache.valid ? 'Yes' : 'No'  }}</td>
+            <!--  <td>{{ tache.valid ? 'Yes' : 'No'  }}</td>  -->
+            <td>{{ tache.status  }}</td>
 
 
 
+<td>  <a class="dropdown-item" style="color: rgb(16, 132, 14) ;"  (click)="openUpdateTacheDialog(tache)"><b>Modifier</b><span class="mdi mdi-grease-pencil" style="padding-left: 37%;"></span></a>
+  <!-- <button mat-button (click)="openUpdateTacheDialog(tache)">Modifier</button>-->
+  <!-- <a class="btn btn-danger"  (click)="openUpdateTacheDialog(tache)"><span class="fa fa-pencil"></span></a> -->
+  <a class="dropdown-item" style="color: rgb(226, 20, 20);" (click)="deleteTache(tache.idtache)"><b>Supprimer</b><span class="mdi mdi-delete" style="padding-left: 23%;"></span></a>
+  <!--            <button (click)="deleteTache(tache.idtache)">Supprimer</button>--></td>
 
-            <a class="dropdown-item" style="color: rgb(16, 132, 14) ;"  (click)="openUpdateTacheDialog(tache)"><b>Modifier</b><span class="mdi mdi-grease-pencil" style="padding-left: 37%;"></span></a>
-           <!-- <button mat-button (click)="openUpdateTacheDialog(tache)">Modifier</button>-->
-           <!-- <a class="btn btn-danger"  (click)="openUpdateTacheDialog(tache)"><span class="fa fa-pencil"></span></a> -->
-            <a class="dropdown-item" style="color: rgb(226, 20, 20);" (click)="deleteTache(tache.idtache)"><b>Supprimer</b><span class="mdi mdi-delete" style="padding-left: 23%;"></span></a>
-<!--            <button (click)="deleteTache(tache.idtache)">Supprimer</button>-->
 
 
           </tr>

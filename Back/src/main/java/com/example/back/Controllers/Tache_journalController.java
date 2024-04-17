@@ -2,6 +2,7 @@ package com.example.back.Controllers;
 
 import com.example.back.Entities.Tache_journal;
 import com.example.back.ServiceImp.Tache_journalServiceImp;
+import com.example.back.Services.JournalService;
 import com.example.back.Services.Tache_journalService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class Tache_journalController {
 
 
         private  final Tache_journalService tache_journalService;
+        private final JournalService journalService;
 
 
 
@@ -33,6 +35,7 @@ public class Tache_journalController {
 
         @PostMapping("/{id_Journal}")
         public Tache_journal addTache_JournalAndAssignToJournal(@RequestBody Tache_journal tache_journal, @PathVariable Long id_Journal) {
+
 
             return tache_journalService.addTache_JournalAndAssignToJournal(tache_journal, id_Journal);
         }
@@ -69,6 +72,11 @@ public class Tache_journalController {
     @PutMapping("/updateIsValidtache/{idtache}")
     public Tache_journal updateIsValidByIdtache(@PathVariable Long idtache , @RequestBody Tache_journal updtvalid ) {
        return   tache_journalService.updateIsValidByIdtache(idtache , updtvalid );
+    }
+
+    @PutMapping("/updateNonValidtache/{idtache}")
+    public Tache_journal updateNonValidByIdtache(@PathVariable Long idtache,@RequestBody Tache_journal updtnonvalid) {
+        return  tache_journalService.updateNonValidByIdtache(idtache, updtnonvalid );
     }
 
 

@@ -18,13 +18,13 @@ public class Convention {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     Long idConvention;
-    String nom_entreprise;
-    Date date_debut;
-    Date date_fin;
+    String nomEntreprise;
+    Date dateDebut;
+    Date dateFin;
     String adresse;
-    int num_tel;
-    String nom_encadrant;
-    String email_encadrant;
+    int numTel;
+    String nomEncadrant;
+    String emailEncadrant;
     boolean isvalid = false;
     @JsonIgnore
     @OneToOne(mappedBy = "convention", cascade = CascadeType.ALL)
@@ -32,5 +32,5 @@ public class Convention {
 
     @ManyToOne
     @JsonIgnore
-     User user;
+    User user;
 }

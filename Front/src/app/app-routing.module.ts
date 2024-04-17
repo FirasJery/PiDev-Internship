@@ -31,6 +31,8 @@ import {PostfComponent} from "./front/postf/postf.component";
 import {MypostsComponent} from "./front/myposts/myposts.component";
 import {JournalstudentComponent} from "./front/journalstudent/journalstudent.component";
 import {GrilleComponent} from "./back/grille/grille.component";
+import {JournalencadrantComponent} from "./front/journalencadrant/journalencadrant.component";
+import {DetailsJournalComponent} from "./front/details-journal/details-journal.component";
 
 
 const routes: Routes = [

@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import {TacheJournalService} from "../../../Services/TacheJournalService/tachejournal.service";
 import {TacheJournal} from "../../../Modules/TacheJournalModule/TacheJournal.module";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-ajout-tache-dialog',
@@ -48,8 +49,8 @@ export class AjoutTacheDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ajouterTache() {
-    this.tacheJournalService.addTache_JournalAndAssignToJournal(this.nouvelleTache, this.data.journalId).subscribe(() => {
+  ajouterTache( )  {
+     this.tacheJournalService.addTache_JournalAndAssignToJournal(this.nouvelleTache, this.data.journalId).subscribe(() => {
       console.log('Tache ajoutée avec succès', this.nouvelleTache);
       this.dialogRef.close(true); // Close the dialog and indicate success
     });

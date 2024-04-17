@@ -123,6 +123,8 @@ export class JournalstudentComponent implements OnInit {
       if (result) {
         console.log('The dialog was closed with success');
         // Refresh your data or perform other actions
+        this.journal.journalIsValid = false;
+
       }
     });
   }

@@ -1,7 +1,9 @@
 package com.example.back.Controllers;
 
 import com.example.back.Entities.Evaluation;
+import com.example.back.Entities.Journal;
 import com.example.back.Services.EvaluationService;
+import com.example.back.Services.JournalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +20,12 @@ import java.util.Set;
 public class EvaluationController {
 
     public final EvaluationService evaluationService;
+    public final JournalService journalService;
 
-    @PostMapping("/{id_Journal}")
+  /*  @PostMapping("/{id_Journal}")
     public Set<Evaluation> addEvaluationAndAssignToJournal(@PathVariable long id_Journal) {
 
-      return evaluationService.addEvaluationAndAssignToJournal(id_Journal);}
+      return evaluationService.addEvaluationAndAssignToJournal(id_Journal);}*/
 
 
 
@@ -46,8 +49,9 @@ public class EvaluationController {
 
 
     @PutMapping("/updatEvaluation/{idEvaluation}")
-    public Evaluation updateEvaluation(@PathVariable Long idEvaluation,@RequestBody Evaluation updtevaluation) {
-        return evaluationService.updateEvaluation(idEvaluation, updtevaluation);
+    public Journal updateEvaluation(@PathVariable Long idEvaluation, @RequestBody Evaluation updtevaluation) {
+       Long journalIdsByEvaluationId = evaluationService.updateEvaluation(idEvaluation, updtevaluation);
+        return journalService.calculTotalNote(journalIdsByEvaluationId);
     }
 
 

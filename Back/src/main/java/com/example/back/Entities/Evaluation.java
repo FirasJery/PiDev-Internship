@@ -16,7 +16,7 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     Long idEvaluation;
-    double noteEvaluation;
+    float noteEvaluation;
     String description;
     @Enumerated(EnumType.STRING)
     Appreciation appreciation;
