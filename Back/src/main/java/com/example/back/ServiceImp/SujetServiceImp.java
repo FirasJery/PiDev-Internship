@@ -1,7 +1,7 @@
 package com.example.back.ServiceImp;
 
 
-import com.example.back.Entities.Sujet;
+import com.example.back.Entities.*;
 import com.example.back.Repositories.SujetRepository;
 import com.example.back.Services.SujetService;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +19,7 @@ public class SujetServiceImp implements SujetService {
 
     @Autowired
     private SujetRepository sujetRepository;
+
 
     @Override
     public Sujet addSujet(Sujet sujet) {
@@ -105,5 +106,13 @@ public class SujetServiceImp implements SujetService {
     public List<Sujet> findByDureeOrderByDureeDesc() { return sujetRepository.findByOrderByDureeDesc();  }
 
     public List<Sujet> findByDureeOrderByDureeAsc() { return sujetRepository.findByOrderByDureeAsc();  }
+
+
+
+    public List<Sujet> findAllByUser(User user) {
+        return sujetRepository.findAllByUser(user);
+    }
+
+
 
 }

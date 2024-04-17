@@ -18,5 +18,7 @@ public interface PostulationService {
 
     List<Postulation> getPostulationsBySujetIdAndAttente(Long sujetId);
 
+    List<Postulation> getPostulationsByStatusAndUserId(int status, Long userId);
+
 
 }

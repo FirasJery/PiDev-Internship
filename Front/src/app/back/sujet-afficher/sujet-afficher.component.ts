@@ -18,7 +18,7 @@ export class SujetAfficherComponent implements OnInit {
   message: string = ''; 
   selectedSujet: Sujet | null = null;
   updatedSujet: Sujet = new Sujet();
-
+  idadmin : number = 11; 
   constructor(private sujetService: SujetService, private router: Router, private formBuilder: FormBuilder) {
     this.apiUrl = this.sujetService.getApiUrl();
     
@@ -32,7 +32,7 @@ export class SujetAfficherComponent implements OnInit {
   }
 
   fetchSujets(searchTerm?: string): void {
-    this.sujetService.getAllSujets('mailentreprise', searchTerm || this.searchTerm)
+    this.sujetService.getAllSujets(this.idadmin , 'mailentreprise', searchTerm || this.searchTerm)
       .subscribe(sujets => {
         this.sujets = sujets;
       });

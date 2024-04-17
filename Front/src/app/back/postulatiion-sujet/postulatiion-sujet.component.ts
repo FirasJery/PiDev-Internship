@@ -13,6 +13,7 @@ export class PostulatiionSujetComponent implements OnInit {
   postulations: Postulation[] = [];
   filterOption: string = '';
   idsujet: string = ''; // Change type to string to match the type in PostulationComponent
+  idadmin : number = 11; 
 
   constructor(private route: ActivatedRoute, private postulationService: PostulationService) { }
 
@@ -50,7 +51,7 @@ export class PostulatiionSujetComponent implements OnInit {
   }
 
   confirmPostulation(postulation: Postulation): void {
-    this.postulationService.confirmPostulation(postulation)
+    this.postulationService.confirmPostulation(postulation,  this.idadmin)
       .subscribe(() => {
         this.fetchPostulations();
         this.sendEmail(postulation);
@@ -58,7 +59,7 @@ export class PostulatiionSujetComponent implements OnInit {
   }
 
   rejectPostulation(postulation: Postulation): void {
-    this.postulationService.rejectPostulation(postulation)
+    this.postulationService.rejectPostulation(postulation,  this.idadmin)
       .subscribe(() => {
         this.fetchPostulations();
         this.sendEmail(postulation);

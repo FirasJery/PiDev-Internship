@@ -32,8 +32,8 @@ export class PostulationService {
     return this.http.get<Postulation[]>(`${this.apiUrl}?status=0`);
   }
 
-  getPostulationsAttente(): Observable<Postulation[]> {
-    return this.http.get<Postulation[]>(`${this.apiUrl}/attente`);
+  getPostulationsAttente(idadmin: number): Observable<Postulation[]> {
+    return this.http.get<Postulation[]>(`${this.apiUrl}/attente/${idadmin}`);
 }
 
 
@@ -64,12 +64,12 @@ export class PostulationService {
     return this.http.get<string>(`${this.apiUrl}/typesujet/${idsujet}`);
   }
   
-  confirmPostulation(postulation: Postulation): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/confirm-postulation/${postulation.idp}`, null);
+  confirmPostulation(postulation: Postulation, idadmin: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/confirm-postulation/${postulation.idp}/${idadmin}`, null);
   }
   
-  rejectPostulation(postulation: Postulation): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/reject-postulation/${postulation.idp}`, null);
+  rejectPostulation(postulation: Postulation , idadmin: number ): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reject-postulation/${postulation.idp}/${idadmin}`, null);
   }
 
   filterByAttenteAndSujet(sujetId: number): Observable<Postulation[]> {

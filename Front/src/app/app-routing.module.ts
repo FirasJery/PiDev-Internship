@@ -25,7 +25,6 @@ const routes: Routes = [
   { path: 'validerpostulation', component: PostulationValiderComponent },
   { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
   { path: 'fileupload', component: FileUploadComponent }
-
 ];
 
 @NgModule({

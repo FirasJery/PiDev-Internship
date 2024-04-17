@@ -35,8 +35,7 @@ import { FileUploadComponent } from './front/file-upload/file-upload.component';
     AffichPostulationComponent,
     PostulationValiderComponent,
     PostulatiionSujetComponent,
-    FileUploadComponent
-    ],
+    FileUploadComponent    ],
   imports: [
     BrowserModule,
     FormsModule,

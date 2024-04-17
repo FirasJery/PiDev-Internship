@@ -1,10 +1,12 @@
 package com.example.back.Controllers;
 
-import com.example.back.Entities.Sujet;
-import com.example.back.Services.SujetService;
+import com.example.back.Entities.*;
+import com.example.internship_management.Entities.Enums.Role_user;
+import com.example.back.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class SujetController {
 
 
     private final SujetService sujetService;
+    private final UserService userService;
 
     @PostMapping("/add")
     public Sujet addSujet(@RequestBody Sujet sujet ) {
@@ -29,10 +32,21 @@ public class SujetController {
     }
 
 
-    @GetMapping
-    public List<Sujet> findAll() {
-        return sujetService.findAllSortedByMailentreprise();
+    @GetMapping("/affich/{idadmin}")
+    public List<Sujet> findAll(@PathVariable Long idadmin) {
+        User user = userService.findById(idadmin);
+
+        if (user != null) {
+            if (user.getRoleUser() == Role_user.SUPER_ADMIN || user.getRoleUser() == Role_user.AGENT_STAGE) {
+                return sujetService.findAllSortedByMailentreprise();
+            } else if (user.getRoleUser() == Role_user.AGENT_ENTREPRISE) {
+                return sujetService.findAllByUser(user);
+            }
+        }
+
+        return new ArrayList<>();
     }
+
 
     @GetMapping("/search")
     public List<Sujet> searchSujets(@RequestParam String searchTerm) {

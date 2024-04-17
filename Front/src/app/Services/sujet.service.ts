@@ -18,14 +18,19 @@ export class SujetService {
     return this.apiUrl;
   }
   
-  getAllSujets(sortField: string, searchTerm: string): Observable<Sujet[]> {
-    // Append sort field and search term as query parameters
+  getAllSujets(idadmin: number, sortField: string, searchTerm: string): Observable<Sujet[]> {
+    // Ajouter l'ID de l'administrateur à l'URL de la requête
+    const url = `${this.apiUrl}/affich/${idadmin}`;
+  
+    // Ajouter les champs de tri et de recherche comme paramètres de la requête
     const params = {
       sort: sortField,
-      search: searchTerm // Pass the searchTerm as a query parameter
+      search: searchTerm 
     };
-    return this.http.get<Sujet[]>(this.apiUrl, { params });
+  
+    return this.http.get<Sujet[]>(url, { params });
   }
+  
 
   getSujets(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}`);

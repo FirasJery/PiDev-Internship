@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class PostulationValiderComponent implements OnInit {
   postulations: Postulation[] = [];
   filterOption: string = '';
+  idadmin : number = 11; 
 
   constructor(private postulationService: PostulationService, private router: Router) { }
 
@@ -20,7 +21,7 @@ export class PostulationValiderComponent implements OnInit {
 
   
   fetchPostulations(searchTerm?: string): void {
-    this.postulationService.getPostulationsAttente()
+    this.postulationService.getPostulationsAttente(this.idadmin )
       .subscribe(postulations => {
         console.log(postulations);
         this.postulations = postulations;
@@ -48,7 +49,7 @@ export class PostulationValiderComponent implements OnInit {
   
   confirmPostulation(postulation: Postulation): void {
     // Call the service method to confirm the postulation
-    this.postulationService.confirmPostulation(postulation)
+    this.postulationService.confirmPostulation(postulation, this.idadmin )
       .subscribe(() => {
         // If successful, update the postulations list
         this.fetchPostulations();
@@ -58,7 +59,7 @@ export class PostulationValiderComponent implements OnInit {
 
   rejectPostulation(postulation: Postulation): void {
     // Call the service method to reject the postulation
-    this.postulationService.rejectPostulation(postulation)
+    this.postulationService.rejectPostulation(postulation , this.idadmin )
       .subscribe(() => {
         // If successful, update the postulations list
         this.fetchPostulations();

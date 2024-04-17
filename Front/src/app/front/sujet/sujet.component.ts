@@ -15,7 +15,7 @@ export class SujetComponent implements OnInit {
   sujets: Sujet[] = [];
   searchTerm: string = '';
   filterOption: string = '';
-
+  idadmin : number = 11;
   constructor(private sujetService: SujetService, private router: Router) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class SujetComponent implements OnInit {
 
   fetchSujets(searchTerm?: string): void {
     // Call the service method with searchTerm as the second parameter
-    this.sujetService.getAllSujets('mailentreprise', searchTerm || this.searchTerm)
+    this.sujetService.getAllSujets(this.idadmin, 'mailentreprise', searchTerm || this.searchTerm)
       .subscribe(sujets => {
         console.log(sujets); // Log the received data
         this.sujets = sujets;

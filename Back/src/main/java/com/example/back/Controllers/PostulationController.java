@@ -3,6 +3,7 @@ package com.example.back.Controllers;
 import com.example.back.Entities.EmailRequest;
 import com.example.back.Entities.Postulation;
 import com.example.back.Entities.Sujet;
+import com.example.internship_management.Entities.Enums.Role_user;
 import com.example.back.Entities.User;
 import com.example.back.Repositories.PostulationRepository;
 import com.example.back.Repositories.SujetRepository;
@@ -10,10 +11,13 @@ import com.example.back.Repositories.UserRepository;
 import com.example.back.ServiceImp.EmailServiceImp;
 import com.example.back.Services.PostulationService;
 import com.example.back.Services.SujetService;
+import com.example.back.Services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Date; // Import Date class
 import java.util.List;
 
@@ -33,6 +37,7 @@ public class PostulationController {
 
     @Autowired
     private EmailServiceImp emailService;
+    private final UserService userService;
 
     @PostMapping("/send-email")
     public void sendEmail(@RequestBody EmailRequest emailRequest) {
@@ -175,10 +180,26 @@ public class PostulationController {
         }
     }
 
-    @GetMapping("/attente")
-    public List<Postulation> getPostulationsAttente() {
-        return postulationService.getPostulationsByStatus(0);
+    @GetMapping("/attente/{idadmin}")
+    public List<Postulation> getPostulationsAttente(@PathVariable Long idadmin) {
+        User user = userService.findById(idadmin);
+
+        if (user != null) {
+            if (user.getRoleUser() == Role_user.SUPER_ADMIN || user.getRoleUser() == Role_user.AGENT_STAGE) {
+                return postulationService.getPostulationsByStatus(0);
+            } else if (user.getRoleUser() == Role_user.AGENT_ENTREPRISE) {
+                return postulationService.getPostulationsByStatusAndUserId(0, idadmin);
+            }
+        }
+
+        return new ArrayList<>();
+
     }
+
+
+
+
+
     @GetMapping("/byIdSujetAndAttente/{sujetId}")
     public List<Postulation> getPostulationsByIdSujetAndAttente(@PathVariable Long sujetId) {
         return postulationService.getPostulationsBySujetIdAndAttente(sujetId);
@@ -186,32 +207,62 @@ public class PostulationController {
 
 
 
-    @PutMapping("/confirm-postulation/{idP}")
-    public Postulation confirmPostulation(@PathVariable long idP) {
+    @PutMapping("/confirm-postulation/{idP}/{idadmin}")
+    public Postulation confirmPostulation(@PathVariable long idP , @PathVariable Long idadmin) {
         Postulation postulation = postulationService.findById(idP);
+        Role_user role = postulationRepository.findUserRoleByAdminId(idadmin);
+
         if (postulation != null) {
-            postulation.setStatus(1);
-            postulationService.updatePostulation(postulation, idP);
-            // Send confirmation email to the user
-            sendConfirmationEmail(postulation);
-            return postulation;
+            if (role == Role_user.AGENT_ENTREPRISE) {
+                postulation.setStatusentr(1);
+                postulationService.updatePostulation(postulation, idP);
+            } else if (role == Role_user.SUPER_ADMIN || role == Role_user.AGENT_STAGE) {
+                postulation.setStatus(1);
+                postulationService.updatePostulation(postulation, idP);
+
+            }
+            if (postulation.getStatusentr() == 1 && postulation.getStatus() == 1) {
+                postulationService.updatePostulation(postulation, idP);
+                // Send confirmation email to the student
+                sendConfirmationEmail(postulation);
+
+            }
         } else {
             throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
         }
+        return postulation;
     }
 
-    @PutMapping("/reject-postulation/{idP}")
-    public Postulation rejectPostulation(@PathVariable long idP) {
+
+    @PutMapping("/reject-postulation/{idP}/{idadmin}")
+    public Postulation rejectPostulation(@PathVariable long idP, @PathVariable Long idadmin) {
+
+        User user = userService.findById(idadmin);
         Postulation postulation = postulationService.findById(idP);
+        Role_user role = postulationRepository.findUserRoleByAdminId(idadmin);
+
         if (postulation != null) {
-            postulation.setStatus(2);
-            postulationService.updatePostulation(postulation, idP);
-            // Send rejection email to the user
-            sendRejectionEmail(postulation);
-            return postulation;
+            if (role == Role_user.AGENT_ENTREPRISE) {
+                postulation.setStatusentr(2);
+                postulationService.updatePostulation(postulation, idP);
+
+            } else if (role == Role_user.SUPER_ADMIN || role == Role_user.AGENT_STAGE) {
+                postulation.setStatus(2);
+                postulationService.updatePostulation(postulation, idP);
+
+
+            }
+            if (postulation.getStatusentr() == 2 && postulation.getStatus() == 2) {
+                postulationService.updatePostulation(postulation, idP);
+                // Send rejection email to the student
+                sendRejectionEmail(postulation);
+
+            }
         } else {
             throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
         }
+        return postulation;
+
     }
 
     private void sendConfirmationEmail(Postulation postulation) {
