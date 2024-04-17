@@ -1,7 +1,7 @@
 package com.example.back.Controllers;
 
 import com.example.back.Entities.*;
-import com.example.internship_management.Entities.Enums.Role_user;
+import com.example.back.Entities.Enums.UserRole;
 import com.example.back.Services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,9 @@ public class SujetController {
     private final SujetService sujetService;
     private final UserService userService;
 
-    @PostMapping("/add")
-    public Sujet addSujet(@RequestBody Sujet sujet ) {
-        return sujetService.addSujet(sujet);
+    @PostMapping("/add/{idadmin}")
+    public Sujet addSujet(@RequestBody Sujet sujet , @PathVariable Long idadmin) {
+        return sujetService.addSujet(sujet, idadmin);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -37,9 +37,9 @@ public class SujetController {
         User user = userService.findById(idadmin);
 
         if (user != null) {
-            if (user.getRoleUser() == Role_user.SUPER_ADMIN || user.getRoleUser() == Role_user.AGENT_STAGE) {
+            if (user.getRole() == UserRole.SuperAdmin || user.getRole() == UserRole.Agentesprit) {
                 return sujetService.findAllSortedByMailentreprise();
-            } else if (user.getRoleUser() == Role_user.AGENT_ENTREPRISE) {
+            } else if (user.getRole() == UserRole.Agententreprise) {
                 return sujetService.findAllByUser(user);
             }
         }
@@ -85,6 +85,10 @@ public class SujetController {
         return sujetService.findByDureeOrderByDureeAsc();
     }
 
+    @GetMapping
+    public List<Sujet> findAll() {
+        return sujetService.findAllSortedByMailentreprise();
+    }
 
 
 }

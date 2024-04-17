@@ -3,7 +3,7 @@ package com.example.back.Controllers;
 import com.example.back.Entities.EmailRequest;
 import com.example.back.Entities.Postulation;
 import com.example.back.Entities.Sujet;
-import com.example.internship_management.Entities.Enums.Role_user;
+import com.example.back.Entities.Enums.UserRole;
 import com.example.back.Entities.User;
 import com.example.back.Repositories.PostulationRepository;
 import com.example.back.Repositories.SujetRepository;
@@ -14,6 +14,7 @@ import com.example.back.Services.SujetService;
 import com.example.back.Services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/services/postulation")
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class PostulationController {
 
     private final SujetRepository sujetRepository;
@@ -44,8 +46,8 @@ public class PostulationController {
         emailService.sendSimpleEmail(emailRequest.getToEmail(), emailRequest.getSubject(), emailRequest.getBody());
     }
 
-    @PostMapping("/add")
-    public Postulation addPostulation(@RequestParam Long sujetId, @RequestParam Long userId, @RequestBody Postulation postulation) {
+    @PostMapping("/add/{sujetId}/{userId}")
+    public Postulation addPostulation(@PathVariable Long sujetId, @PathVariable Long userId, @RequestBody Postulation postulation) {
         // Gérer l'erreur si l'ID du sujet est manquant
         if (sujetId == null) {
             throw new IllegalArgumentException("sujetId manquant");
@@ -185,9 +187,9 @@ public class PostulationController {
         User user = userService.findById(idadmin);
 
         if (user != null) {
-            if (user.getRoleUser() == Role_user.SUPER_ADMIN || user.getRoleUser() == Role_user.AGENT_STAGE) {
+            if (user.getRole() == UserRole.SuperAdmin || user.getRole() == UserRole.Agentesprit) {
                 return postulationService.getPostulationsByStatus(0);
-            } else if (user.getRoleUser() == Role_user.AGENT_ENTREPRISE) {
+            } else if (user.getRole() == UserRole.Agententreprise) {
                 return postulationService.getPostulationsByStatusAndUserId(0, idadmin);
             }
         }
@@ -207,68 +209,58 @@ public class PostulationController {
 
 
 
-    @PutMapping("/confirm-postulation/{idP}/{idadmin}")
-    public Postulation confirmPostulation(@PathVariable long idP , @PathVariable Long idadmin) {
+    @PutMapping("/confirm-postulation/{idP}/{userRole}")
+    public Postulation confirmPostulation(@PathVariable long idP , @PathVariable String userRole) {
+        log.info("idP: " + idP);
+        log.info("idadmin: " + userRole);
         Postulation postulation = postulationService.findById(idP);
-        Role_user role = postulationRepository.findUserRoleByAdminId(idadmin);
+        if (userRole.equals("Agententreprise")) {
+            postulation.setStatusentr(1);
+            postulationService.updatePostulation(postulation, idP);
+        } else if (userRole.equals("SuperAdmin") || userRole.equals("Agentesprit")) {
+            postulation.setStatus(1);
+            postulationService.updatePostulation(postulation, idP);
+        }
 
-        if (postulation != null) {
-            if (role == Role_user.AGENT_ENTREPRISE) {
-                postulation.setStatusentr(1);
-                postulationService.updatePostulation(postulation, idP);
-            } else if (role == Role_user.SUPER_ADMIN || role == Role_user.AGENT_STAGE) {
-                postulation.setStatus(1);
-                postulationService.updatePostulation(postulation, idP);
-
-            }
             if (postulation.getStatusentr() == 1 && postulation.getStatus() == 1) {
                 postulationService.updatePostulation(postulation, idP);
                 // Send confirmation email to the student
                 sendConfirmationEmail(postulation);
 
             }
-        } else {
-            throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
-        }
+
         return postulation;
     }
 
 
-    @PutMapping("/reject-postulation/{idP}/{idadmin}")
-    public Postulation rejectPostulation(@PathVariable long idP, @PathVariable Long idadmin) {
+    @PutMapping("/reject-postulation/{idP}/{userRole}")
+    public Postulation rejectPostulation(@PathVariable long idP, @PathVariable String userRole) {
 
-        User user = userService.findById(idadmin);
+        log.info("idP: " + idP);
+        log.info("idadmin: " + userRole);
         Postulation postulation = postulationService.findById(idP);
-        Role_user role = postulationRepository.findUserRoleByAdminId(idadmin);
-
-        if (postulation != null) {
-            if (role == Role_user.AGENT_ENTREPRISE) {
-                postulation.setStatusentr(2);
-                postulationService.updatePostulation(postulation, idP);
-
-            } else if (role == Role_user.SUPER_ADMIN || role == Role_user.AGENT_STAGE) {
-                postulation.setStatus(2);
-                postulationService.updatePostulation(postulation, idP);
-
-
-            }
-            if (postulation.getStatusentr() == 2 && postulation.getStatus() == 2) {
-                postulationService.updatePostulation(postulation, idP);
-                // Send rejection email to the student
-                sendRejectionEmail(postulation);
-
-            }
-        } else {
-            throw new EntityNotFoundException("Postulation with id " + idP + " not found.");
+        if (userRole.equals("Agententreprise")) {
+            postulation.setStatusentr(2);
+            postulationService.updatePostulation(postulation, idP);
+        } else if (userRole.equals("SuperAdmin") || userRole.equals("Agentesprit")) {
+            postulation.setStatus(2);
+            postulationService.updatePostulation(postulation, idP);
         }
-        return postulation;
 
+        if (postulation.getStatusentr() == 2 && postulation.getStatus() == 2) {
+            postulationService.updatePostulation(postulation, idP);
+            // Send confirmation email to the student
+            sendRejectionEmail(postulation);
+
+        }
+
+        return postulation;
     }
 
     private void sendConfirmationEmail(Postulation postulation) {
         String toEmail = postulation.getUser().getEmail();
         String subject = "Confirmation of your internship application";
-        String body = "Hello " + postulation.getUser().getNom() + " " + postulation.getUser().getPrenom() +
+        String body = "Hello " + postulation.getUser().getFirstName() + " " + postulation.getUser().getLastName() +
                 ", your internship application for the company " + postulation.getSujet().getNomentreprise() +
                 " has been accepted.";
         emailService.sendSimpleEmail(toEmail, subject, body);
@@ -277,7 +269,7 @@ public class PostulationController {
     private void sendRejectionEmail(Postulation postulation) {
         String toEmail = postulation.getUser().getEmail();
         String subject = "Rejection of your internship application";
-        String body = "Hello " + postulation.getUser().getNom() + " " + postulation.getUser().getPrenom() +
+        String body = "Hello " + postulation.getUser().getFirstName() + " " + postulation.getUser().getLastName() +
                 ", your internship application for the company " + postulation.getSujet().getNomentreprise() +
                 " has been rejected.";
         emailService.sendSimpleEmail(toEmail, subject, body);

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostulationService } from '../../Services/postulation.service';
 import { User } from '../../../models/user.model';
 import { Sujet } from '../../../models/sujet.model';
+import {UserServiceService} from "../../Services/UserService/user-service.service";
 
 @Component({
   selector: 'app-postulation',
@@ -13,9 +14,12 @@ import { Sujet } from '../../../models/sujet.model';
 export class PostulationComponent implements OnInit {
   postulationForm!: FormGroup;
   isPostulationAdded: boolean = false;
-  idsujet: string = '';
+  idsujet: number ;
+  idUser: number = 0;
+  email: string = '';
 
   constructor(
+    private UserService: UserServiceService,
     private formBuilder: FormBuilder,
     private postulationService: PostulationService,
     private route: ActivatedRoute, // Inject ActivatedRoute
@@ -23,6 +27,7 @@ export class PostulationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentUser()
     // Retrieve the subject ID from route parameters
     this.route.params.subscribe(params => {
       this.idsujet = params['idsujet'];
@@ -38,14 +43,32 @@ export class PostulationComponent implements OnInit {
       comm: ['', Validators.required],
     });
   }
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.email = userInfo.email;
+        console.log(this.email);
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+          console.log("responce   " + this.idUser);
+
+        });
+
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+
+  }
 
   submitForm(): void {
     console.log('Form controls:', this.postulationForm.controls);
     console.log('Form values:', this.postulationForm.value);
-  
+
     if (this.postulationForm.valid) {
       // Send the form data along with the subject ID to the service
-      this.postulationService.addPostulation(this.postulationForm.value, parseInt(this.idsujet, 10)).subscribe(
+      this.postulationService.addPostulation(this.postulationForm.value, this.idsujet, this.idUser).subscribe(
         (response) => {
           console.log('Postulation added:', response);
           this.postulationForm.reset();
@@ -67,6 +90,6 @@ export class PostulationComponent implements OnInit {
       // Output detailed information about invalid form controls (optional)
     }
   }
-  
-  
+
+
 }

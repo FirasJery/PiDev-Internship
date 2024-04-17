@@ -10,27 +10,27 @@ import { Sujet } from '../../models/sujet.model';
 
 
 export class SujetService {
-  private apiUrl = 'http://localhost:9090/api/services/sujet'; 
+  private apiUrl = 'http://localhost:9090/api/services/sujet';
 
   constructor(private http: HttpClient) { }
 
   getApiUrl(): string {
     return this.apiUrl;
   }
-  
+
   getAllSujets(idadmin: number, sortField: string, searchTerm: string): Observable<Sujet[]> {
     // Ajouter l'ID de l'administrateur à l'URL de la requête
     const url = `${this.apiUrl}/affich/${idadmin}`;
-  
+
     // Ajouter les champs de tri et de recherche comme paramètres de la requête
     const params = {
       sort: sortField,
-      search: searchTerm 
+      search: searchTerm
     };
-  
+
     return this.http.get<Sujet[]>(url, { params });
   }
-  
+
 
   getSujets(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}`);
@@ -39,8 +39,8 @@ export class SujetService {
       return this.http.get<Sujet[]>(`${this.apiUrl}/search`, { params: { searchTerm } });
     }
 
-  addSujet(sujet: Sujet): Observable<Sujet> {
-    const url = `${this.apiUrl}/add`;
+  addSujet(sujet: Sujet , id: number): Observable<Sujet> {
+    const url = `${this.apiUrl}/add/${id}`;
     return this.http.post<Sujet>(url, sujet);
   }
 
@@ -61,7 +61,7 @@ export class SujetService {
   filterByNbretudiantDescending(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byNbretudiantDesc`);
   }
-  
+
   filterByNbretudiantAscending(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byNbreEtudiantAsc`);
   }
@@ -71,6 +71,12 @@ export class SujetService {
 
   filterByDureeDescending(): Observable<Sujet[]> {
     return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byDureeDesc`);
+  }
+
+  getAllSujetsf(): Observable<Sujet[]> {
+    // Ajouter l'ID de l'administrateur à l'URL de la requête
+    const url = `${this.apiUrl}`;
+    return this.http.get<Sujet[]>(url);
   }
 
 

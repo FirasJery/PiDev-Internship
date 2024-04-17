@@ -15,14 +15,14 @@ export class PostulationService {
   constructor(private http: HttpClient) { }
 
   getSujetById(idsujet: number): Observable<Sujet> {
-    return this.http.get<Sujet>(`${this.apiUrl}/sujet/${idsujet }`); 
+    return this.http.get<Sujet>(`${this.apiUrl}/sujet/${idsujet }`);
   }
 
- addPostulation(postulation: Postulation, sujetId: number): Observable<Postulation> {
-   return this.http.post<Postulation>(`${this.apiUrl}/add?sujetId=${sujetId}`, postulation);
+ addPostulation(postulation: Postulation, sujetId: number, Userid : number): Observable<Postulation> {
+   return this.http.post<Postulation>(this.apiUrl+"/add/" + sujetId + "/" + Userid, postulation);
   }
 
-  
+
 
   updatePostulation(postulation: Postulation, id: number): Observable<Postulation> {
     return this.http.put<Postulation>(`${this.apiUrl}/${id}`, postulation);
@@ -59,23 +59,23 @@ export class PostulationService {
   }
 
 
-  
+
   getSujetTypeById(idsujet: number): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/typesujet/${idsujet}`);
   }
-  
-  confirmPostulation(postulation: Postulation, idadmin: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/confirm-postulation/${postulation.idp}/${idadmin}`, null);
+
+  confirmPostulation(postulation: Postulation, userRole: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/confirm-postulation/${postulation.idp}/${userRole}`, null);
   }
-  
-  rejectPostulation(postulation: Postulation , idadmin: number ): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/reject-postulation/${postulation.idp}/${idadmin}`, null);
+
+  rejectPostulation(postulation: Postulation , userRole: string ): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reject-postulation/${postulation.idp}/${userRole}`, null);
   }
 
   filterByAttenteAndSujet(sujetId: number): Observable<Postulation[]> {
     return this.http.get<Postulation[]>(`${this.apiUrl}/byIdSujetAndAttente/${sujetId}`);
   }
-  
+
 
   sendEmail(emailRequest: EmailRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/send-email`, emailRequest);

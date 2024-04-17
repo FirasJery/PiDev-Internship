@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Sujet } from '../../../models/sujet.model';
-import { SujetService } from '../../Services/sujet.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Sujet} from '../../../models/sujet.model';
+import {SujetService} from '../../Services/sujet.service';
+import {Router} from '@angular/router';
+import {UserServiceService} from "../../Services/UserService/user-service.service";
 
 @Component({
   selector: 'app-sujet-afficher',
@@ -15,24 +16,50 @@ export class SujetAfficherComponent implements OnInit {
   searchTerm: string = '';
   sujetForm: FormGroup;
   sujetIndexToEdit: number = -1;
-  message: string = ''; 
+  message: string = '';
   selectedSujet: Sujet | null = null;
   updatedSujet: Sujet = new Sujet();
-  idadmin : number = 11; 
-  constructor(private sujetService: SujetService, private router: Router, private formBuilder: FormBuilder) {
+  idadmin: number = 11;
+  idUser: number = 0;
+  email: string = '';
+  role: string;
+
+  constructor(private UserService: UserServiceService, private sujetService: SujetService, private router: Router, private formBuilder: FormBuilder) {
     this.apiUrl = this.sujetService.getApiUrl();
-    
+
     this.sujetForm = this.formBuilder.group({
       nomentreprise: ['']
     });
   }
 
   ngOnInit(): void {
-    this.fetchSujets();
+    this.getCurrentUser()
+
+  }
+
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.email = userInfo.email;
+        console.log(this.email);
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+          this.role = user.user.role;
+          console.log("responce   " + this.idUser);
+          this.fetchSujets();
+
+        });
+
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+
   }
 
   fetchSujets(searchTerm?: string): void {
-    this.sujetService.getAllSujets(this.idadmin , 'mailentreprise', searchTerm || this.searchTerm)
+    this.sujetService.getAllSujets(this.idUser, 'mailentreprise', searchTerm || this.searchTerm)
       .subscribe(sujets => {
         this.sujets = sujets;
       });
@@ -48,7 +75,7 @@ export class SujetAfficherComponent implements OnInit {
   afficherFormulaireModifier(index: number): void {
     this.sujetIndexToEdit = index;
     this.selectedSujet = this.sujets[index];
-    this.updatedSujet = { ...this.selectedSujet };
+    this.updatedSujet = {...this.selectedSujet};
   }
 
   modifierSujet(sujet: Sujet): void {
@@ -61,7 +88,11 @@ export class SujetAfficherComponent implements OnInit {
   }
 
   ajouterSujet(): void {
-    this.router.navigate(['/ajoutsujet']);
+    if (this.role == 'SuperAdmin' || this.role == 'Agentesprit') {
+      this.router.navigate(['/admins/ajoutsujet']);
+    } else {
+      this.router.navigate(['/user/ajoutsujet']);
+    }
   }
 
   search(): void {
@@ -70,8 +101,9 @@ export class SujetAfficherComponent implements OnInit {
         this.sujets = results;
       });
   }
+
   displayPostulations(idsujet: number): void {
-    this.router.navigate(['/postulation_sujet', idsujet]);
+    this.router.navigate(['/user/postulation_sujet', idsujet]);
   }
-  
+
 }

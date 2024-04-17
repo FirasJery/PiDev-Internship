@@ -2,9 +2,7 @@
 
 <div class="container">
     <div class="flex-container">
-      <div class="nav-bar">
-        <app-nav-bar></app-nav-bar>
-      </div>
+
       <div class="form-container">
   <form [formGroup]="sujetForm" (ngSubmit)="submitForm()">
     <fieldset>
@@ -17,8 +15,8 @@
               <div *ngIf="sujetForm.get('titre')?.errors?.['required']">Titre du sujet est requis.</div>
             </div>
           </div>
-          
-          
+
+
         <div>
             <label for="description">Description:</label>
             <textarea id="description" formControlName="description" required></textarea>
@@ -60,8 +58,8 @@
             <div *ngIf="sujetForm.get('nomentreprise')?.invalid && sujetForm.get('nomentreprise')?.touched">
                 <div *ngIf="sujetForm.get('nomentreprise')?.errors?.['required']">Nom de l'entreprise est requis.</div>
             </div>
-            
-            
+
+
         </div>
         <div>
             <label for="mailentreprise">Email de l'entreprise:</label>
@@ -71,7 +69,7 @@
               <div *ngIf="sujetForm.get('mailentreprise')?.errors?.['email']">Veuillez saisir une adresse e-mail valide.</div>
             </div>
        </div>
-          
+
     </fieldset>
     <button type="submit">Submit</button>
 </form>

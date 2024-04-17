@@ -1,8 +1,6 @@
 <div class="container">
     <div class="flex-container">
-      <div class="nav-bar">
-        <app-nav-bar></app-nav-bar>
-      </div>
+
       <div class="content-container">
         <div class="main-content">
           <div class="row">
@@ -25,7 +23,7 @@
                         <p><strong>Status:</strong> {{ postulation.status === 1 ? 'Accepté' : (postulation.status === 2 ? 'Refusé' : 'En attente') }}</p>
                         <div class="button-container">
                             <button class="confirm-button" (click)="confirmPostulation(postulation)">Confirmer</button>
-                            <button class="reject-button" (click)="rejectPostulation(postulation)">Refuser</button>                            
+                            <button class="reject-button" (click)="rejectPostulation(postulation)">Refuser</button>
                         </div>
                       </div>
                     </div>
@@ -38,4 +36,3 @@
       </div>
     </div>
   </div>
-  

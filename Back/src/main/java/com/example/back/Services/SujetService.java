@@ -6,7 +6,7 @@ import com.example.back.Entities.User;
 import java.util.List;
 
 public interface SujetService {
-    Sujet addSujet(Sujet sujet);
+    Sujet addSujet(Sujet sujet , long id);
     Sujet updateSujet(Sujet updatedSujet, long idSujet)    ;
     List<Sujet> findAll();
     Sujet findById (long idSujet);

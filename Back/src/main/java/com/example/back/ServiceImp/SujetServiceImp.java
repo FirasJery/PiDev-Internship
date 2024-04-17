@@ -3,6 +3,7 @@ package com.example.back.ServiceImp;
 
 import com.example.back.Entities.*;
 import com.example.back.Repositories.SujetRepository;
+import com.example.back.Repositories.UserRepository;
 import com.example.back.Services.SujetService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,14 @@ public class SujetServiceImp implements SujetService {
 
     @Autowired
     private SujetRepository sujetRepository;
+    @Autowired
+    private UserRepository userRepository ;
 
 
     @Override
-    public Sujet addSujet(Sujet sujet) {
+    public Sujet addSujet(Sujet sujet,long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        sujet.setUser(user);
         return sujetRepository.save(sujet);
     }
 
