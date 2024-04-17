@@ -17,15 +17,8 @@ public class Reponse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     Long id_Reponse;
-
     String message_reponse;
-
     LocalDateTime date_Reponse;
-
-    @PrePersist
-    public void prePersist() {
-        this.date_Reponse = LocalDateTime.now();
-    }
     @OneToOne(mappedBy = "reponse")
     Reclamation reclamation;
 

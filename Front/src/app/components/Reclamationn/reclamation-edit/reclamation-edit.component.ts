@@ -44,7 +44,7 @@ export class ReclamationEditComponent implements OnInit {
       response => {
         console.log('Réclamation mise à jour avec succès !', response);
         this.isLoading = false;
-        this.router.navigate(['/reclamationList']);
+        this.router.navigate(['admins/reclamationList']);
       },
       error => {
         console.error('Erreur lors de la mise à jour de la réclamation : ', error);

@@ -22,7 +22,7 @@ public class ReclamationServiceImp implements ReclamationService {
 
     @Override
     public Reclamation addReclamation(Reclamation reclamation) {
-        reclamation.setStatutReclamation(Statut_reclamation.valueOf("ENATTENTE"));
+        reclamation.setStatutReclamation(Statut_reclamation.ENATTENTE);
         return reclamationRepository.save(reclamation);
     }
 
