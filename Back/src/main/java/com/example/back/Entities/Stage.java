@@ -23,7 +23,7 @@ public class Stage {
     String nomFichierRapport;
 
 
-    @OneToOne (mappedBy = "stage")
+    @OneToOne
     private Convention convention;
 
 

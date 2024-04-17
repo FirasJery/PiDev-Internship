@@ -21,7 +21,7 @@ public class Commentaire {
     String content;
     LocalDateTime date_commentaire;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL) // Changed from CascadeType.REMOVE to CascadeType.ALL
+    @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 

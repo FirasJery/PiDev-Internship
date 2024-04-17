@@ -26,12 +26,16 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/user/reclamation">Reclamation</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/user/journal">Journal</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/user/front/journalstudent/1">Journal</a>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link active" aria-current="page" routerLink="/user/journal">Journal</a>-->
+<!--        </li>-->
+
+        <li *ngIf="role == 'etudiant'" class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="goJournal()">Journal</a>
           </li>
+        <li *ngIf="role == 'Agententreprise'" class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/user/journalencadrant/{{email}}">Journal</a>
+        </li>
         <li>
           <a class="nav-link active" aria-current="page" routerLink="/user/stage">Stage En Cours</a>
         </li>

@@ -10,7 +10,7 @@ import { Journal } from '../../Modules/JournalModule/Journal.module'; // Assume 
 
 export class JournalService {
 
-  private apiUrl = 'http://localhost:9099/api/services/journal'; // Update this with the actual URL to your API
+  private apiUrl = 'http://localhost:9090/api/services/journal'; // Update this with the actual URL to your API
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +33,11 @@ export class JournalService {
   GetJournalByEncadrant(mailEncadrant: string){
 
   return  this.http.get<Journal[]>(`${this.apiUrl}/getjournalbyencadrant/${mailEncadrant}`);
+  }
+
+  GetJournalByIdStage(idStage: number)
+  {
+    return  this.http.get<Journal>(`${this.apiUrl}/getjournalbyIdStage/${idStage}`);
   }
 
 

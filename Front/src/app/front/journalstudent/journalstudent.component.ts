@@ -29,7 +29,7 @@ export class JournalstudentComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = +params['id']; // The '+' symbol converts the string to a number
       if (id) {
-        this.journalService.findById(id).subscribe({
+        this.journalService.GetJournalByIdStage(id).subscribe({
           next: (journal) => {
             console.log(journal);
             this.journal = journal;

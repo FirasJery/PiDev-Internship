@@ -11,14 +11,14 @@ import {Journal} from "../../Modules/JournalModule/Journal.module";
 })
 export class EvaluationService {
 
-  private apiUrl = 'http://localhost:9099/api/services/evaluation';
+  private apiUrl = 'http://localhost:9090/api/services/evaluation';
 
   constructor(private http: HttpClient)  { }
 
 
 
   findAllEvaluationsByIdJournal(id: number): Observable<Evaluation[]> {
-    return this.http.get<Evaluation[]>(`http://localhost:9099/api/services/evaluation/GetEvaluationsbyJournal/${id}`);
+    return this.http.get<Evaluation[]>(`http://localhost:9090/api/services/evaluation/GetEvaluationsbyJournal/${id}`);
   }
 
   updateEvaluation(idEvaluation: number, evaluation: Evaluation): Observable<Journal> {

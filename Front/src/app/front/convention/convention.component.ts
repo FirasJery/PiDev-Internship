@@ -16,13 +16,13 @@ export class ConventionComponent implements OnInit {
 
   constructor(private conventionService: ConventionService, private UserService: UserServiceService) {
     this.conventionForm = new FormGroup({
-      nom_entreprise: new FormControl('', Validators.required),
-      date_debut: new FormControl('', Validators.required),
-      date_fin: new FormControl('', Validators.required),
+      nomEntreprise: new FormControl('', Validators.required),
+      dateDebut: new FormControl('', Validators.required),
+      dateFin: new FormControl('', Validators.required),
       adresse: new FormControl('', Validators.required),
-      num_tel: new FormControl('', [Validators.required, Validators.pattern(/^(\+216)?[2-9]\d{7}$/)]),
-      nom_encadrant: new FormControl('', Validators.required),
-      email_encadrant: new FormControl('', [Validators.required, Validators.email]),
+      numTel: new FormControl('', [Validators.required, Validators.pattern(/^(\+216)?[2-9]\d{7}$/)]),
+      nomEncadrant: new FormControl('', Validators.required),
+      emailEncadrant: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -66,6 +66,7 @@ export class ConventionComponent implements OnInit {
 
     if (this.conventionForm.valid) {
       console.log("from submit : " +this.idUser);
+      console.log("convention from anguler " + this.conventionForm.value) ;
       this.conventionService.addConventionAndAssignToUser(this.conventionForm.value, this.idUser).subscribe({
         next: (response) => {
           console.log('Convention added and assigned to user:', response);

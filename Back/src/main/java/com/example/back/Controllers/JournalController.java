@@ -61,4 +61,9 @@ public class JournalController {
     public Journal ValidJournal(Long id_Journal) {
         return journalService.ValidJournal(id_Journal);
     }
+
+    @GetMapping("/getjournalbyIdStage/{idStage}")
+    public Journal GetJournalByIdStage(@PathVariable Long idStage)
+    {
+        return journalService.GetJournalByIdStage(idStage);}
 }

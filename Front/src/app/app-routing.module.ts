@@ -44,7 +44,6 @@ const routes: Routes = [
   {path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent},
   { path: 'stage', component : CurrentStageComponent},
   { path:'post',component :PostComponent},
-  { path:'myposts',component:MypostsComponent},
 
 
   { path: '', component: LoginComponent },
@@ -72,10 +71,11 @@ const routes: Routes = [
   {
     path: 'user',
     canActivate: [AuthGuard],
+    component: NavBarFrontComponent,
     data: {roles: ['etudiant', 'Agententreprise']},
     children:
       [
-        {path: '', component: NavBarFrontComponent},
+        {path: '', component: FrontHomeComponent},
         { path: 'reclamation', component : ReclamationComponent },
         {path :'conventionF', component : ConventionComponent},
         {path: 'myconventions', component : MyconventionsComponent},
@@ -85,6 +85,10 @@ const routes: Routes = [
         {path :'conventionF', component : ConventionComponent},
         {path: 'sujets', component: SujetComponent},
         { path: 'front/journalstudent/:id', component : JournalstudentComponent},
+        { path: 'journalencadrant/:mailEncadrant' , component: JournalencadrantComponent},
+        { path: 'journalDetails/:id', component :  DetailsJournalComponent},
+        { path:'myposts',component:MypostsComponent},
+
       ]
   }
 ];

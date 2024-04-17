@@ -23,7 +23,7 @@ public class Report {
     private LocalDate reportDate = LocalDate.now();
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Post post;
 
 

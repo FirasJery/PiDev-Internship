@@ -157,5 +157,10 @@ public class JournalServiceImp implements JournalService {
         return journalRepos.save(journal);
     }
 
+    @Override
+    public Journal GetJournalByIdStage(Long idStage) {
+        return this.journalRepos.findByStage_IdStage(idStage);
+    }
+
 
 }

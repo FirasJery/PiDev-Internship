@@ -14,8 +14,10 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
 
     Journal findByIdJournal(Long idJournal);
 
-    @Query("select j from Journal j where j.stage.convention.email_encadrant = ?1")
+    @Query("select j from Journal j where j.stage.convention.emailEncadrant = ?1")
     Set<Journal> findByStage_Convention_EmailEncadrantLike(String emailEncadrant);
+
+    Journal findByStage_IdStage(Long idStage);
 
 
 }

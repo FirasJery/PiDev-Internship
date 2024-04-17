@@ -23,4 +23,6 @@ public interface JournalService {
     Journal calculTotalNote(Long id_Journal);
 
     Journal ValidJournal(Long id_Journal);
+
+    Journal GetJournalByIdStage(Long idStage);
 }

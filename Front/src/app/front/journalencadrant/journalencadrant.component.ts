@@ -42,7 +42,7 @@ export class JournalencadrantComponent implements OnInit {
   }
 
   detailjournal(journal) {
-    this.router.navigate(['/front/journalDetails', journal.idJournal]);
+    this.router.navigate(['/user/journalDetails', journal.idJournal]);
 
   }
 }

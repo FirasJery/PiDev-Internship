@@ -30,7 +30,7 @@ public class User {
     String identifiant;
     String classe;
     String specialite;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<Post> postSet;
     @OneToMany

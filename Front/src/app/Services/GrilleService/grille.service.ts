@@ -8,7 +8,7 @@ import {Grille} from "../../Modules/GrilleModule/Grille.module";
 })
 export class GrilleService {
 
-  private apiUrl = 'http://localhost:9099/api/services/grille';
+  private apiUrl = 'http://localhost:9090/api/services/grille';
   constructor(private http: HttpClient) { }
 
   findAllGrilles(): Observable<Grille[]> {

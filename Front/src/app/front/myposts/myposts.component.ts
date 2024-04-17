@@ -1,7 +1,8 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
 import {Post} from "../../Modules/PostModule/Post.Module";
 import {CommentaireService} from "../../Services/CommentaireService/commentaire.service";
-import { PostService } from '../../Services/PostService/post.service'; // Add this line
+import { PostService } from '../../Services/PostService/post.service';
+import {UserServiceService} from "../../Services/UserService/user-service.service"; // Add this line
 
 @Component({
   selector: 'app-myposts',
@@ -9,6 +10,9 @@ import { PostService } from '../../Services/PostService/post.service'; // Add th
   styleUrl: './myposts.component.css'
 })
 export class MypostsComponent {
+
+  idUser: number = 0;
+  email: string = '';
   posts: Post[] = [];
   editingPost: Post | null = null;
   newPost: Post = {
@@ -26,17 +30,39 @@ export class MypostsComponent {
 
   constructor(private postService: PostService,
               private commentaireService: CommentaireService,
-               private cd: ChangeDetectorRef ) // Inject ChangeDetectorRef)
+               private cd: ChangeDetectorRef, private UserService: UserServiceService ) // Inject ChangeDetectorRef)
   { }
 
   ngOnInit(): void {
-    this.getAllPosts();
+    this.getCurrentUser();
+    this.getAllPosts()
+
+  }
+
+  getCurrentUser() {
+    this.UserService.getCurrentUser()
+      .then(userInfo => {
+        this.email = userInfo.email;
+        console.log(this.email);
+
+        this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+          this.idUser = user.user.id_User;
+
+          console.log("responce   " + this.idUser);
+this.getAllPosts()
+
+        });
+
+      })
+      .catch(error => {
+        console.error(error); // Handle errors here
+      });
+
   }
 
   getAllPosts(): void {
 
-    var userId=1
-    this.postService.getAllPostsbyUserId(userId).subscribe(posts => {
+    this.postService.getAllPostsbyUserId(this.idUser).subscribe(posts => {
 
       this.posts = posts;
     });
@@ -68,8 +94,7 @@ export class MypostsComponent {
     this.editingPost = null; // Cancel editing and clear the form
   }
   addPost(): void {
-    var userId=1
-    this.postService.createPost(this.newPost, userId).subscribe(post => {
+    this.postService.createPost(this.newPost, this.idUser).subscribe(post => {
       this.posts.push(post); // Add the new post to the posts array
       // Reset the newPost object for the next entry
       this.newPost = {

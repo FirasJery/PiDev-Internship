@@ -1,9 +1,11 @@
 package com.example.back.ServiceImp;
 
 import com.example.back.Entities.Convention;
+import com.example.back.Entities.Journal;
 import com.example.back.Entities.Stage;
 import com.example.back.Repositories.ConventionRepository;
 import com.example.back.Repositories.StageRepository;
+import com.example.back.Services.JournalService;
 import com.example.back.Services.StageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import java.util.Optional;
 public class StageServiceImp implements StageService {
     private final StageRepository stageRepository;
     private final ConventionRepository conventionRepository;
+    private final JournalService journalService ;
 
 
     @Override
@@ -63,6 +66,10 @@ public class StageServiceImp implements StageService {
                 stage.setArchived(false);
                 stage.setConvention(convention);
                 stageRepository.save(stage);
+                long i = stage.getIdStage();
+                Journal journal = new Journal();
+                journal.setRemarque(stage.getSujetStage());
+                journalService.addJournalAndAssignToStage(journal,i);
             }
         }
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -24,7 +25,8 @@ public class Post {
     boolean isAnonymous;
     LocalDateTime date_Post;
     @JsonIgnore
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post" , cascade = CascadeType.ALL, orphanRemoval = true)
+    @Cascade({org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE_ORPHAN})
     private Set<Commentaire> commentaires;
     String profileImage ;// Add this attribute for the profile image
     int likes = 0; // Initialize likes to 0

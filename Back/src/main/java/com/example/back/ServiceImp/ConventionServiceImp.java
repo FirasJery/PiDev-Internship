@@ -82,15 +82,15 @@ public class ConventionServiceImp implements ConventionService {
         endPeriod.set(Calendar.DAY_OF_MONTH, 30);
 
         // Check if the convention's dates are within the specified period
-        if (convention.getDate_debut().before(startPeriod.getTime()) ||
-                convention.getDate_fin().after(endPeriod.getTime())) {
+        if (convention.getDateDebut().before(startPeriod.getTime()) ||
+                convention.getDateFin().after(endPeriod.getTime())) {
             throw new IllegalArgumentException("Convention date must be between June 1st and August 30th.");
         }
 
         // Check for overlap with existing conventions
         for (Convention existingConvention : user.getConventionSet()) {
-            if (!existingConvention.getDate_fin().before(convention.getDate_debut()) &&
-                    !existingConvention.getDate_debut().after(convention.getDate_fin())) {
+            if (!existingConvention.getDateFin().before(convention.getDateDebut()) &&
+                    !existingConvention.getDateDebut().after(convention.getDateFin())) {
                 throw new IllegalStateException("This convention overlaps with an existing convention.");
             }
         }

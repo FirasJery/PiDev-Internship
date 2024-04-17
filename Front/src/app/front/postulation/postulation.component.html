@@ -1,4 +1,4 @@
-<app-nav-bar-front></app-nav-bar-front>
+
 
 <div class="container">
     <div class="flex-container">
@@ -9,7 +9,7 @@
           <fieldset>
 
             <legend>Postuler</legend>
-    
+
             <div>
                 <label for="titrecandidature">Titre de la candidature:</label>
                 <input type="text" id="titrecandidature" formControlName="titrecandidature" required>
@@ -50,8 +50,8 @@
                     <div *ngIf="postulationForm.get('region')?.errors?.['required']">La région est requise.</div>
                 </div>
             </div>
-            
-              
+
+
               <div>
                 <div class="date-container">
                   <div>
@@ -61,7 +61,7 @@
                       <div *ngIf="postulationForm.get('datedeb')?.errors?.['required']">La date de début est requise.</div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <label for="datefin">Date de fin:</label>
                     <input type="date" id="datefin" formControlName="datefin" required>
@@ -71,7 +71,7 @@
                   </div>
                 </div>
               </div>
-              
+
             <div>
               <label for="lettremotivation">Lettre de motivation:</label>
               <textarea id="lettremotivation" formControlName="lettremotivation" required></textarea>

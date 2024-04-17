@@ -10,20 +10,20 @@ import { TacheJournal } from '../../Modules/TacheJournalModule/TacheJournal.modu
 })
 export class TacheJournalService {
 
-  private apiUrl = 'http://localhost:9099/api/services/tache_journal'; // Update with your actual API URL
+  private apiUrl = 'http://localhost:9090/api/services/tache_journal'; // Update with your actual API URL
 
   constructor(private http: HttpClient) { }
 
   addTache_JournalAndAssignToJournal(tacheJournal: TacheJournal,id: number): Observable<TacheJournal> {
-    return this.http.post<TacheJournal>(`http://localhost:9099/api/services/tache_journal/${id}`, tacheJournal);
+    return this.http.post<TacheJournal>(`http://localhost:9090/api/services/tache_journal/${id}`, tacheJournal);
   }
 
   findAllTachesByIdJournal(id: number): Observable<TacheJournal[]> {
-    return this.http.get<TacheJournal[]>(`http://localhost:9099/api/services/tache_journal/GetTachebyJournal/${id}`);
+    return this.http.get<TacheJournal[]>(`http://localhost:9090/api/services/tache_journal/GetTachebyJournal/${id}`);
   }
 
   findTacheById( id:number){
-    return this.http.get<TacheJournal[]>(`http://localhost:9099/api/services/tache_journal/${id}`);
+    return this.http.get<TacheJournal[]>(`http://localhost:9090/api/services/tache_journal/${id}`);
   }
 
   /*updateTache_Journal(tacheJournal:TacheJournal){

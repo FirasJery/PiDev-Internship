@@ -6,6 +6,7 @@ import com.example.back.Entities.Report;
 import com.example.back.Repositories.CommentaireRepository;
 import com.example.back.Repositories.PostRepository;
 import com.example.back.Repositories.ReportRepository;
+import com.example.back.Repositories.UserRepository;
 import com.example.back.Services.ReportService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class ReportServiceImp implements ReportService {
     private final PostRepository postRepository;
     private final CommentaireRepository commentaireRepository;
     private final ReportRepository reportRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
@@ -33,6 +35,9 @@ public class ReportServiceImp implements ReportService {
         // Check if the number of reports for the post exceeds the threshold
         long reportCount = reportRepository.countByPost(post);
         if (reportCount > 10) {
+            userRepository.deleteByPostId(postId);
+
+            commentaireRepository.deleteAll(post.getCommentaires());
             reportRepository.deleteByPost(post);
             postRepository.deleteById(postId);
         }
