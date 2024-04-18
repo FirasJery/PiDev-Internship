@@ -94,10 +94,10 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepos;
     @Override
-    public String getmailUserByJournal(Long idJournal) {
-        User u = userRepos.findByConventionSet_Stage_Journal(idJournal);
-
-         return  u.getEmail();
+    public User getmailUserByJournal(Long idJournal) {
+      //  User u = userRepos.findByConventionSet_Stage_Journal(idJournal);
+        // u.getEmail();
+         return userRepos.findByConventionSet_Stage_Journal(idJournal);
 
     }
 

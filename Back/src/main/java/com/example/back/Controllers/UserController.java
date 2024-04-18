@@ -155,8 +155,7 @@ public class UserController {
 
 
     @GetMapping("/GetMailbyJournal/{id_Journal}")
-    public String getmailUserByJournal(Long idJournal) {
-
+    public User getmailUserByJournal(Long idJournal) {
         return userService.getmailUserByJournal(idJournal);
     }
 

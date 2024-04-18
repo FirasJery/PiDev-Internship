@@ -3,10 +3,12 @@ package com.example.back.ServiceImp;
 import com.example.back.Entities.Enums.Statut;
 import com.example.back.Entities.Journal;
 import com.example.back.Entities.Tache_journal;
+import com.example.back.Entities.User;
 import com.example.back.Repositories.JournalRepository;
 import com.example.back.Repositories.Tache_journalRepository;
 import com.example.back.Services.JournalService;
 import com.example.back.Services.Tache_journalService;
+import com.example.back.Services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class Tache_journalServiceImp implements Tache_journalService {
     private final JournalRepository journalRepos;
 
     private final JournalService journalService;
+    private final MailCheckServiceImp mailcheckService;
+
+    private final UserService userService;
+
 
     @Override
     public Tache_journal addTache_Journal(Tache_journal tache_journal) {
@@ -107,7 +113,7 @@ public class Tache_journalServiceImp implements Tache_journalService {
         journalService.ValidJournal(existingTache.getJournal().getIdJournal());
 
         //    tache_journalRepos.updateIsValidByIdtache(idtache);
-
+        sendValidMail(existingTache);
 
         return tache_journalRepos.save(existingTache);
     }
@@ -125,9 +131,33 @@ public class Tache_journalServiceImp implements Tache_journalService {
 
         //    tache_journalRepos.updateIsValidByIdtache(idtache);
 
+        sendNonValidMail(existingTache);
 
         return tache_journalRepos.save(existingTache);
     }
+
+
+    private void sendValidMail(Tache_journal  tache_journal) {
+        User u = userService.getmailUserByJournal(tache_journal.getJournal().getIdJournal());
+        String toEmail = u.getEmail();
+        String subject = "Validation tache";
+        String body = "Mr " + u.getIdentifiant()+ " " + "   "+
+                " your task :   "+ tache_journal.getDescriptiontache()+ " is valid " ;
+        mailcheckService.sendMail(toEmail, subject, body);
+    }
+
+    private void sendNonValidMail(Tache_journal  tache_journal) {
+        User u = userService.getmailUserByJournal(tache_journal.getJournal().getIdJournal());
+        String toEmail = u.getEmail();
+        String subject = "tache rejecté ";
+        String body = "Mr " + u.getIdentifiant()+ " " + "   "+
+                " your task :   "+ tache_journal.getDescriptiontache()+ " is Invalid " ;
+        mailcheckService.sendMail(toEmail, subject, body);
+    }
+
+
+
+
 
 
     @Override
@@ -164,6 +194,5 @@ public class Tache_journalServiceImp implements Tache_journalService {
     public List<Tache_journal> AllTachesNonValidByIdJournal(Long idjournal) {
         return  tache_journalRepos.findByJournal_IdJournalAndIsValidFalseOrderByIdtacheAsc(idjournal);
     }
-
 
 }
