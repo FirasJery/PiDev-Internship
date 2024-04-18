@@ -41,7 +41,7 @@
       <td>{{ eval.noteEvaluation }}</td>
 
       <td>
-        <select [(ngModel)]="eval.appreciation" class="custom-select">
+        <select [(ngModel)]="eval.appreciation" class="custom-select" (ngModelChange)="onAppreciationChange(eval.idEvaluation, $event)">
           <option *ngFor="let appreciation of appreciationOptions" [value]="appreciation">
             {{ appreciation }}
           </option>

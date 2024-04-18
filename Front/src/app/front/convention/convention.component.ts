@@ -62,16 +62,32 @@ export class ConventionComponent implements OnInit {
       });
   }
   submitForm() {
-    // Hard-code the userId value here
-
     if (this.conventionForm.valid) {
-      console.log("from submit : " +this.idUser);
-      console.log("convention from anguler " + this.conventionForm.value) ;
+      console.log("from submit: " + this.idUser);
+      console.log("convention from angular " + this.conventionForm.value);
+
+      // Submit the form data to the backend
       this.conventionService.addConventionAndAssignToUser(this.conventionForm.value, this.idUser).subscribe({
         next: (response) => {
           console.log('Convention added and assigned to user:', response);
           this.conventionForm.reset();
           this.isConventionAdded = true;
+
+          // After successful form submission, trigger the PDF download
+          this.conventionService.downloadPdf(response.idConvention).subscribe(blob => {
+            // Create a new Blob object using the response data
+            const pdfBlob = new Blob([blob], { type: 'application/pdf' });
+
+            // Create a link element, set the href to the object URL, and force a download
+            const downloadURL = window.URL.createObjectURL(pdfBlob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = downloadURL;
+            downloadLink.download = `convention_${response.idConvention}.pdf`;
+            downloadLink.click();
+
+            // Clean up by revoking the object URL after triggering the download
+            window.URL.revokeObjectURL(downloadURL);
+          });
         },
         error: (error) => {
           console.error('Error adding and assigning convention:', error);

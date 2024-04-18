@@ -11,7 +11,7 @@ import {TacheJournal} from "../../../Modules/TacheJournalModule/TacheJournal.mod
 
 @Component({
   selector: 'app-grille-detail',
- templateUrl: './grille-detail.component.html',
+  templateUrl: './grille-detail.component.html',
   styleUrl: './grille-detail.component.css'
 })
 export class GrilleDetailComponent implements OnInit{
@@ -29,12 +29,9 @@ export class GrilleDetailComponent implements OnInit{
 
   ) { }
 
-
-  ngOnInit(): void {
-
-
+  loadData() {
     this.route.params.subscribe(params => {
-      const id = +params['id']; // The '+' symbol converts the string to a number
+      const id = +params['id'];
       if (id) {
         this.journalService.findById(id).subscribe({
           next: (journal) => {
@@ -46,20 +43,22 @@ export class GrilleDetailComponent implements OnInit{
         this.evaluationService.findAllEvaluationsByIdJournal(id).subscribe({
           next: (src: Evaluation[]) => {
             console.log(src);
-
             this.evals = src;
           },
           error: (error) => console.error('There was an error!', error)
         });
-
       }
-
-
-
     });
     this.appreciationOptions = Object.values(Appreciation);
-
   }
+
+
+  ngOnInit(): void {
+
+    this.loadData();
+  }
+
+
 
   protected readonly Appreciation = Appreciation;
 
@@ -68,11 +67,22 @@ export class GrilleDetailComponent implements OnInit{
       updatedJournal => {
         // Handle successful update here
         console.log('Evaluation updated successfully:', updatedJournal);
+        this.loadData();
       },
       error => {
         // Handle error here
         console.error('Error updating evaluation:', error);
       }
     );
+  }
+
+  onAppreciationChange(idEvaluation: number, newAppreciation: string) {
+    const evaluationToUpdate = this.evals.find(evaluation => evaluation.idEvaluation === idEvaluation);
+    if (evaluationToUpdate) {
+      evaluationToUpdate.appreciation = newAppreciation as Appreciation;
+      this.updateEvaluation(idEvaluation, evaluationToUpdate);
+    } else {
+      console.error('Evaluation not found for id:', idEvaluation);
+    }
   }
 }

@@ -44,12 +44,11 @@ import {
 import {
   ReclamationEditUserComponent
 } from "./components/Reclamationn/reclamation-edit-user/reclamation-edit-user.component";
+import {ReponseEditComponent} from "./components/Reponsee/reponse-edit/reponse-edit.component";
 
 const routes: Routes = [
 
-  { path: 'reclamationStatistique', component : ReclamationStatistiqueComponent},
-  { path: 'reclamationEditUser/:id', component : ReclamationEditUserComponent},
-  { path: 'reclamationListUser', component : ReclamationListUserComponent},
+
   { path: '', component: LoginComponent },
   { path: 'admins', component: NavBarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdmin', 'Agentesprit'] },
     children :
@@ -60,8 +59,8 @@ const routes: Routes = [
         { path : 'update/:email', component: UpdateUserComponent},
         { path: 'reclamationList', component : ReclamationListComponent },
         { path: 'reclamationEdit/:id', component: ReclamationEditComponent },
-        { path: 'reponse', component:ReponseComponent},
-        {path: 'reponseList', component:ReponseListComponent},
+        { path: 'reponse/:id', component:ReponseComponent},
+        { path: 'reponseList', component:ReponseListComponent},
         {path : 'convention', component : CenventionComponent},
         {path: 'archiveC', component : ArchiveconventionComponent},
         {path: 'ajoutsujet', component: SujetAjoutComponent},
@@ -72,8 +71,14 @@ const routes: Routes = [
         { path: 'affichsujet', component: SujetAfficherComponent },
         { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
         { path: 'validerpostulation', component: PostulationValiderComponent },
-        { path: 'filepostulation', component: AllFilesComponent }
-
+        { path: 'filepostulation', component: AllFilesComponent },
+        { path:'post',component:PostComponent},
+        { path: 'reclamationStatistique', component : ReclamationStatistiqueComponent},
+        { path: 'reponseEdit', component: ReponseEditComponent},
+        {path: 'reponseEdit/:id', component : ReponseEditComponent},
+        { path: 'reclamationListUser', component : ReclamationListUserComponent},
+        { path: 'reclamationEditUser/:id', component : ReclamationEditUserComponent},
+        { path: 'reclamationStatistique', component : ReclamationStatistiqueComponent},
 
       ]
   },
@@ -105,8 +110,7 @@ const routes: Routes = [
         { path: 'affichsujet', component: SujetAfficherComponent },
         { path: 'ajoutsujet', component: SujetAjoutComponent },
         { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
-
-
+        { path: 'reclamation', component : ReclamationComponent },
       ]
   }
 ];

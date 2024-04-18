@@ -3,7 +3,10 @@ package com.example.back.Controllers;
 import com.example.back.Entities.Reponse;
 import com.example.back.ServiceImp.ReponseServiceImp;
 import com.example.back.Services.ReponseService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +20,19 @@ public class ReponseController {
     private final ReponseService reponseService;
 
     @PostMapping
-    public Reponse addReponse (@RequestBody Reponse reponse) {
-        return reponseService.addReponse(reponse);
+    public Reponse addReponse(@RequestBody Reponse reponse, @RequestParam("idReclamation") Long idReclamation) {
+        return reponseService.addReponseAndAssignToReclamation(reponse, idReclamation);
     }
     @PutMapping("/{id_Reponse}")
-    public Reponse updateReponse (@PathVariable long id_Reponse, @RequestBody Reponse reponse) {
-        return reponseService.updateReponse(reponse);
+    public ResponseEntity<Reponse> updateReponse(@PathVariable long id_Reponse, @RequestBody Reponse updatedReponse) {
+        try {
+            Reponse updated = reponseService.updateReponse(id_Reponse, updatedReponse);
+            return ResponseEntity.ok(updated);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @GetMapping("/findAll")
     public List<Reponse> findAll() {

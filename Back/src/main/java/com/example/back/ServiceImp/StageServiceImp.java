@@ -43,6 +43,10 @@ public class StageServiceImp implements StageService {
 
     @Override
     public Stage addStage(Stage stage) {
+        long i = stage.getIdStage();
+        Journal journal = new Journal();
+        journal.setRemarque(stage.getSujetStage());
+        journalService.addJournalAndAssignToStage(journal,i);
         return stageRepository.save(stage);
     }
 
@@ -92,7 +96,7 @@ public class StageServiceImp implements StageService {
     private String saveFileToLocalDisk(MultipartFile reportFile) {
         try {
             // Define the directory path where you want to save the files
-            String directoryPath = "C:/Users/user/Desktop/Local Git Repo/Rapports";
+            String directoryPath = "C:/ Users/Firas/Desktop/last/PiDev-Internship/Rapports";
             String originalFileName = reportFile.getOriginalFilename();
             String filePath = directoryPath + File.separator + originalFileName;
 

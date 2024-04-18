@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ReponseListComponent implements OnInit {
   reponses: any[] = [];
+  // reclamation_id_reclamation
   reponseListForm!: FormGroup;
 
   constructor(private reponseService: ReponseService, private router: Router, private route: ActivatedRoute) {}
@@ -42,5 +43,8 @@ export class ReponseListComponent implements OnInit {
         },
       );
     }
+  }
+  goToEditReponse(id: number):void {
+    this.router.navigate(['/admins/reponseEdit', id]);
   }
 }

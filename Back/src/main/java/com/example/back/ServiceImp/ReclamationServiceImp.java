@@ -22,7 +22,7 @@ public class ReclamationServiceImp implements ReclamationService {
 
     @Override
     public Reclamation addReclamation(Reclamation reclamation) {
-        reclamation.setStatutReclamation(Statut_reclamation.ENATTENTE);
+        reclamation.setStatutReclamation(Statut_reclamation.valueOf("ENATTENTE"));
         return reclamationRepository.save(reclamation);
     }
 
@@ -62,6 +62,7 @@ public class ReclamationServiceImp implements ReclamationService {
     public Map<Type_reclamation, Long> countByType() {
         List<Reclamation> reclamations = reclamationRepository.findAll();
         Map<Type_reclamation, Long> typeCounts = reclamations.stream()
+                .filter(reclamation -> reclamation.getTypeReclamation() != null)
                 .collect(Collectors.groupingBy(Reclamation::getTypeReclamation, Collectors.counting()));
         return typeCounts;
     }

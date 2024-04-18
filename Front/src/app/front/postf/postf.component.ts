@@ -132,15 +132,28 @@ export class PostfComponent {
       const newComment: Commentaire = {
         content: this.newCommentContent,
         date_commentaire: new Date().toISOString(),
-        postId: post.idPost // Set the postId to the id of the post
       };
 
-      this.commentaireService.addCommentToPost(newComment, post.idPost).subscribe(addedComment => {
-        post.commentaireSet = [...(post.commentaireSet || []), addedComment]; // Add the new comment to the comment array
-        this.newCommentContent = ''; // Clear the input field
-        form.resetForm(); // Reset the form state
-        this.showAddCommentForm = false; // Hide the form
+      this.commentaireService.addCommentToPost(newComment, post.idPost).subscribe({
+        next: (addedComment) => {
+          // Success logic
+          post.commentaireSet = [...(post.commentaireSet || []), addedComment];
+          this.newCommentContent = '';
+          form.resetForm();
+          this.showAddCommentForm = false;
+        },
+        error: (errorResponse) => {
+          // Error handling logic
+          console.error('Error occurred while adding comment: ', errorResponse);
+          // Check if the error response is a string or an object
+          const errorMessage = typeof errorResponse.error === 'string' ? errorResponse.error : errorResponse.error?.message;
+          // Display the error message in an alert
+          alert(errorMessage || 'C   omment is inappropriate.');
+        }
       });
+    } else {
+      // Handle empty comment content case
+      alert('Comment content cannot be empty.');
     }
   }
 

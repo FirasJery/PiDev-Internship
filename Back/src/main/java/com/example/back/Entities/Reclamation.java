@@ -37,6 +37,6 @@ public class Reclamation {
     @Enumerated(EnumType.STRING)
     Statut_reclamation statutReclamation;
 
-    @OneToOne
+    @OneToOne ()
     Reponse reponse;
 }

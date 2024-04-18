@@ -38,6 +38,6 @@ export class ReclamationStatistiqueComponent implements OnInit {
   }
 
   goToReclamationList(): void {
-    this.router.navigate(['/reclamationList']);
+    this.router.navigate(['/admins/reclamationList']);
   }
 }

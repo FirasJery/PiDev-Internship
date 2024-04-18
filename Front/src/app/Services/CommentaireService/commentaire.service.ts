@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {Commentaire} from "../../Modules/CommentaireModule/Commentaire.Module";
 
 @Injectable({
@@ -32,7 +32,15 @@ export class CommentaireService {
   }
 
   addCommentToPost(commentaire: Commentaire, idPost: number): Observable<Commentaire> {
-    return this.http.post<Commentaire>(`${this.apiURL}/addCommentToPost/${idPost}`, commentaire);
+    return this.http.post<Commentaire>(`${this.apiURL}/addCommentToPost/${idPost}`, commentaire)
+      .pipe(
+        catchError(error => {
+          // Handle the error here
+          console.error('Error creating comment', error);
+          // Throw an observable with a user-facing error message
+          return throwError(error);
+        })
+      );
   }
 
 

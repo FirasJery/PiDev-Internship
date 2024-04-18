@@ -11,8 +11,8 @@ export class ReponseService {
 
   constructor(private http:HttpClient) { }
 
-  addReponse(reponse: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, reponse)
+  addReponse(reponse: any, idReclamation: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}?idReclamation=${idReclamation}`, reponse);
   }
   findAll(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/findAll`);

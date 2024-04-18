@@ -43,6 +43,6 @@ export class ReclamationListUserComponent implements OnInit {
     }
   }
   goToEditReclamation(id: number): void {
-    this.router.navigate(['/reclamationEditUser', id]);
+    this.router.navigate(['/user/reclamationEditUser', id]);
   }
 }

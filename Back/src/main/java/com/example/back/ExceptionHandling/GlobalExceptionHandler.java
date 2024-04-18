@@ -15,5 +15,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
     }
 
-
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
+        // This will send a plain text response
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("The comment is inappropriate"); // Set a custom message
+    }
 }

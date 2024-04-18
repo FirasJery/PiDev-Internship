@@ -62,10 +62,10 @@ export class ReclamationListComponent implements OnInit {
   }
 
   goToEditReclamation(id: number): void {
-    this.router.navigate(['/reclamationEdit', id]);
+    this.router.navigate(['/admins/reclamationEdit', id]);
   }
 
   goToReponse(id: number): void {
-    this.router.navigate(['/reponse', id], { relativeTo: this.route });
+    this.router.navigate(['/admins/reponse', id], { relativeTo: this.route });
   }
 }

@@ -62,6 +62,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ReclamationEditUserComponent } from './components/Reclamationn/reclamation-edit-user/reclamation-edit-user.component';
 import { ReclamationListUserComponent } from './components/Reclamationn/reclamation-list-user/reclamation-list-user.component';
 import { AllFilesComponent } from './back/all-files/all-files.component';
+import {AccountsUploaderComponent} from "./back/UserComponents/accounts-uploader/accounts-uploader.component";
+import { ReponseEditComponent } from './components/Reponsee/reponse-edit/reponse-edit.component';
 
 
 
@@ -149,7 +151,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ReclamationStatistiqueComponent,
     ReclamationEditUserComponent,
     ReclamationListUserComponent,
-    AllFilesComponent
+    AllFilesComponent,
+    AccountsUploaderComponent,
+    ReponseEditComponent
   ],
   imports: [
     BrowserModule,

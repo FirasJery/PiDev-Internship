@@ -1,15 +1,13 @@
 package com.example.back.Controllers;
 
-import com.example.back.Entities.EmailRequest;
-import com.example.back.Entities.Postulation;
-import com.example.back.Entities.Sujet;
+import com.example.back.Entities.*;
 import com.example.back.Entities.Enums.UserRole;
-import com.example.back.Entities.User;
 import com.example.back.Repositories.PostulationRepository;
 import com.example.back.Repositories.SujetRepository;
 import com.example.back.Repositories.UserRepository;
 import com.example.back.ServiceImp.EmailServiceImp;
 import com.example.back.Services.PostulationService;
+import com.example.back.Services.StageService;
 import com.example.back.Services.SujetService;
 import com.example.back.Services.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +34,7 @@ public class PostulationController {
 
     private final SujetService sujetService;
     private final PostulationService postulationService;
+    private  final StageService stageService;
 
     @Autowired
     private EmailServiceImp emailService;
@@ -226,7 +225,8 @@ public class PostulationController {
                 postulationService.updatePostulation(postulation, idP);
                 // Send confirmation email to the student
                 sendConfirmationEmail(postulation);
-
+                Stage stage = new Stage();
+                stageService.addStage(stage);
             }
 
         return postulation;

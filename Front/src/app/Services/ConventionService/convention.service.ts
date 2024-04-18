@@ -61,7 +61,10 @@ export class ConventionService {
       observe: 'events'
     });
   }
+  downloadPdf(conventionId: number): Observable<Blob> {
 
+    return this.http.get(`http://localhost:9090/api/services/convention/${conventionId}/pdf`, { responseType: 'blob' });
+  }
 }
 
 

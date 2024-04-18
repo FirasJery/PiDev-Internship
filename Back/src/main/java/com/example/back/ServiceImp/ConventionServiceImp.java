@@ -19,6 +19,7 @@ public class ConventionServiceImp implements ConventionService {
     public final ConventionRepository conventionRepository;
     public final StageRepository stageRepository;
     public final UserRepository userRepository;
+    private  final SmsService smsService;
     @Override
     public List<Convention> retrieveAllConventionsNonArchivedStage() {
         // Use a Set to automatically remove duplicates based on object equality
@@ -129,8 +130,13 @@ public class ConventionServiceImp implements ConventionService {
         Convention convention = conventionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid convention ID: " + id));
 
-        convention.setIsvalid(true);// Assuming you have a method to set the validity status
+        convention.setIsvalid(true);
+        conventionRepository.save(convention);
 
-        return conventionRepository.save(convention); // Save the updated object
+        // Send SMS notification
+        String smsMessage = "Your convention has been validated.";
+        smsService.sendSms(String.valueOf(convention.getNumTel()), smsMessage);
+
+        return convention;
     }
 }

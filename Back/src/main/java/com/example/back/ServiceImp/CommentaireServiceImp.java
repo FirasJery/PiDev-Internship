@@ -12,6 +12,7 @@ import com.example.back.Services.PostService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CommentaireServiceImp implements CommentaireService {
     private final PostService postService;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final PerspectiveService perspectiveService;
     @Override
     public Commentaire createCommentaire(Commentaire commentaire) {
         return commentaireRepository.save(commentaire);
@@ -64,11 +66,28 @@ public class CommentaireServiceImp implements CommentaireService {
     @Override
     public Commentaire createCommentaireWithPost(Commentaire commentaire, Long postId) {
         Post post = postService.getPostById(postId);
-        if (post != null) {
-            commentaire.setPost(post);
-            return commentaireRepository.save(commentaire);
+        if (post == null) {
+            throw new EntityNotFoundException("Post not found with id: " + postId);
         }
-        return null;
+
+        // Analyze the content of the commentaire
+        String analysisResult = perspectiveService.analyzeText(commentaire.getContent());
+
+        // Parse the JSON response
+        JSONObject analysisJson = new JSONObject(analysisResult);
+        JSONObject attributeScores = analysisJson.getJSONObject("attributeScores");
+
+        double insultScore = attributeScores.getJSONObject("INSULT").getJSONObject("summaryScore").getDouble("value");
+        double profanityScore = attributeScores.getJSONObject("PROFANITY").getJSONObject("summaryScore").getDouble("value");
+        double toxicityScore = attributeScores.getJSONObject("TOXICITY").getJSONObject("summaryScore").getDouble("value");
+
+        // Check if any score is above the threshold
+        if (insultScore > 0.5 || profanityScore > 0.5 || toxicityScore > 0.5) {
+            throw new IllegalArgumentException("Comment contains inappropriate content.");
+        }
+
+        commentaire.setPost(post);
+        return commentaireRepository.save(commentaire);
     }
 
     @Override
