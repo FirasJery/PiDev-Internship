@@ -1,8 +1,6 @@
 package com.example.back.Entities;
 
-import com.example.internship_management.Entities.Enums.Type_sujet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +28,7 @@ public class Sujet {
     String mailentreprise;
 
     @Enumerated(EnumType.STRING)
-    Type_sujet typesujet;
+    com.example.internship_management.Entities.Enums.Typesujet typesujet;
 
     @JsonIgnore
     @OneToMany(mappedBy = "sujet")

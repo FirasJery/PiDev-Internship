@@ -10,7 +10,8 @@ public interface SujetService {
     Sujet updateSujet(Sujet updatedSujet, long idSujet)    ;
     List<Sujet> findAll();
     Sujet findById (long idSujet);
-    List<Sujet> findAllSortedByMailentreprise();
+    List<Sujet> findAllSortedByMailentreprise(String classe);
+    List<Sujet> findAllSortedByMailentreprisee();
     List<Sujet> searchSujets(String searchTerm);
     void delete (long idSujet);
 

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Sujet } from '../../../models/sujet.model';
   import { SujetService } from '../../Services/sujet.service';
   import { Router } from '@angular/router';
+  import { UserServiceService } from '../../Services/UserService/user-service.service';
+
 
 
 @Component({
@@ -15,16 +17,43 @@ export class SujetComponent implements OnInit {
   sujets: Sujet[] = [];
   searchTerm: string = '';
   filterOption: string = '';
-  idadmin : number = 11;
-  constructor(private sujetService: SujetService, private router: Router) { }
 
+  idUser: number = 0;
+  email: string = '';
+  role: string;
+classe : string ;
+
+  constructor(private UserService: UserServiceService ,private sujetService: SujetService, private router: Router) { }
+
+  
   ngOnInit(): void {
-    this.fetchSujets();
-  }
+    this.getCurrentUser();
+}
+
+getCurrentUser() {
+    this.UserService.getCurrentUser()
+        .then(userInfo => {
+            this.email = userInfo.email;
+            console.log(this.email);
+
+            this.UserService.getUserWarpperByEmail(this.email).subscribe(user => {
+                this.idUser = user.user.id_User;
+                this.role = user.user.role;
+                this.classe = user.user.classe;
+                console.log("responce   " + this.idUser);
+                this.fetchSujets(); // Call fetchSujets() here after getting user information
+            });
+
+        })
+        .catch(error => {
+            console.error(error); // Handle errors here
+        });
+}
+
 
   fetchSujets(searchTerm?: string): void {
     // Call the service method with searchTerm as the second parameter
-    this.sujetService.getAllSujetsf()
+    this.sujetService.getAllSujetsf(this.classe)
       .subscribe(sujets => {
         console.log(sujets); // Log the received data
         this.sujets = sujets;

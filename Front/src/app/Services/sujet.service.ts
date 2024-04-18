@@ -73,9 +73,9 @@ export class SujetService {
     return this.http.get<Sujet[]>(`${this.apiUrl}/filter/byDureeDesc`);
   }
 
-  getAllSujetsf(): Observable<Sujet[]> {
+  getAllSujetsf(classe : string): Observable<Sujet[]> {
     // Ajouter l'ID de l'administrateur à l'URL de la requête
-    const url = `${this.apiUrl}`;
+    const url = `${this.apiUrl}/classe/${classe}`;
     return this.http.get<Sujet[]>(url);
   }
 
