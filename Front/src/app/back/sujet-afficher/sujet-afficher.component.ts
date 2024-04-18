@@ -103,7 +103,7 @@ export class SujetAfficherComponent implements OnInit {
   }
 
   displayPostulations(idsujet: number): void {
-    this.router.navigate(['/user/postulation_sujet', idsujet]);
+    this.router.navigate(['/admins/postulation_sujet', idsujet]);
   }
 
 }

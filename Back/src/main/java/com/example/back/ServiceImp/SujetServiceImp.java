@@ -79,10 +79,26 @@ public class SujetServiceImp implements SujetService {
 
     @Override
 
-    public List<Sujet> findAllSortedByMailentreprise() {
+    public List<Sujet> findAllSortedByMailentreprisee() {
         return sujetRepository.findByOrderByMailentrepriseAsc(); // Corrected method name to match the repository
     }
 
+    @Override
+    public List<Sujet> findAllSortedByMailentreprise(String classe) {
+        char firstLetter = classe.charAt(0); // Récupérer la première lettre de la classe
+
+        switch (firstLetter) {
+            case '1':
+                return sujetRepository.findByTypesujet(com.example.internship_management.Entities.Enums.Typesujet.STAGE_FORMATION_HUMAINE_SOCIALE);
+            case '3':
+                return sujetRepository.findByTypesujet(com.example.internship_management.Entities.Enums.Typesujet.STAGE_IMMERSION_ENTREPRISE);
+            case '4':
+                return sujetRepository.findByTypesujet(com.example.internship_management.Entities.Enums.Typesujet.STAGE_INGENIEUR);
+            default:
+                return sujetRepository.findByOrderByMailentrepriseAsc();
+        }
+
+    }
     @Override
     public List<Sujet> searchSujets(String searchTerm) {
         return sujetRepository.findByNomentrepriseContainingIgnoreCaseOrRequirementsContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm, searchTerm);

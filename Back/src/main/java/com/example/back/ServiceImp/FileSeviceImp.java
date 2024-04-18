@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class FileSeviceImp implements FileService {
@@ -31,6 +32,11 @@ public class FileSeviceImp implements FileService {
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String SERVICE_ACOUNT_KEY_PATH = getPathToGoogleCredentials();
+    @Autowired
+    private UserRepository userRepository;
+
+
+
 
     private static String getPathToGoogleCredentials() {
         String currentDirectory = System.getProperty("user.dir");
@@ -39,7 +45,7 @@ public class FileSeviceImp implements FileService {
     }
 
     @Override
-    public Res uploadFileToDrive(MultipartFile file, Typefile type) throws GeneralSecurityException, IOException {
+    public Res uploadFileToDrive(MultipartFile file, Typefile type , Long userId) throws GeneralSecurityException, IOException {
         Res res = new Res();
 
         try {
@@ -57,9 +63,11 @@ public class FileSeviceImp implements FileService {
             res.setMessage("File Successfully Uploaded To Drive");
             res.setUrl(fileUrl);
 
+            User user = userRepository.findById(userId).orElse(null);
             //  store file URL and type in the database
             com.example.back.Entities.File fileEntity = new com.example.back.Entities.File();
             fileEntity.setFileurl(fileUrl);
+            fileEntity.setUser(user);
             fileEntity.setType(type);
             // Save fileEntity to the database
              fileRepository.save(fileEntity); // Uncomment this line after injecting fileRepository

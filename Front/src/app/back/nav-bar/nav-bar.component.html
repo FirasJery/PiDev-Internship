@@ -25,17 +25,20 @@
       <ng-container ngbNavItem>
         <a ngbNavLink class="nav-link">Journal</a>
       </ng-container>
-      <ng-container ngbNavItem>
 
+      <ng-container ngbNavItem>
         <a class="nav-link" aria-current="page" href="/admins/ajoutsujet">Sujet</a>
       </ng-container>
+      
       <ng-container ngbNavItem>
         <a class="nav-link" aria-current="page" href="/admins/validerpostulation">Postulations</a>
+        
+        <ng-container ngbNavItem>
+        <a ngbNavLink routerLink="/admins/filepostulation" class="nav-link">Files</a>
+      </ng-container>
         <a ngbNavLink class="nav-link" routerLink="/admins/grille">Grille Et Evaluation</a>
       </ng-container>
-      <ng-container ngbNavItem>
-        <a ngbNavLink class="nav-link">Sujet</a>
-      </ng-container>
+      
       <ng-container ngbNavItem>
         <a ngbNavLink routerLink="/post" class="nav-link">Forum</a>
       </ng-container>

@@ -34,6 +34,7 @@ import {GrilleComponent} from "./back/grille/grille.component";
 import {JournalencadrantComponent} from "./front/journalencadrant/journalencadrant.component";
 import {DetailsJournalComponent} from "./front/details-journal/details-journal.component";
 import { FileUploadComponent } from './front/file-upload/file-upload.component';
+import { AllFilesComponent } from './back/all-files/all-files.component';
 import {
   ReclamationStatistiqueComponent
 } from "./components/Reclamationn/reclamation-statistique/reclamation-statistique.component";
@@ -71,6 +72,7 @@ const routes: Routes = [
         { path: 'affichsujet', component: SujetAfficherComponent },
         { path: 'postulation_sujet/:idsujet', component: PostulatiionSujetComponent },
         { path: 'validerpostulation', component: PostulationValiderComponent },
+        { path: 'filepostulation', component: AllFilesComponent }
 
 
       ]

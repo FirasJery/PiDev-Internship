@@ -38,7 +38,7 @@ public class SujetController {
 
         if (user != null) {
             if (user.getRole() == UserRole.SuperAdmin || user.getRole() == UserRole.Agentesprit) {
-                return sujetService.findAllSortedByMailentreprise();
+                return sujetService.findAllSortedByMailentreprisee();
             } else if (user.getRole() == UserRole.Agententreprise) {
                 return sujetService.findAllByUser(user);
             }
@@ -46,6 +46,16 @@ public class SujetController {
 
         return new ArrayList<>();
     }
+
+
+
+    @GetMapping("/classe/{classena}")
+    public List<Sujet> findAll(@PathVariable String classena) {
+
+        return sujetService.findAllSortedByMailentreprise(classena);
+    }
+
+
 
 
     @GetMapping("/search")
@@ -83,11 +93,6 @@ public class SujetController {
     @GetMapping("/filter/byDureeAsc")
     public List<Sujet> filterByDureeAscending() {
         return sujetService.findByDureeOrderByDureeAsc();
-    }
-
-    @GetMapping
-    public List<Sujet> findAll() {
-        return sujetService.findAllSortedByMailentreprise();
     }
 
 

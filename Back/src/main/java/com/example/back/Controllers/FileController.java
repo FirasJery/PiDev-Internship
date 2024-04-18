@@ -2,14 +2,16 @@ package com.example.back.Controllers;
 
 
 import com.example.back.Entities.Enums.Typefile;
+import com.example.back.Entities.File;
+import com.example.back.Repositories.FileRepository;
 import com.example.back.Services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.back.Entities.Res;
-import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/files")
@@ -21,14 +23,22 @@ public class FileController {
 
     @Autowired
     private  FileService fileService;
+    @Autowired
+    private  FileRepository fileRepository;
 
 
-    @PostMapping("/uploadToGoogleDrive")
-    public Object handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("type") Typefile type) throws IOException, GeneralSecurityException {
+
+    @GetMapping("/all")
+    public List<File> getAllFiles() {
+        return fileRepository.findAll();
+    }
+
+    @PostMapping("/uploadToGoogleDrive/{userId}")
+    public Object handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("type") Typefile type, @PathVariable Long userId) throws IOException, GeneralSecurityException {
         if (file.isEmpty()) {
             return "File is empty";
         }
-        Res res = fileService.uploadFileToDrive(file, type);
+        Res res = fileService.uploadFileToDrive(file, type, userId);
         System.out.println(res);
         return res;
     }
